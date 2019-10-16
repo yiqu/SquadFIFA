@@ -1,0 +1,38 @@
+.top-nav {
+  background-color: #ffffff;
+  border-bottom: 1px solid #dee2e6;
+  z-index: 900 !important;
+}
+
+.active-ul {
+  text-decoration: underline;
+}
+
+.brand {
+  text-align: center;
+  display: block;
+}
+
+.disabled-link {
+  pointer-events: none;
+}
+
+.login-section {
+  display: flex;
+  align-items: center;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-spacer {
+  flex: 1 1 auto;
+}
+
+.logo-img {
+  height: 45px;
+  border-radius: 40px;
+  border: 2px solid #20a22a;
+}
