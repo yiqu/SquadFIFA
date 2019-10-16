@@ -2,13 +2,23 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url('https://fonts.googleapis.com/css?family=Roboto:100i,300i,100,300,400,400i');
 @import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
 
-.robot-font {
+
+h1 {
+  font-family: 'Righteous', cursive;
+}
+
+.roboto-font {
   font-family: 'Roboto', sans-serif;
 }
 
 .right-font {
   font-family: 'Righteous', cursive;
+}
+
+.cursive-font {
+  font-family: 'Permanent Marker', cursive;
 }
 
 .font-20 {
@@ -54,8 +64,17 @@
   font-size: 15px;
 }
 
+.login-overlay-background {
+  background: #595959;
+  opacity: 0.9 !important;
+}
+
  /* Rules for sizing the icon. */
  .material-icons.md-18 { font-size: 18px; }
  .material-icons.md-24 { font-size: 24px; }
  .material-icons.md-36 { font-size: 36px; }
  .material-icons.md-48 { font-size: 48px; }
+
+.mat-flat-button {
+  font-family: 'Righteous', cursive !important;
+}

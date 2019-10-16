@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
-
 import { AboutComponent } from './about.component';
+import { AboutRoutingModule } from './about-routing.module';
 
 @NgModule({
-  imports: [],
+  imports: [
+    AboutRoutingModule
+  ],
+
   exports: [],
-  declarations: [AboutComponent],
+
+  declarations: [
+    AboutComponent
+  ],
+
   providers: [],
 })
 export class AboutModule { }

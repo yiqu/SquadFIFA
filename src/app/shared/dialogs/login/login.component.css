@@ -1,0 +1,39 @@
+.logo-img {
+  height: 45px;
+  border-radius: 40px;
+  border: 2px solid #20a22a;
+}
+
+.logo-side {
+  position: absolute;
+  transform: rotate(335deg);
+  left: -60px;
+  top: 10px;
+  z-index: 99;
+  color: #2F91F2;
+  font-size: 35px;
+  text-decoration: underline;
+}
+
+.signin-header {
+  font-size: 20px;
+}
+
+.signin-subheader {
+  font-size: 15px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.new-user-label {
+  font-size: 13px;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.new-user-label:hover {
+  text-decoration: underline;
+  color: #000;
+}

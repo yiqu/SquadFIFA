@@ -5,11 +5,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MaterialModules } from './shared/material-module';
 import { FormsModule } from "@angular/forms";
+import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundModule } from './404/not-found.module';
+import { DirectivesModule } from './shared/directives/directives.module';
+import { PlayersModule } from './players/players.module';
+import { StatsModule } from './stats/stats.module';
+import { TeamsModule } from './teams/teams.module';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LoginDialogComponent } from './shared/dialogs/login/login.component';
+import { DialogsModule } from './shared/dialogs/dialogs.module';
 
 @NgModule({
   declarations: [
@@ -25,13 +33,42 @@ import { NotFoundModule } from './404/not-found.module';
     FormsModule,
     MaterialModules,
     CoreModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      extendedTimeOut: 1000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: false,
+      closeButton: true,
+      enableHtml: true,
+      progressBar: true,
+      newestOnTop: true,
+      iconClasses : {
+        error: 'toast-error',
+        info: 'toast-info',
+        success: 'toast-success',
+        warning: 'toast-warning'
+      }
+    }),
     NotFoundModule,
+    DirectivesModule,
+    PlayersModule,
+    StatsModule,
+    TeamsModule,
+    DialogsModule,
     AppRoutingModule
   ],
 
   providers: [
-
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: null },
   ],
-  bootstrap: [AppComponent]
+
+  entryComponents: [
+    LoginDialogComponent
+  ],
+
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

@@ -1,0 +1,48 @@
+<h1 mat-dialog-title class="text-center">
+  <div>
+    <img src="assets/images/banner1.png" class="logo-img d-inline-block" alt="logo">
+  </div>
+  <div class="right-font">
+    Season Tracker
+  </div>
+</h1>
+
+<div mat-dialog-content class="right-font text-center">
+  <h2 class="signin-header">
+    <span>{{ title }}</span>
+  </h2>
+  <div class="signin-subheader mb-20">{{ subTitle }}</div>
+  <mat-form-field>
+    <input matInput placeholder="ID" cdkFocusInitial [(ngModel)]="currentUser.user.id" 
+      (ngModelChange)="onLoginNameChange($event)">
+  </mat-form-field>
+
+  <div *ngIf="warningMsg" class="mb-1">
+    <div class="text-danger">
+      <i class="material-icons xs-icon mr-1" style="vertical-align: -3px;">info</i>
+      <span style="font-size: 12px">{{ warningMsg }}</span>
+    </div>
+  </div>
+
+  <div class="mb-20">
+    <a *ngIf="!registerMode && !loginRequesting" class="new-user-label" 
+      (click)="userIsNew()" href="javascript:void(0)" title="Register for a new account">I am new...</a>
+  </div>
+</div>
+
+<div mat-dialog-actions class="right-font justify-content-center">
+  <button mat-flat-button (click)="onCancel()" [disabled]="loginRequesting" color="accent">
+    {{ btnCancel }}
+  </button>
+
+  <button [ngStyle]="{'display':registerMode?'initial':'none'}" #confirmButton mat-flat-button 
+    [disabled]="loginDisable || loginRequesting" color="primary">
+      {{ btnConfirm }}
+  </button>
+
+  <button #loginButton [ngStyle]="{'display':registerMode?'none':'initial'}" mat-flat-button 
+    [disabled]="loginDisable || loginRequesting" (click)="onLogin()" color="primary">
+      {{ btnLogin }}
+  </button>
+</div>
+  

@@ -4,6 +4,17 @@
   z-index: 900 !important;
 }
 
+.logo-side {
+  position: absolute;
+  transform: rotate(335deg);
+  left: -60px;
+  top: 10px;
+  z-index: 99;
+  color: #2F91F2;
+  font-size: 35px;
+  text-decoration: underline;
+}
+
 .active-ul {
   text-decoration: underline;
 }
@@ -35,4 +46,12 @@ a {
   height: 45px;
   border-radius: 40px;
   border: 2px solid #20a22a;
+}
+
+a.login-link {
+  color: #64E76F !important;
+}
+
+a.logout-link {
+  color: #F99D94 !important;
 }
