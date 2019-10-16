@@ -8,6 +8,7 @@ import { FormsModule } from "@angular/forms";
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
+import { LogoutComponent } from './top-nav/logout/logout.component';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundModule } from './404/not-found.module';
@@ -18,11 +19,13 @@ import { TeamsModule } from './teams/teams.module';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginDialogComponent } from './shared/dialogs/login/login.component';
 import { DialogsModule } from './shared/dialogs/dialogs.module';
+import { LogoutResolver } from './shared/resolvers/logout.resolver';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopNavComponent
+    TopNavComponent,
+    LogoutComponent
   ],
 
   imports: [
@@ -61,6 +64,7 @@ import { DialogsModule } from './shared/dialogs/dialogs.module';
   providers: [
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: null },
+    LogoutResolver
   ],
 
   entryComponents: [

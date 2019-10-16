@@ -5,6 +5,8 @@ import { NotFoundComponent } from './404/not-found.component';
 import { TeamsComponent } from './teams/teams.component';
 import { PlayersComponent } from './players/players.component';
 import { StatsComponent } from './stats/stats.component';
+import { LogoutComponent } from './top-nav/logout/logout.component';
+import { LogoutResolver } from './shared/resolvers/logout.resolver';
 
 const routes: Routes = [
   {
@@ -26,13 +28,13 @@ const routes: Routes = [
     path: 'statistics',
     component: StatsComponent
   },
-  // {
-  //   path: 'logout',
-  //   component: LogoutComponent,
-  //   resolve: {
-  //     logout: LogoutResolver
-  //   }
-  // },
+  {
+    path: 'logout',
+    component: LogoutComponent,
+    resolve: {
+      logout: LogoutResolver
+    }
+  },
   {
     path: '',
     redirectTo: '/home',

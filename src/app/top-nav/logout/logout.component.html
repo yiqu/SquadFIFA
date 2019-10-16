@@ -1,0 +1,34 @@
+<section class="right-font">
+  <div class="row">
+    <h3 class="text-center col">
+      {{ logoutMsg }}
+      <div class="mt-1 font-25">
+        {{userId}}
+      </div>
+    </h3>
+  </div>
+  
+  <div class="row">
+    <div class="col text-center">
+      <a [routerLink]="homeNavItem.params"
+        [preserveFragment]="false"
+        [queryParamsHandling]="homeNavItem.handling"
+        [queryParams]="homeNavItem.qparams">
+
+        <span>Go back Home.</span>
+          
+      </a>
+    </div>
+    <div class="col text-center">
+      <a [routerLink]="loginNavItem.params"
+        [preserveFragment]="false"
+        [queryParamsHandling]="loginNavItem.handling"
+        [queryParams]="loginNavItem.qparams">
+          Log back in.
+      </a>
+    </div>
+  </div>
+  
+  
+</section>
+

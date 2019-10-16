@@ -24,7 +24,8 @@
         [queryParams]="item.qparams"
         [routerLinkActiveOptions]="{exact:false}"
         routerLinkActive="active active-ul">
-          {{item.display}}
+          {{item.display}} 
+          {{ (item.display === 'Logout' && this.ls.currentUser.user.id) ? '('+this.ls.currentUser.user.id+')' : ''}}
       </a>
     </div>
   </div>
