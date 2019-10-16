@@ -13,7 +13,7 @@ before_script:
 
 script:
   - echo "Building for PROD"
-  - ng build --prod --base-href=/squadfifa/
+  - ng build --prod --base-href=/SquadFIFA/
 
 after_success:
   - echo "Build SUCCESS!!!"
