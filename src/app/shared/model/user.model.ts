@@ -41,8 +41,16 @@ export class UserLogins {
 }
 
 export class UserData {
-  constructor(public matches: number = 0, public seasons: number = 0, public wins: number = 0, 
-    public draws: number = 0) {
+  constructor(
+    public matchesPlayed: number = 0, 
+    public seasonsPlayed: number = 0, 
+    public wins: number = 0, 
+    public draws: number = 0, 
+    public losses: number = 0,
+    public mostUsedTeam: any = null,
+    public favoritePlayer: any = null,
+    public totalGoalsScored: number = 0,
+    public totalGoalsConceded: number = 0) {
   }
 }
 
