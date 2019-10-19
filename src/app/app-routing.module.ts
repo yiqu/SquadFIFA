@@ -7,6 +7,8 @@ import { PlayersComponent } from './players/players.component';
 import { StatsComponent } from './stats/stats.component';
 import { LogoutComponent } from './top-nav/logout/logout.component';
 import { LogoutResolver } from './shared/resolvers/logout.resolver';
+import { SelfComponent } from './self/self.component';
+import { SelfGuard } from './shared/route-guards/self.guard';
 
 const routes: Routes = [
   {
@@ -34,6 +36,11 @@ const routes: Routes = [
     resolve: {
       logout: LogoutResolver
     }
+  },
+  {
+    path: 'self',
+    component: SelfComponent,
+    canActivate: [SelfGuard]
   },
   {
     path: '',

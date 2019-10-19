@@ -20,6 +20,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginDialogComponent } from './shared/dialogs/login/login.component';
 import { DialogsModule } from './shared/dialogs/dialogs.module';
 import { LogoutResolver } from './shared/resolvers/logout.resolver';
+import { SelfModule } from './self/self.module';
+import { SelfGuard } from './shared/route-guards/self.guard';
 
 @NgModule({
   declarations: [
@@ -58,13 +60,15 @@ import { LogoutResolver } from './shared/resolvers/logout.resolver';
     StatsModule,
     TeamsModule,
     DialogsModule,
+    SelfModule,
     AppRoutingModule
   ],
 
   providers: [
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: null },
-    LogoutResolver
+    LogoutResolver,
+    SelfGuard
   ],
 
   entryComponents: [

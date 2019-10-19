@@ -6,13 +6,14 @@ import { delay, concatMap, map, takeUntil, startWith, timeInterval } from 'rxjs/
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../shared/dialogs/login/login.component';
 import { LoginService } from '../shared/services/user.service';
+import * as _ from 'lodash';
 
 const NAV_ITEM_LIST = [
   new NavItem("Home", ["home"]),
   new NavItem("Players", ["players"]),
   new NavItem("Statistics", ["statistics"]),
-  new NavItem("Teams", ["teams"]),
-  new NavItem("About", ["about"]),
+  // new NavItem("About", ["about"]),
+  new NavItem("Profile", ["self"]),
   new NavItem("Login", ["home"], false, { loginDialog: true }),
 ]
 const loginQueryParamKey: string = "loginDialog";
@@ -34,21 +35,14 @@ export class TopNavComponent implements OnInit {
   constructor(public router: Router, public route: ActivatedRoute,
     public dialog: MatDialog, public ls: LoginService) {
       this.navItemsList.push(...NAV_ITEM_LIST);
-
-      this.route.queryParamMap.subscribe((params: ParamMap) => {
-        if (params.get(loginQueryParamKey)) {
-          this.openDialog();
-        }
-      });
   }
 
   ngOnInit() {
     this.ls.currentUser$.subscribe((user: User) => {
-      console.log("USER top nav:", user)
       this.updateLoginCompoent(this.ls.currentUser.isUser);
     });
 
-    this.route.queryParamMap.subscribe((queryParam) => {
+    this.route.queryParamMap.subscribe((queryParam: ParamMap) => {
       if (queryParam.has(USER_PARAM_KEY)) {
         const userIdParamValue: string = queryParam.get(USER_PARAM_KEY);
         const userSet: boolean = this.ls.currentUser.isUserSet();
@@ -60,20 +54,27 @@ export class TopNavComponent implements OnInit {
           });
         }
       }
+
+      if (queryParam.get(loginQueryParamKey)) {
+        this.openDialog();
+      }
     });
   }
 
   updateLoginCompoent(isUser: boolean) {
+    let indexOfLogInButton = _.findIndex(this.navItemsList, (item: NavItem) => {
+      return item.display === "Logout" || item.display === "Login";
+    });
     if (isUser) {
-      this.navItemsList[5].display = "Logout";
-      this.navItemsList[5].params = ['/logout'];
-      this.navItemsList[5].qparams = {logoutUser: this.ls.currentUser.user.id};
-      this.navItemsList[5].handling = "";
+      this.navItemsList[indexOfLogInButton].display = "Logout";
+      this.navItemsList[indexOfLogInButton].params = ['/logout'];
+      this.navItemsList[indexOfLogInButton].qparams = {logoutUser: this.ls.currentUser.user.id};
+      this.navItemsList[indexOfLogInButton].handling = "";
     } else {
-      this.navItemsList[5].display = "Login";
-      this.navItemsList[5].params = ['/home'];
-      this.navItemsList[5].qparams = {loginDialog: true};
-      this.navItemsList[5].handling = "";
+      this.navItemsList[indexOfLogInButton].display = "Login";
+      this.navItemsList[indexOfLogInButton].params = ['/home'];
+      this.navItemsList[indexOfLogInButton].qparams = {loginDialog: true};
+      this.navItemsList[indexOfLogInButton].handling = "";
     }
   }
 
