@@ -185,7 +185,7 @@ console.log(dialogRef.id)
 
   onCancel() {
     if (!this.registerMode) {
-      this.closeAndSetUser(null);
+      this.closeAndSetUser(this.ls.createInitUser());
     } else {
       this.registerMode = false;
       this.updateText();

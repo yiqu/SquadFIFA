@@ -14,7 +14,8 @@ constructor(public ls: LoginService) {
 }
   resolve(route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<User> | User {
-      this.ls.createInitUser();
+      this.ls.currentUser$.next(this.ls.createInitUser());
+      //this.ls.currentUser = this.ls.createInitUser();
       return null;
   }
 }

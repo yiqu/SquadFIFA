@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavItem } from '../shared/model/general-model';
 import { User } from '../shared/model/user.model';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { delay, concatMap, map, takeUntil, startWith, timeInterval } from 'rxjs/operators';
+import { delay, concatMap, map, takeUntil, startWith, timeInterval, skip } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../shared/dialogs/login/login.component';
 import { LoginService } from '../shared/services/user.service';
@@ -18,6 +18,7 @@ const NAV_ITEM_LIST = [
 ]
 const loginQueryParamKey: string = "loginDialog";
 const USER_PARAM_KEY: string = "user";
+const LOGOUT_PARAM_KEY: string = "logoutUser";
 
 @Component({
   selector: 'app-navbar-top',
@@ -39,21 +40,21 @@ export class TopNavComponent implements OnInit {
 
   ngOnInit() {
     this.ls.currentUser$.subscribe((user: User) => {
-      this.updateLoginCompoent(this.ls.currentUser.isUser);
+      console.log("top nav: ",user)
+      this.updateLoginCompoent(user.isUser);
+      this.ls.updateCurrentUser(user);
     });
 
+    /**
+     * Route Obs's is a BehaviorSubject, avoid doing any navigating in here based on routes
+     */
     this.route.queryParamMap.subscribe((queryParam: ParamMap) => {
-      if (queryParam.has(USER_PARAM_KEY)) {
-        const userIdParamValue: string = queryParam.get(USER_PARAM_KEY);
-        const userSet: boolean = this.ls.currentUser.isUserSet();
-
-        // remove query param '?user' if it exists and no user is logged in
-        if (userIdParamValue && !userSet) {
-          this.router.navigate(['./'], {
-            queryParams: null
-          });
-        }
-      }
+      //?user
+      const userIdParamValue: string = queryParam.get(USER_PARAM_KEY);
+      //?loginDialog
+      const loginParamValue: string = queryParam.get(loginQueryParamKey);
+      //?logOut
+      const logOutParamValue: string = queryParam.get(LOGOUT_PARAM_KEY);
 
       if (queryParam.get(loginQueryParamKey)) {
         this.openDialog();
