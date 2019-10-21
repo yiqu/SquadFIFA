@@ -1,1 +1,39 @@
-My Profile
+<div *ngIf="profileFg" [formGroup]="profileFg" class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <i class="material-icons xlg-icon">account_circle</i>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2>Welcome, {{userMetaFg.get('id').value}}</h2>
+    </div>
+  </div>
+  <div class="row text-muted">
+    <div class="col-md-12 text-center">
+      <p>Manage your info, privacy, and security for your FIFA account.</p>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <div class="card profile-card">
+        <div class="card-body">
+          <h5 class="card-title">Privacy & personalization</h5>
+          <p class="card-text profile-card-body">Update your personal account information.</p>
+          <a class="card-link">Card link</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card profile-card">
+        <div class="card-body">
+          <h5 class="card-title">Season Information</h5>
+          <p class="card-text profile-card-body">Review your past seasons, win-loss records, most used players, favorite teams and more.</p>
+          <a class="card-link">Card link</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

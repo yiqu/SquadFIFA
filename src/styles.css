@@ -9,6 +9,22 @@ h1 {
   font-family: 'Righteous', cursive;
 }
 
+h2 {
+  font-family: 'Righteous', cursive;
+}
+
+h3 {
+  font-family: 'Righteous', cursive;
+}
+
+h5 {
+  font-family: 'Righteous', cursive;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
+}
+
 .roboto-font {
   font-family: 'Roboto', sans-serif;
 }
@@ -56,6 +72,10 @@ h1 {
   background-color: #2952a3 !important;
 }
 
+.xlg-icon {
+  font-size: 70px;
+}
+
 .lg-icon {
   font-size: 40px;
 }
@@ -77,4 +97,8 @@ h1 {
 
 .mat-flat-button {
   font-family: 'Righteous', cursive !important;
+}
+
+.center-content {
+  justify-content: center;
 }

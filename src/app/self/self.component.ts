@@ -20,24 +20,44 @@ export class SelfComponent implements OnInit {
   profileFg: FormGroup;
 
   constructor(public ls: LoginService, public fb: FormBuilder) {
-    this.profileFg = new FormGroup({});
+  }
+
+  get userMetaFg() {
+    return this.profileFg.get('user');
   }
 
   ngOnInit() {
     this.ls.currentUser$.subscribe((user: User) => {
       console.log(user);
-      this.createInitFg(user);
+      this.createUserFg(user);
       console.log(this.profileFg)
     });
   }
 
-  createInitFg(user: User) {
+  private createUserFg(user: User): void {
     this.profileFg = this.fb.group({
       admin: FUTILS.createFormControl(user.admin, true),
       hashKey: FUTILS.createFormControl(user.hashKey, true),
-      isUser: FUTILS.createFormControl(user.isUser, true)
-    });
+      isUser: FUTILS.createFormControl(user.isUser, true),
+      user: this.fb.group({
+        id: FUTILS.createFormControl(user.user.id, true),
+        firstName: FUTILS.createFormControl(user.user.firstName, false),
+        lastName: FUTILS.createFormControl(user.user.lastName, false),
+        avatar: FUTILS.createFormControl(user.user.avatar, false)
 
+      }),
+      data: this.fb.group({
+        matchesPlayed: FUTILS.createFormControl(user.data.matchesPlayed, true), 
+        seasonsPlayed: FUTILS.createFormControl(user.data.seasonsPlayed, true), 
+        wins: FUTILS.createFormControl(user.data.wins, true), 
+        draws: FUTILS.createFormControl(user.data.draws, true), 
+        losses: FUTILS.createFormControl(user.data.losses, true),
+        mostUsedTeam: FUTILS.createFormControl(user.data.mostUsedTeam, true),
+        favoritePlayer: FUTILS.createFormControl(user.data.favoritePlayer, true),
+        totalGoalsScored: FUTILS.createFormControl(user.data.totalGoalsScored, true),
+        totalGoalsConceded: FUTILS.createFormControl(user.data.totalGoalsConceded, true)  
+      })
+    });
   }
 
 }
