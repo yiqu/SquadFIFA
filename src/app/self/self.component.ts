@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { AnimationEvent, trigger, transition, useAnimation } from '@angular/animations';
 import { LoginService } from '../shared/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../shared/model/user.model';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import * as _ from 'lodash';
+import * as FUTILS from '../shared/utils/forms.utils';
+
 
 @Component({
   selector: 'app-self',
@@ -9,14 +16,28 @@ import { User } from '../shared/model/user.model';
 })
 
 export class SelfComponent implements OnInit {
-  constructor(public ls: LoginService) {
-    
+
+  profileFg: FormGroup;
+
+  constructor(public ls: LoginService, public fb: FormBuilder) {
+    this.profileFg = new FormGroup({});
   }
 
   ngOnInit() {
-    console.log("in SELF")
     this.ls.currentUser$.subscribe((user: User) => {
-      console.log(user)
+      console.log(user);
+      this.createInitFg(user);
+      console.log(this.profileFg)
     });
   }
+
+  createInitFg(user: User) {
+    this.profileFg = this.fb.group({
+      admin: FUTILS.createFormControl(user.admin, true),
+      hashKey: FUTILS.createFormControl(user.hashKey, true),
+      isUser: FUTILS.createFormControl(user.isUser, true)
+    });
+
+  }
+
 }

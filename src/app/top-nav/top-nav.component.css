@@ -7,7 +7,7 @@
 .logo-side {
   position: absolute;
   transform: rotate(335deg);
-  left: -60px;
+  left: -17px;
   top: 10px;
   z-index: 99;
   color: #2F91F2;
@@ -17,6 +17,10 @@
 
 .active-ul {
   text-decoration: underline;
+}
+
+.banner-logo-parent {
+  margin-left: 30px;
 }
 
 .brand {
