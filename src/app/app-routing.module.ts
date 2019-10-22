@@ -8,7 +8,10 @@ import { StatsComponent } from './stats/stats.component';
 import { LogoutComponent } from './top-nav/logout/logout.component';
 import { LogoutResolver } from './shared/resolvers/logout.resolver';
 import { SelfComponent } from './self/self.component';
-import { SelfGuard } from './shared/route-guards/self.guard';
+import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
+import { SelfCoreComponent } from './self/core/core.component';
+import { SelfEditComponent } from './self/edit/edit.component';
+import { SelfSeasonsComponent } from './self/seasons/seasons.component';
 
 const routes: Routes = [
   {
@@ -40,7 +43,22 @@ const routes: Routes = [
   {
     path: 'self',
     component: SelfComponent,
-    canActivate: [SelfGuard]
+    canActivate: [SelfGuard],
+    //canActivateChild: [SelfChildrenGuard],
+    children: [
+      {
+        path: '',
+        component: SelfCoreComponent
+      },
+      {
+        path: 'edit',
+        component: SelfEditComponent
+      },
+      {
+        path: 'seasons',
+        component: SelfSeasonsComponent
+      }
+    ]
   },
   {
     path: '',

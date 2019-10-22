@@ -21,7 +21,7 @@ import { LoginDialogComponent } from './shared/dialogs/login/login.component';
 import { DialogsModule } from './shared/dialogs/dialogs.module';
 import { LogoutResolver } from './shared/resolvers/logout.resolver';
 import { SelfModule } from './self/self.module';
-import { SelfGuard } from './shared/route-guards/self.guard';
+import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
 
 @NgModule({
   declarations: [
@@ -68,7 +68,8 @@ import { SelfGuard } from './shared/route-guards/self.guard';
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: null },
     LogoutResolver,
-    SelfGuard
+    SelfGuard,
+    SelfChildrenGuard
   ],
 
   entryComponents: [

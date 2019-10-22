@@ -59,7 +59,6 @@ export class LoginService {
       qparams = null;
     }
 
-    console.log(redirectPathValue)
     if (redirectPathValue) {
       if (redirectPathValue === SELF_ROUTE && !data.isUser) {
         redirectPaths = [];

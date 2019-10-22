@@ -102,3 +102,7 @@ p {
 .center-content {
   justify-content: center;
 }
+
+.btn {
+  font-family: 'Righteous', cursive;
+}

@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SelfComponent } from './self.component';
+import { SelfEditComponent } from './edit/edit.component';
+import { SelfSeasonsComponent } from './seasons/seasons.component';
+import { SelfCoreComponent } from './core/core.component';
 
 @NgModule({
   imports: [
@@ -17,7 +20,10 @@ import { SelfComponent } from './self.component';
   ],
 
   declarations: [
-    SelfComponent
+    SelfComponent,
+    SelfEditComponent,
+    SelfSeasonsComponent,
+    SelfCoreComponent
   ],
 
   providers: [

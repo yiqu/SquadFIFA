@@ -5,3 +5,7 @@
 .profile-card-body {
   min-height: 120px;
 }
+
+.btn-light {
+  color: #4b76d3 !important;
+}

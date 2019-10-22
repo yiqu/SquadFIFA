@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter,  } from '@angular/core';
 import { CanActivate, ActivatedRoute, ActivatedRouteSnapshot,
-RouterStateSnapshot, CanDeactivate, Router } from '@angular/router';
+RouterStateSnapshot, CanDeactivate, Router, CanActivateChild } from '@angular/router';
 import { Observable, of,  } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
 import { LoginService } from '../services/user.service';
@@ -31,5 +31,34 @@ export class SelfGuard implements CanActivate {
         }
       })
     );
+  }
+}
+
+@Injectable()
+export class SelfChildrenGuard implements CanActivate, CanActivateChild {
+
+  constructor(public ls: LoginService, public router: Router) {
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+    return this.ls.currentUser$.pipe(
+      map((user: User) => {
+        if (user.isUser) {
+          return user.isUser;
+        } else {
+          this.router.navigate(['./home'], {
+            queryParams: {
+              loginDialog: true,
+              redirect: MY_PROFILE_ROUTE
+            }
+          });
+          return false;
+        }
+      })
+    );
+  }
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+    return this.canActivate(route, state);
   }
 }
