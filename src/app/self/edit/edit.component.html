@@ -47,11 +47,11 @@
           <mat-icon matSuffix *ngIf="!userMetaFg.get('firstName').errors">done</mat-icon>
           <mat-icon matSuffix *ngIf="userMetaFg.get('firstName').errors">error</mat-icon>
           <mat-hint *ngIf="!userMetaFg.get('firstName').errors">Alphabetical only</mat-hint>
+          <mat-error *ngIf="userMetaFg.get('firstName').errors?.spaceError">No spaces are allowed</mat-error>
+          <mat-error *ngIf="userMetaFg.get('firstName').errors?.alphaError">
+            No non-alphabetical characters are allowed
+          </mat-error>
         </mat-form-field>
-        <div *ngIf="userMetaFg.get('firstName').errors?.spaceError">No spaces allowed</div>
-        <div *ngIf="userMetaFg.get('firstName').errors?.alphaError">
-          Only alphabetical characters are allowed
-        </div>
       </div>
     </section>
     
