@@ -17,7 +17,15 @@ h3 {
   font-family: 'Righteous', cursive;
 }
 
+h4 {
+  font-family: 'Righteous', cursive;
+}
+
 h5 {
+  font-family: 'Righteous', cursive;
+}
+
+h6 {
   font-family: 'Righteous', cursive;
 }
 
@@ -101,4 +109,9 @@ p {
 
 .btn {
   font-family: 'Righteous', cursive;
+}
+
+.success-btn {
+  background-color: #269f42 !important;
+  color: #fff !important;
 }

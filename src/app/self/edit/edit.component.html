@@ -1,3 +1,87 @@
-<div>
-  Edit
+<div [formGroup]="profileFg">
+  <section class="row mb-4">
+    <div class="col-md-8 offset-md-2">
+      <h4>Credentials</h4>
+      <hr>
+    </div>
+  </section>
+  
+  <section class="row mb-4" formGroupName="user">
+    <div class="col-md-4 offset-md-4 text-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Login ID</mat-label>
+        <input matInput placeholder="Login ID" formControlName="id">
+        <mat-icon matSuffix>done</mat-icon>
+        <mat-hint>Admin permission is required to update your login ID, please contact an admin.</mat-hint>
+      </mat-form-field>
+    </div>
+  </section>
+  
+  <section class="row mb-4">
+    <section class="col-md-4 offset-md-2 text-center center-grid">
+      <mat-checkbox class="" formControlName="admin">Admin</mat-checkbox>
+    </section>
+    <div class="col-md-4">
+      <mat-form-field appearance="standard">
+        <mat-label>Hashkey</mat-label>
+        <input matInput placeholder="Hash key" formControlName="hashKey">
+        <mat-icon matSuffix>done</mat-icon>
+        <mat-hint>Do not change</mat-hint>
+      </mat-form-field>
+    </div>
+  </section>
+  
+  <section class="row mb-4">
+    <div class="col-md-8 offset-md-2">
+      <h4>Profile</h4>
+      <hr>
+    </div>
+  </section>
+  
+  <div formGroupName="user">
+    <section class="row mb-4">
+      <div class="col-md-4 offset-md-2">
+        <mat-form-field appearance="standard">
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="First name" formControlName="firstName">
+          <mat-icon matSuffix *ngIf="!userMetaFg.get('firstName').errors">done</mat-icon>
+          <mat-icon matSuffix *ngIf="userMetaFg.get('firstName').errors">error</mat-icon>
+          <mat-hint *ngIf="!userMetaFg.get('firstName').errors">Alphabetical only</mat-hint>
+          <mat-error *ngIf="userMetaFg.get('firstName').errors?.spaceError">No spaces are allowed</mat-error>
+          <mat-error *ngIf="userMetaFg.get('firstName').errors?.alphaError">
+            No non-alphabetical characters are allowed
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </section>
+    
+    <section class="row mb-4">
+      <div class="col-md-4 offset-md-2">
+        <mat-form-field appearance="standard">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last name" formControlName="lastName">
+          <mat-icon matSuffix>done</mat-icon>
+          <mat-hint>Alphabetical only</mat-hint>
+        </mat-form-field>
+      </div>
+    </section>
+    
+    <section class="row mb-5">
+      <div class="col-md-4 offset-md-2">
+        <mat-form-field appearance="standard">
+          <mat-label>Avatar URL</mat-label>
+          <input matInput placeholder="Avatar url" formControlName="avatar">
+          <span matPrefix class="mr-3">https://</span>
+          <mat-icon matSuffix>done</mat-icon>
+          <mat-hint>Avatar has to be URL link</mat-hint>
+        </mat-form-field>
+      </div>
+    </section>
+  </div>
+  
+  <section class="row">
+    <div class="col-md-4 offset-md-2">
+      <button mat-flat-button class="success-btn">Update profile</button>
+    </div>
+  </section>
 </div>
