@@ -15,8 +15,9 @@ import * as FUTILS from '../../shared/utils/forms.utils';
 })
 
 export class SelfEditComponent implements OnInit {
-  
+
   profileFg: FormGroup;
+  checked = false;
 
   constructor(public ls: LoginService, public fb: FormBuilder) {
   }

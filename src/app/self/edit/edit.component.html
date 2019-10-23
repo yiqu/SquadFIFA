@@ -1,3 +1,65 @@
-<div>
-  Edit
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h4>Profile</h4>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+    <mat-form-field appearance="outline">
+      <mat-label>ID</mat-label>
+      <input matInput placeholder="Login ID">
+      <mat-icon matSuffix>done</mat-icon>
+      <mat-hint>Admin permission is required to update your login ID, please contact an admin.</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <section class="col-md-4 offset-md-2 text-center center-grid">
+    <mat-checkbox class="" [ngModel]="true">Admin</mat-checkbox>
+  </section>
+  <div class="col-md-4">
+    <mat-form-field appearance="standard">
+      <mat-label>Hashkey</mat-label>
+      <input matInput placeholder="Hash key">
+      <mat-icon matSuffix>done</mat-icon>
+      <mat-hint>Do not change</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 offset-md-2">
+    <mat-form-field appearance="standard">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="First name">
+      <mat-icon matSuffix>done</mat-icon>
+      <mat-hint>Alphabetical only</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 offset-md-2">
+    <mat-form-field appearance="standard">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Last name">
+      <mat-icon matSuffix>done</mat-icon>
+      <mat-hint>Alphabetical only</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 offset-md-2">
+    <mat-form-field appearance="standard">
+      <mat-label>Avatar URL</mat-label>
+      <input matInput placeholder="Avatar url">
+      <span matPrefix class="mr-3">https://</span>
+      <mat-icon matSuffix>done</mat-icon>
+      <mat-hint>Avatar has to be URL link</mat-hint>
+    </mat-form-field>
+  </div>
 </div>

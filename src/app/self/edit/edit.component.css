@@ -1,0 +1,12 @@
+.min-w {
+  
+}
+
+.mat-form-field {
+  display: block !important;
+}
+
+.center-grid {
+  align-content: center;
+  display: grid;
+}
