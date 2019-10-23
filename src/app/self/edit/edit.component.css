@@ -1,7 +1,3 @@
-.min-w {
-  
-}
-
 .mat-form-field {
   display: block !important;
 }
@@ -10,3 +6,4 @@
   align-content: center;
   display: grid;
 }
+

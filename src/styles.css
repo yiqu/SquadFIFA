@@ -114,3 +114,8 @@ p {
 .btn {
   font-family: 'Righteous', cursive;
 }
+
+.success-btn {
+  background-color: #269f42 !important;
+  color: #fff !important;
+}

@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as FUTILS from '../../shared/utils/forms.utils';
+import * as VALS from '../../shared/validators/general-validators'
 
 @Component({
   selector: 'app-self-edit',
@@ -17,7 +18,6 @@ import * as FUTILS from '../../shared/utils/forms.utils';
 export class SelfEditComponent implements OnInit {
 
   profileFg: FormGroup;
-  checked = false;
 
   constructor(public ls: LoginService, public fb: FormBuilder) {
   }
@@ -35,13 +35,14 @@ export class SelfEditComponent implements OnInit {
   }
 
   private createUserFg(user: User): void {
+    
     this.profileFg = this.fb.group({
       admin: FUTILS.createFormControl(user.admin, true),
       hashKey: FUTILS.createFormControl(user.hashKey, true),
       isUser: FUTILS.createFormControl(user.isUser, true),
       user: this.fb.group({
         id: FUTILS.createFormControl(user.user.id, true),
-        firstName: FUTILS.createFormControl(user.user.firstName, false),
+        firstName: FUTILS.createFormControl(user.user.firstName, false, [VALS.alphaValidator]),
         lastName: FUTILS.createFormControl(user.user.lastName, false),
         avatar: FUTILS.createFormControl(user.user.avatar, false)
 
