@@ -7,3 +7,6 @@
   display: grid;
 }
 
+.mat-form-field-prefix > span{
+  color: #999;
+}

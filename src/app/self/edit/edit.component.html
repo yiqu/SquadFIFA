@@ -33,7 +33,7 @@
   
   <section class="row mb-4">
     <div class="col-md-8 offset-md-2">
-      <h4>Profile</h4>
+      <h4>Edit Profile <span *ngIf="!profileFg.pristine">*</span></h4>
       <hr>
     </div>
   </section>
@@ -43,13 +43,16 @@
       <div class="col-md-4 offset-md-2">
         <mat-form-field appearance="standard">
           <mat-label>First Name</mat-label>
-          <input matInput placeholder="First name" formControlName="firstName">
-          <mat-icon matSuffix *ngIf="!userMetaFg.get('firstName').errors">done</mat-icon>
-          <mat-icon matSuffix *ngIf="userMetaFg.get('firstName').errors">error</mat-icon>
+          <input matInput placeholder="First name" formControlName="firstName" [errorStateMatcher]="initErrorMatcher">
+          <mat-icon matSuffix *ngIf="!userMetaFg.get('firstName').errors" class="text-success">done</mat-icon>
+          <mat-icon matSuffix *ngIf="userMetaFg.get('firstName').errors" class="text-danger">error</mat-icon>
           <mat-hint *ngIf="!userMetaFg.get('firstName').errors">Alphabetical only</mat-hint>
           <mat-error *ngIf="userMetaFg.get('firstName').errors?.spaceError">No spaces are allowed</mat-error>
           <mat-error *ngIf="userMetaFg.get('firstName').errors?.alphaError">
             No non-alphabetical characters are allowed
+          </mat-error>
+          <mat-error *ngIf="userMetaFg.get('firstName').errors?.required">
+             Name cannot be empty
           </mat-error>
         </mat-form-field>
       </div>
@@ -59,9 +62,17 @@
       <div class="col-md-4 offset-md-2">
         <mat-form-field appearance="standard">
           <mat-label>Last Name</mat-label>
-          <input matInput placeholder="Last name" formControlName="lastName">
-          <mat-icon matSuffix>done</mat-icon>
-          <mat-hint>Alphabetical only</mat-hint>
+          <input matInput placeholder="Last name" formControlName="lastName" [errorStateMatcher]="initErrorMatcher">
+          <mat-icon matSuffix *ngIf="!userMetaFg.get('lastName').errors" class="text-success">done</mat-icon>
+          <mat-icon matSuffix *ngIf="userMetaFg.get('lastName').errors" class="text-danger">error</mat-icon>
+          <mat-hint *ngIf="!userMetaFg.get('lastName').errors">Alphabetical only</mat-hint>
+          <mat-error *ngIf="userMetaFg.get('lastName').errors?.spaceError">No spaces are allowed</mat-error>
+          <mat-error *ngIf="userMetaFg.get('lastName').errors?.alphaError">
+            No non-alphabetical characters are allowed
+          </mat-error>
+          <mat-error *ngIf="userMetaFg.get('firstName').errors?.required">
+            Name cannot be empty
+          </mat-error>
         </mat-form-field>
       </div>
     </section>
@@ -81,7 +92,8 @@
   
   <section class="row">
     <div class="col-md-4 offset-md-2">
-      <button mat-flat-button class="success-btn">Update profile</button>
+      <button mat-flat-button (click)="updateProfile()"
+        [ngClass]="{'success-btn':!profileFg.invalid}" [disabled]="profileFg.invalid">Update profile</button>
     </div>
   </section>
 </div>

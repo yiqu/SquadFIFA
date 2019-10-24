@@ -16,8 +16,8 @@ export class User {
   }
 
   public setNoName() {
-    this.user.firstName = "Not set";
-    this.user.lastName = "Not set";
+    this.user.firstName = "Johnny";
+    this.user.lastName = "Appleseed";
   }
 
   public isUserSet() {

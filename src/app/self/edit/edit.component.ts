@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as FUTILS from '../../shared/utils/forms.utils';
 import * as VALS from '../../shared/validators/general-validators'
+import { InitErrorMatcher } from '../../shared/matchers/form-err-matcher';
 
 @Component({
   selector: 'app-self-edit',
@@ -18,6 +19,7 @@ import * as VALS from '../../shared/validators/general-validators'
 export class SelfEditComponent implements OnInit {
 
   profileFg: FormGroup;
+  initErrorMatcher = new InitErrorMatcher();
 
   constructor(public ls: LoginService, public fb: FormBuilder) {
   }
@@ -28,9 +30,8 @@ export class SelfEditComponent implements OnInit {
 
   ngOnInit() {
     this.ls.currentUser$.subscribe((user: User) => {
-      console.log(user);
       this.createUserFg(user);
-      console.log(this.profileFg)
+      this.subscribeToFg();
     });
   }
 
@@ -42,8 +43,8 @@ export class SelfEditComponent implements OnInit {
       isUser: FUTILS.createFormControl(user.isUser, true),
       user: this.fb.group({
         id: FUTILS.createFormControl(user.user.id, true),
-        firstName: FUTILS.createFormControl(user.user.firstName, false, [VALS.alphaValidator]),
-        lastName: FUTILS.createFormControl(user.user.lastName, false),
+        firstName: FUTILS.createFormControl(user.user.firstName, false, [Validators.required, VALS.alphaValidator]),
+        lastName: FUTILS.createFormControl(user.user.lastName, false, [Validators.required, VALS.alphaValidator]),
         avatar: FUTILS.createFormControl(user.user.avatar, false)
 
       }),
@@ -59,5 +60,19 @@ export class SelfEditComponent implements OnInit {
         totalGoalsConceded: FUTILS.createFormControl(user.data.totalGoalsConceded, true)  
       })
     });
+  }
+
+  subscribeToFg() {
+    this.profileFg.statusChanges.subscribe((val) => {
+      console.log(val)
+    })
+    this.profileFg.valueChanges.subscribe((val) => {
+      console.log(this.profileFg.getRawValue())
+      console.log(this.profileFg)
+    })
+  }
+
+  updateProfile() {
+    this.profileFg.markAsPristine();
   }
 }
