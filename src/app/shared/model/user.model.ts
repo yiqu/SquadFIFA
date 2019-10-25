@@ -8,6 +8,7 @@ export class User {
     public isUser: boolean = false,
     public data: UserData = new UserData(),
     public hashKey: string = null) {
+      this.admin = (admin == null) ? false : admin;
       this.data = new UserData(data.matchesPlayed, data.seasonsPlayed, data.wins, data.draws, data.losses,
         data.mostUsedTeam, data.favoritePlayer, data.totalGoalsScored, data.totalGoalsConceded);
   }

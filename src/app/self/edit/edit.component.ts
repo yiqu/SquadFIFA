@@ -21,6 +21,7 @@ export class SelfEditComponent implements OnInit {
 
   profileFg: FormGroup;
   initErrorMatcher = new InitErrorMatcher();
+  updating: boolean = false;
 
   constructor(public ls: LoginService, public fb: FormBuilder, public ts: ToastrService) {
   }
@@ -32,12 +33,13 @@ export class SelfEditComponent implements OnInit {
   ngOnInit() {
     this.ls.currentUser$.subscribe((user: User) => {
       this.createUserFg(user);
-      this.subscribeToFg();
+      this.ts.toastrConfig.timeOut = 750;
+      this.ts.info("Profile loaded.", "User");
+      this.ts.toastrConfig.timeOut = 5000;
     });
   }
 
   private createUserFg(user: User): void {
-    console.log("u", user)
     this.profileFg = this.fb.group({
       admin: FUTILS.createFormControl(user.admin, true),
       hashKey: FUTILS.createFormControl(user.hashKey, true, [Validators.required]),
@@ -70,23 +72,28 @@ export class SelfEditComponent implements OnInit {
     if (this.profileFg.invalid) {
       this.ts.error("Please fix the errors before saving.");
     } else {
+      this.updating = true;
       const formValues: User = this.profileFg.getRawValue();
       const user = new User(formValues.user, formValues.admin, formValues.isUser, 
         formValues.data, formValues.hashKey);
-      this.ls.updateUserProfile(user).subscribe(
-        (res: HttpResponse<any>) => {
-          console.log(res)
+      this.ls.updateUserProfile(user).pipe(
+        map((res: HttpResponse<any>) => {
+          return res.body as User;
+        })
+      ).subscribe(
+        (res: User) => {
+          this.ls.setUserData(res);
         },
         (err: HttpErrorResponse) => {
-
+          this.updating = false;
         },
         () => {
+          this.updating = false;
           this.profileFg.markAsPristine();
           this.ts.success("Profile updated.", "Success");
         }
       );
     }
-
-    
   }
+  
 }

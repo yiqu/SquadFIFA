@@ -93,7 +93,8 @@
   <section class="row">
     <div class="col-md-4 offset-md-2">
       <button mat-flat-button (click)="updateProfile()"
-        [ngClass]="{'success-btn':true}">Update profile</button>
+        [ngClass]="{'success-btn':!updating}" [disabled]="updating">
+        {{updating ? 'Updating' : 'Update'}} profile</button>
     </div>
   </section>
 </div>

@@ -79,8 +79,8 @@ export class LoginService {
     });
   }
 
-  setUserData(data: User) {
-    this.currentUser = new User(data.user, data.admin, data.isUser, data.data, data.hashKey);
+  public setUserData(user: User) {
+    this.updateCurrentUser(user);
     this.currentUser$.next(this.currentUser);
   }
 
