@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import * as FUTILS from '../../shared/utils/forms.utils';
 import * as VALS from '../../shared/validators/general-validators'
 import { InitErrorMatcher } from '../../shared/matchers/form-err-matcher';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-self-edit',
@@ -21,7 +22,7 @@ export class SelfEditComponent implements OnInit {
   profileFg: FormGroup;
   initErrorMatcher = new InitErrorMatcher();
 
-  constructor(public ls: LoginService, public fb: FormBuilder) {
+  constructor(public ls: LoginService, public fb: FormBuilder, public ts: ToastrService) {
   }
 
   get userMetaFg() {
@@ -36,13 +37,13 @@ export class SelfEditComponent implements OnInit {
   }
 
   private createUserFg(user: User): void {
-    
+    console.log("u", user)
     this.profileFg = this.fb.group({
       admin: FUTILS.createFormControl(user.admin, true),
-      hashKey: FUTILS.createFormControl(user.hashKey, true),
+      hashKey: FUTILS.createFormControl(user.hashKey, true, [Validators.required]),
       isUser: FUTILS.createFormControl(user.isUser, true),
       user: this.fb.group({
-        id: FUTILS.createFormControl(user.user.id, true),
+        id: FUTILS.createFormControl(user.user.id, true, [Validators.required]),
         firstName: FUTILS.createFormControl(user.user.firstName, false, [Validators.required, VALS.alphaValidator]),
         lastName: FUTILS.createFormControl(user.user.lastName, false, [Validators.required, VALS.alphaValidator]),
         avatar: FUTILS.createFormControl(user.user.avatar, false)
@@ -63,16 +64,29 @@ export class SelfEditComponent implements OnInit {
   }
 
   subscribeToFg() {
-    this.profileFg.statusChanges.subscribe((val) => {
-      console.log(val)
-    })
-    this.profileFg.valueChanges.subscribe((val) => {
-      console.log(this.profileFg.getRawValue())
-      console.log(this.profileFg)
-    })
   }
 
   updateProfile() {
-    this.profileFg.markAsPristine();
+    if (this.profileFg.invalid) {
+      this.ts.error("Please fix the errors before saving.");
+    } else {
+      const formValues: User = this.profileFg.getRawValue();
+      const user = new User(formValues.user, formValues.admin, formValues.isUser, 
+        formValues.data, formValues.hashKey);
+      this.ls.updateUserProfile(user).subscribe(
+        (res: HttpResponse<any>) => {
+          console.log(res)
+        },
+        (err: HttpErrorResponse) => {
+
+        },
+        () => {
+          this.profileFg.markAsPristine();
+          this.ts.success("Profile updated.", "Success");
+        }
+      );
+    }
+
+    
   }
 }

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { User, UserInfo, UserData } from '../model/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { CrudRestServie } from './crud.service';
 import * as _ from 'lodash';
+import { HttpResponse } from '@angular/common/http';
 
 const REDIRECT_KEY: string = "redirect";
 const LOGIN_DIALOG_KEY: string = "loginDialog";
@@ -20,7 +22,7 @@ export class LoginService {
   dialogClose$: Subject<boolean> = new Subject();
   currentUser$: BehaviorSubject<User>
 
-  constructor(public router: Router, public route: ActivatedRoute) {
+  constructor(public router: Router, public route: ActivatedRoute, public rs: CrudRestServie) {
     // create init user
     this.currentUser = this.createInitUser();
     this.currentUser$ = new BehaviorSubject(this.currentUser);
@@ -84,5 +86,10 @@ export class LoginService {
 
   updateCurrentUser(data: User) {
     this.currentUser = new User(data.user, data.admin, data.isUser, data.data, data.hashKey);
+  }
+
+  updateUserProfile(user: User): Observable<HttpResponse<any>> {
+    const url: string = "users/" + user.hashKey + ".json";
+    return this.rs.putData(user, url);
   }
 }

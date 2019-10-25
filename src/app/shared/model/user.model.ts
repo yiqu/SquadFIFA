@@ -8,7 +8,8 @@ export class User {
     public isUser: boolean = false,
     public data: UserData = new UserData(),
     public hashKey: string = null) {
-
+      this.data = new UserData(data.matchesPlayed, data.seasonsPlayed, data.wins, data.draws, data.losses,
+        data.mostUsedTeam, data.favoritePlayer, data.totalGoalsScored, data.totalGoalsConceded);
   }
 
   public setUser(u: UserInfo) {
@@ -51,6 +52,16 @@ export class UserData {
     public favoritePlayer: any = null,
     public totalGoalsScored: number = 0,
     public totalGoalsConceded: number = 0) {
+
+      this.matchesPlayed = matchesPlayed ? matchesPlayed : 0;
+      this.seasonsPlayed = seasonsPlayed ? seasonsPlayed : 0;
+      this.wins = wins ? wins : 0;
+      this.draws = draws ? draws : 0;
+      this.losses = losses ? losses : 0;
+      this.mostUsedTeam = mostUsedTeam ? mostUsedTeam : "None";
+      this.favoritePlayer = favoritePlayer ? favoritePlayer : "None";
+      this.totalGoalsScored = totalGoalsScored ? totalGoalsScored : 0;
+      this.totalGoalsConceded = totalGoalsConceded ? totalGoalsConceded : 0;
   }
 }
 

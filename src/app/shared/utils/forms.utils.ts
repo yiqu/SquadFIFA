@@ -8,3 +8,7 @@ export function createFormControl(value: any, disabled: boolean,
     }, validators, asyncValids);
     return fc;
 }
+
+function isNumeric(num: any): boolean {
+  return !isNaN(num);
+}
