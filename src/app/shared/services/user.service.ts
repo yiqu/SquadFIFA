@@ -20,7 +20,8 @@ export class LoginService {
 
   // sub to emit when login dialog window closes
   dialogClose$: Subject<boolean> = new Subject();
-  currentUser$: BehaviorSubject<User>
+  currentUser$: BehaviorSubject<User>;
+  userSettingProfileDone$: Subject<any> = new Subject();
 
   constructor(public router: Router, public route: ActivatedRoute, public rs: CrudRestServie) {
     // create init user

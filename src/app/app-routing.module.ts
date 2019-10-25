@@ -46,18 +46,9 @@ const routes: Routes = [
     canActivate: [SelfGuard],
     //canActivateChild: [SelfChildrenGuard],
     children: [
-      {
-        path: '',
-        component: SelfCoreComponent
-      },
-      {
-        path: 'edit',
-        component: SelfEditComponent
-      },
-      {
-        path: 'seasons',
-        component: SelfSeasonsComponent
-      }
+      { path: '', component: SelfCoreComponent },
+      { path: 'edit', component: SelfEditComponent },
+      { path: 'seasons', component: SelfSeasonsComponent }
     ]
   },
   {
