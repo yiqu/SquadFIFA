@@ -7,6 +7,7 @@ import { SelfEditComponent } from './edit/edit.component';
 import { SelfSeasonsComponent } from './seasons/seasons.component';
 import { SelfCoreComponent } from './core/core.component';
 import { MaterialModules } from '../shared/material-module';
+import { PipesBarrelModule } from '../shared/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { MaterialModules } from '../shared/material-module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModules,
+    PipesBarrelModule,
     RouterModule
   ],
 
