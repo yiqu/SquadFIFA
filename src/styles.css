@@ -66,7 +66,12 @@ p {
 }
 
 .a-green {
-  color: #20a22a;
+  color: #20a22a !important;
+}
+
+.bg-green {
+  background-color: #358931 !important;
+  color: #fff !important;
 }
 
 .no-padding {
