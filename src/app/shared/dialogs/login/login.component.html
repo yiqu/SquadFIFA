@@ -12,7 +12,8 @@
     <span>{{ title }}</span>
   </h2>
   <div class="signin-subheader mb-20">{{ subTitle }}</div>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Login ID</mat-label>
     <input matInput placeholder="ID" cdkFocusInitial [(ngModel)]="currentUser.user.id" 
       (ngModelChange)="onLoginNameChange($event)">
   </mat-form-field>
