@@ -22,6 +22,7 @@ import { DialogsModule } from './shared/dialogs/dialogs.module';
 import { LogoutResolver } from './shared/resolvers/logout.resolver';
 import { SelfModule } from './self/self.module';
 import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
+import { NewSeasonComponent } from './shared/dialogs/new-season/new-season.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
   ],
 
   entryComponents: [
-    LoginDialogComponent
+    LoginDialogComponent,
+    NewSeasonComponent
   ],
 
   bootstrap: [

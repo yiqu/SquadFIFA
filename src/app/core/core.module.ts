@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModules } from '../shared/material-module';
 import { FeedComponent } from './feed/feed.component';
 import { PipesBarrelModule } from '../shared/pipes/pipes.module';
+import { EditSeasonComponent } from './edit/edit.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { PipesBarrelModule } from '../shared/pipes/pipes.module';
 
   declarations: [
     CoreComponent,
-    FeedComponent
+    FeedComponent,
+    EditSeasonComponent
   ],
 
   providers: [],
