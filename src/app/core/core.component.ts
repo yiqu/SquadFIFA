@@ -5,10 +5,13 @@ import { LoginService } from '../shared/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../shared/model/user.model';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as FUTILS from '../shared/utils/forms.utils';
 import { NewSeasonComponent } from '../shared/dialogs/new-season/new-season.component';
+import { CoreService } from '../shared/services/core.service';
+import { ISeason } from '../shared/model/season.model';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-core',
@@ -18,9 +21,10 @@ import { NewSeasonComponent } from '../shared/dialogs/new-season/new-season.comp
 
 export class CoreComponent implements OnInit {
 
-  constructor(public router: Router, public route: ActivatedRoute,
-    public dialog: MatDialog) {
+  newSeasonBtnLoad: boolean = false;
 
+  constructor(public router: Router, public route: ActivatedRoute,
+    public dialog: MatDialog, public cs: CoreService) {
   }
 
   ngOnInit() {
@@ -28,7 +32,15 @@ export class CoreComponent implements OnInit {
   }
 
   onNewSeason(): void {
-    this.openDialog();
+    this.newSeasonBtnLoad = true;
+    this.cs.getSeasons().subscribe((res: ISeason[]) => {
+    },
+    (err) => {
+      this.newSeasonBtnLoad = false;
+    },
+    () => {
+      this.newSeasonBtnLoad = false;
+    });
   }
 
   openDialog(): void {

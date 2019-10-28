@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <button mat-flat-button class="bg-green" (click)="onNewSeason()">+ New season</button>
+      <button mat-flat-button color="primary" (click)="onNewSeason()" 
+        [disabled]="newSeasonBtnLoad">+ New season</button>
     </div>
   </div>
 
