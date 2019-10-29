@@ -67,7 +67,8 @@ import {
     MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatStepperModule
   ]
 })
 export class MaterialModules {}

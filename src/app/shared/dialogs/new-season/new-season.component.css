@@ -9,3 +9,8 @@
 .mb-20 {
   margin-bottom: 20px;
 }
+
+.season-count {
+  text-decoration: underline;
+  font-weight: 700;
+}

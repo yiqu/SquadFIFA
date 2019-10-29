@@ -22,35 +22,36 @@ import { HttpResponse } from '@angular/common/http';
 export class CoreComponent implements OnInit {
 
   newSeasonBtnLoad: boolean = false;
+  allSeasons: ISeason[] = [];
 
   constructor(public router: Router, public route: ActivatedRoute,
     public dialog: MatDialog, public cs: CoreService) {
   }
 
   ngOnInit() {
-
+    this.subscribeToSeasonListener();
+    // fetch all seasons call
+    this.cs.fetchAllSeasons$.next();
   }
 
   onNewSeason(): void {
-    this.newSeasonBtnLoad = true;
-    this.cs.getSeasons().subscribe((res: ISeason[]) => {
-    },
-    (err) => {
-      this.newSeasonBtnLoad = false;
-    },
-    () => {
-      this.newSeasonBtnLoad = false;
+    this.openDialog(this.allSeasons.length);
+  }
+
+  subscribeToSeasonListener() {
+    this.cs.allSeasons$.subscribe((seasons: ISeason[]) => {
+      this.allSeasons = seasons;
     });
   }
 
-  openDialog(): void {
+  openDialog(dialogData: any): void {
     const dialogRef = this.dialog.open(NewSeasonComponent, {
       minWidth: '350px',
       autoFocus: true,
       disableClose: true,
       panelClass: 'login-overlay',
       backdropClass: 'login-overlay-background',
-      data: "hi"
+      data: dialogData
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

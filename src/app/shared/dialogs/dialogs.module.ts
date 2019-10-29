@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginDialogComponent } from './login/login.component';
 import { MaterialModules } from '../material-module';
@@ -9,6 +9,7 @@ import { NewSeasonComponent } from './new-season/new-season.component';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModules
   ],
 

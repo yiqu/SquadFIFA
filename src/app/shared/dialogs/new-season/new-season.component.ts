@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HttpResponse } from '@angular/common/http';
 import { take, map, switchMap, exhaustMap, concatMap, tap, 
@@ -17,15 +18,31 @@ import { LoginService } from '../../services/user.service';
 export class NewSeasonComponent implements OnInit, OnDestroy {
 
   title: string = "Add New Season";
-  subTitle: string = "sub";
+  subTitle: string = "There are currently ";
+  subTitleSuffix: string = " on going seasons. Would you like to start a new one?";
+  inputData: any;
+
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
   constructor(public ls: LoginService, public cs: CrudRestServie,
     public dialogRef: MatDialogRef<NewSeasonComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder) {
       console.log(data, dialogRef.id)
+      if (data !== null) {
+        this.inputData = data;
+
+      }
+
   }
 
   ngOnInit() {
+    this.firstFormGroup = this.fb.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this.fb.group({
+      secondCtrl: ['', Validators.required]
+    });
 
   }
 

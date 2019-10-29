@@ -2,7 +2,9 @@
   <div class="row">
     <div class="col-md-12">
       <button mat-flat-button color="primary" (click)="onNewSeason()" 
-        [disabled]="newSeasonBtnLoad">+ New season</button>
+        [disabled]="this.cs.allSeasonsLoading">
+          {{ this.cs.allSeasonsLoading ? 'Working...' : '+ New season'}}
+      </button>
     </div>
   </div>
 

@@ -50,7 +50,7 @@ export class Season implements ISeason {
       this.player1Record = player1Record ? player1Record : new SeasonRecord(0, 0, 0, this.player1);
       this.player2Record = player2Record ? player2Record : new SeasonRecord(0, 0, 0, this.player2);
 
-      this.gamesTotal = gamesTotal;
+      this.gamesTotal = gamesTotal ? gamesTotal : 8;
 
       this.owners = [];
       for (let i =0; i<owners.length; i++) {

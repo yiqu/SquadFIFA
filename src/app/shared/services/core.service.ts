@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CrudRestServie } from './crud.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { delay, map, timeout, retry, retryWhen, delayWhen, tap, 
   take, switchMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -17,8 +17,32 @@ const SEASON_PATH: string = "seasons.json";
 })
 export class CoreService {
 
-  constructor(public rs: CrudRestServie) {
+  allSeasons$: BehaviorSubject<ISeason[]>;
+  fetchAllSeasons$: Subject<any> = new Subject();
+  allSeasonsLoading: boolean = false;
 
+  constructor(public rs: CrudRestServie) {
+    this.allSeasons$ = new BehaviorSubject<ISeason[]>(null);
+
+    this.fetchAllSeasons$.pipe(
+      switchMap((res) => {
+        this.allSeasonsLoading = true;
+        return this.getSeasons();
+      })
+    )
+    .subscribe(
+      (resultSeasons: ISeason[]) => {
+        this.allSeasonsLoading = false;
+        this.allSeasons$.next(resultSeasons);
+        console.log(resultSeasons);
+      },
+      (err) => {
+        this.allSeasonsLoading = false;
+      },
+      () => {
+        console.log("fetch all done");
+      }
+    );
   }
 
   getSeasons(): Observable<ISeason[]> {
@@ -31,8 +55,10 @@ export class CoreService {
 
   normalizeSeasonResponse(res: HttpResponse<ISeason[]>): ISeason[] {
     let result: ISeason[] = [];
-    console.log(res)
+    console.log(res.body)
+    if (res && res.ok && res.body) {
 
+    }
     return result;
   }
 }
