@@ -12,39 +12,65 @@
     <span class="season-count">{{inputData}}</span> {{subTitleSuffix}}
   </div>
 
-  <mat-vertical-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your name</ng-template>
+  <form [formGroup]="inputFg">
+    <mat-vertical-stepper [linear]="isLinear" #seasonStepper>
+      <mat-step *ngFor="let step of steps; index as i; first as isFirst; last as isLast">
+        
+        <ng-template matStepLabel>
+          <span class="right-font">
+            {{step.labelName}}
+          </span>
+        </ng-template>
+
+        <mat-form-field *ngIf="!isLast" class="mt-2">
+          <input matInput [placeholder]="step.phDisplay" [formControlName]="step.formCtrlName">
+          <mat-hint>{{step.hint}}</mat-hint>
+        </mat-form-field>
+
+        <div class="mt-4">
+          <button class="mr-2" mat-flat-button *ngIf="!isFirst" mat-button [color]="'accent'" (click)="onBack(i)">
+            {{step.buttonBackDisplay}}
+          </button>
+          <button mat-flat-button mat-button [color]="'primary'" 
+            (click)="onNext(isLast, i)">
+            {{isLast ? 'Submit' : step.buttonNextDisplay}}
+          </button>
+        </div>
+
+      </mat-step>
+
+      <!-- <mat-step>
+        <ng-template matStepLabel>Player One ID</ng-template>
         <mat-form-field>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          <input matInput placeholder="ID" formControlName="player1Id">
         </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext color="primary">Next</button>
         </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Player Two ID</ng-template>
         <mat-form-field>
-          <input matInput placeholder="Address" formControlName="secondCtrl" required>
+          <input matInput placeholder="ID" formControlName="player2Id">
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext color="primary">Next</button>
         </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Review</ng-template>
+        Values...
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Submit</button>
+        </div>
+      </mat-step> -->
+    </mat-vertical-stepper>
+  </form>
+  
 
 
 </div>

@@ -14,3 +14,7 @@
   text-decoration: underline;
   font-weight: 700;
 }
+
+.mat-form-field {
+  display: block !important;
+}
