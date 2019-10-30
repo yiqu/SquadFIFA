@@ -13,7 +13,7 @@
   </div>
 
   <form [formGroup]="inputFg">
-    <mat-vertical-stepper [linear]="isLinear" #seasonStepper>
+    <mat-vertical-stepper linear="false" #seasonStepper>
       <mat-step *ngFor="let step of steps; index as i; first as isFirst; last as isLast">
         
         <ng-template matStepLabel>
