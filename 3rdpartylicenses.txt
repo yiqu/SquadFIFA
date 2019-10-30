@@ -97,6 +97,8 @@ THE SOFTWARE.
 
 @angular/material/snack-bar
 
+@angular/material/stepper
+
 @angular/material/tooltip
 
 @angular/platform-browser
