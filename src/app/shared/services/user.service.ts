@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { User, UserInfo, UserData } from '../model/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { CrudRestServie } from './crud.service';
 import * as _ from 'lodash';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import * as UTILS from '../utils/general-utils'
 
 const REDIRECT_KEY: string = "redirect";
 const LOGIN_DIALOG_KEY: string = "loginDialog";
@@ -17,7 +19,7 @@ export class LoginService {
 
   // current user data
   currentUser: User;
-
+  allUsers$: BehaviorSubject<User[]>;
   // sub to emit when login dialog window closes
   dialogClose$: Subject<boolean> = new Subject();
   currentUser$: BehaviorSubject<User>;
@@ -27,6 +29,8 @@ export class LoginService {
     // create init user
     this.currentUser = this.createInitUser();
     this.currentUser$ = new BehaviorSubject(this.currentUser);
+    this.allUsers$ = new BehaviorSubject<User[]>([]);
+    this.queryAllUsers();
   }
 
   isUserLoggedIn(): boolean {
@@ -92,5 +96,34 @@ export class LoginService {
   updateUserProfile(user: User): Observable<HttpResponse<any>> {
     const url: string = "users/" + user.hashKey + ".json";
     return this.rs.putData(user, url);
+  }
+
+  /**
+   * Fetch all users in database and set it to allUsers$ b-subj
+   */
+  queryAllUsers() {
+    const url: string = "users.json"
+    this.rs.getData(url).pipe(
+      map((res: HttpResponse<any>) => {
+        let users: User[] = [];
+        if (res && res.ok) {
+          users = UTILS.objectToArray(res.body);
+        }
+        users.forEach((u, i) => {
+          let info: UserInfo = u.user ? 
+            new UserInfo(u.user.id, u.user.firstName, u.user.lastName, u.user.avatar, 
+              u.user.logIns) : new UserInfo();
+          users[i] = new User(info, u.admin, u.isUser, u.data, u.hashKey);
+        });
+        return users;
+      })
+    )
+    .subscribe((users: User[]) => {
+      this.allUsers$.next(users);
+    },
+    (err: HttpErrorResponse) => {
+    },
+    () => {
+    })
   }
 }

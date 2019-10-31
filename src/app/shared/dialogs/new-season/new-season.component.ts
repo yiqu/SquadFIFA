@@ -6,11 +6,13 @@ import {FormBuilder, FormGroup, Validators, FormControl, AbstractControl} from '
 import { ToastrService } from 'ngx-toastr';
 import { HttpResponse } from '@angular/common/http';
 import { take, map, switchMap, exhaustMap, concatMap, tap, 
-  takeUntil, mergeMap } from 'rxjs/operators';
+  takeUntil, mergeMap, startWith } from 'rxjs/operators';
 import { CrudRestServie } from '../../../shared/services/crud.service';
 import { LoginService } from '../../services/user.service';
 import * as FUTILS from '../../../shared/utils/forms.utils';
 import * as VALS from '../../../shared/validators/general-validators'
+import { Subject, Observable } from 'rxjs';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-dialog-new-season',
@@ -27,6 +29,9 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
   subTitle: string = "There are currently ";
   subTitleSuffix: string = " on going seasons. Would you like to start a new one?";
   inputData: any;
+  dialogClosed$: Subject<any> = new Subject();
+  allUsers: User[] = [];
+  filteredUsers: Observable<User[]>;
 
   inputFg: FormGroup;
   steps: StepperObj[] = [];
@@ -49,32 +54,65 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
       console.log(data, dialogRef.id)
       if (data !== null) {
         this.inputData = data;
-
       }
-
+      
+      this.ls.allUsers$.pipe(
+        takeUntil(this.dialogClosed$)
+      ).subscribe((users: User[]) => {
+        this.allUsers = users;
+        console.log(this.allUsers)
+      })
   }
 
   ngOnInit() {
     this.constructStepperObj();
 
     this.inputFg = this.fb.group({
-      player1Id: FUTILS.createFormControl('John', false, []),
-      player2Id: FUTILS.createFormControl('Jake', false, [Validators.required]),
+      player1Id: FUTILS.createFormControl(null, false, [Validators.required]),
+      player2Id: FUTILS.createFormControl(null, false, [Validators.required]),
       gamesCount: FUTILS.createFormControl(8, false, [Validators.required]),
       review: FUTILS.createFormControl(null, true),
     });
 
-    this.inputFg.valueChanges.subscribe((res) => {
-      console.log(this.inputFg.getRawValue())
-    })
+    this.inputFg.valueChanges.pipe(
+      takeUntil(this.dialogClosed$)
+    ).subscribe((res) => {
+      //console.log("raw: ",this.inputFg.getRawValue())
+    });
 
+    //TODO: dynamic change form control depending on opened...
+    this.filteredUsers = this.player1Ctrl.valueChanges.pipe(
+      startWith(""),
+      map(value => this._filter(value))
+    );
+
+  }
+
+  onSelectOpen(ctrlName: string) {
+    console.log(ctrlName)
+  }
+
+  private _filter(value: any): User[] {
+    let filterValue = "";
+    if (!(typeof value === 'string' || (value instanceof String))) {
+      filterValue = value.user.id;
+    } else {
+      filterValue = value.toLowerCase();
+    }
+    
+    if (value) {
+      return this.allUsers.filter((user: User) => {
+        return user.user.id.toLowerCase().indexOf(filterValue) >= 0
+      });
+    }
+    return this.allUsers;
   }
 
   constructStepperObj() {
     this.steps.push(
       new StepperObj("Player One", 'ID/Name', 'Select a player', 'player1Id'),
       new StepperObj("Player Two", 'ID/Name', 'Select a player', 'player2Id'),
-      new StepperObj("Total Games Count", 'ID/Name', 'Total amount of games in this season', 'gamesCount'),
+      new StepperObj("Total Games Count", 'Number of games', 'Total amount of games in this season', 'gamesCount'),
       new StepperObj("Review", null, null, "review")
     )
   }
@@ -89,8 +127,21 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     this.seasonStepper.previous();
   }
 
-  ngOnDestroy() {
+  playerIdDisplayFn(user: User): string | undefined {
+    let result: string;
+    if (user) {
+      result = user.user.id;
+      if (user.user.firstName || user.user.lastName) {
+        result += (" (" + user.user.firstName + ", " + user.user.lastName + ")")
+      }
+    }
+    return result;
+  }
 
+  
+  ngOnDestroy() {
+    this.dialogClosed$.next();
+    this.dialogClosed$.complete();
   }
 }
 

@@ -30,10 +30,19 @@ export class User {
 
 export class UserInfo {
   constructor(public id: string = null,
-    public firstName: string = "", 
-    public lastName: string = "",
-    public avatar: string,
-    public logIns: UserLogins[]) {
+    public firstName: string = null, 
+    public lastName: string = null,
+    public avatar: string = "",
+    public logIns: UserLogins[] = []) {
+      if (!id) {
+        this.id = "Unknown";
+      }
+      if (!firstName) {
+        this.firstName = "Johnny";
+      }
+      if (!lastName) {
+        this.lastName = "Appleseed";
+      }
   }
 }
 

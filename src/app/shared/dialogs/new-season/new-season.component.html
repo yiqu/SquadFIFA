@@ -21,53 +21,34 @@
             {{step.labelName}}
           </span>
         </ng-template>
+        
+        <input *ngIf="!isLast && step.formCtrlName !== 'gamesCount'" type="text" 
+          placeholder="Select a player" matInput 
+          [formControlName]="step.formCtrlName" [matAutocomplete]="playerAuto">
+        <mat-autocomplete [autoActiveFirstOption]="false" (opened)="onSelectOpen(step.formCtrlName)"
+          #playerAuto="matAutocomplete" [displayWith]="playerIdDisplayFn">
+          <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+            {{user.user.id}}
+          </mat-option>
+        </mat-autocomplete>
 
-        <mat-form-field *ngIf="!isLast" class="mt-2">
+        <mat-form-field *ngIf="!isLast && step.formCtrlName === 'gamesCount'" class="mt-2">
           <input matInput [placeholder]="step.phDisplay" [formControlName]="step.formCtrlName">
           <mat-hint>{{step.hint}}</mat-hint>
         </mat-form-field>
 
         <div class="mt-4">
-          <button class="mr-2" mat-flat-button *ngIf="!isFirst" mat-button [color]="'accent'" (click)="onBack(i)">
-            {{step.buttonBackDisplay}}
+          <button class="mr-2" mat-flat-button *ngIf="!isFirst" mat-button [color]="'accent'" 
+            (click)="onBack(i)">
+              {{step.buttonBackDisplay}}
           </button>
           <button mat-flat-button mat-button [color]="'primary'" 
             (click)="onNext(isLast, i)">
-            {{isLast ? 'Submit' : step.buttonNextDisplay}}
+              {{isLast ? 'Submit' : step.buttonNextDisplay}}
           </button>
         </div>
 
       </mat-step>
-
-      <!-- <mat-step>
-        <ng-template matStepLabel>Player One ID</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="ID" formControlName="player1Id">
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext color="primary">Next</button>
-        </div>
-      </mat-step>
-  
-      <mat-step>
-        <ng-template matStepLabel>Player Two ID</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="ID" formControlName="player2Id">
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext color="primary">Next</button>
-        </div>
-      </mat-step>
-  
-      <mat-step>
-        <ng-template matStepLabel>Review</ng-template>
-        Values...
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Submit</button>
-        </div>
-      </mat-step> -->
     </mat-vertical-stepper>
   </form>
   
