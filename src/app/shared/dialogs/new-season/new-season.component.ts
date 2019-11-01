@@ -30,6 +30,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
   subTitleSuffix: string = " on going seasons. Would you like to start a new one?";
   inputData: any;
   dialogClosed$: Subject<any> = new Subject();
+  selectClosed$: Subject<any> = new Subject();
   allUsers: User[] = [];
   filteredUsers: Observable<User[]>;
 
@@ -77,22 +78,24 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     this.inputFg.valueChanges.pipe(
       takeUntil(this.dialogClosed$)
     ).subscribe((res) => {
-      //console.log("raw: ",this.inputFg.getRawValue())
+      //console.log("raw: ",this.inputFg)
     });
-
-    //TODO: dynamic change form control depending on opened...
-    this.filteredUsers = this.player1Ctrl.valueChanges.pipe(
-      startWith(""),
-      map(value => this._filter(value))
-    );
-
   }
 
   onSelectOpen(ctrlName: string) {
-    console.log(ctrlName)
   }
 
-  private _filter(value: any): User[] {
+  onSelectClosed() {
+  }
+
+  onSelectFocus(ctrlName: string) {
+    this.filteredUsers = this.inputFg.get(ctrlName).valueChanges.pipe(
+      startWith(""),
+      map(value => this.filterInput(value))
+    );
+  }
+
+  private filterInput(value: any): User[] {
     let filterValue = "";
     if (!(typeof value === 'string' || (value instanceof String))) {
       filterValue = value.user.id;
@@ -102,7 +105,9 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     
     if (value) {
       return this.allUsers.filter((user: User) => {
-        return user.user.id.toLowerCase().indexOf(filterValue) >= 0
+        const wholeName: string = user.user.id + " " + user.user.firstName + 
+          " " + user.user.lastName;
+        return (wholeName.toLowerCase().indexOf(filterValue) >= 0)
       });
     }
     return this.allUsers;

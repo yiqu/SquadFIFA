@@ -23,12 +23,12 @@
         </ng-template>
         
         <input *ngIf="!isLast && step.formCtrlName !== 'gamesCount'" type="text" 
-          placeholder="Select a player" matInput 
+          placeholder="Select a player" matInput (focus)="onSelectFocus(step.formCtrlName)"
           [formControlName]="step.formCtrlName" [matAutocomplete]="playerAuto">
         <mat-autocomplete [autoActiveFirstOption]="false" (opened)="onSelectOpen(step.formCtrlName)"
-          #playerAuto="matAutocomplete" [displayWith]="playerIdDisplayFn">
+          (closed)="onSelectClosed()" #playerAuto="matAutocomplete" [displayWith]="playerIdDisplayFn">
           <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
-            {{user.user.id}}
+            {{user.user.id}} ({{user.user.firstName}}, {{user.user.lastName}})
           </mat-option>
         </mat-autocomplete>
 
