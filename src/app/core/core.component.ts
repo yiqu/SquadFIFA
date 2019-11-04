@@ -25,7 +25,7 @@ export class CoreComponent implements OnInit {
   allSeasons: ISeason[] = [];
 
   constructor(public router: Router, public route: ActivatedRoute,
-    public dialog: MatDialog, public cs: CoreService) {
+    public dialog: MatDialog, public cs: CoreService, public ls: LoginService) {
   }
 
   ngOnInit() {
@@ -45,6 +45,7 @@ export class CoreComponent implements OnInit {
   }
 
   openDialog(dialogData: any): void {
+    this.ls.queryAllUsers();
     const dialogRef = this.dialog.open(NewSeasonComponent, {
       minWidth: '350px',
       autoFocus: true,
@@ -54,8 +55,8 @@ export class CoreComponent implements OnInit {
       data: dialogData
     });
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      //this.ls.userLoggedIn(result);
+    dialogRef.afterClosed().subscribe((createdSeason: any) => {
+      console.log("season dialog: ", createdSeason)
     });
   }
 }

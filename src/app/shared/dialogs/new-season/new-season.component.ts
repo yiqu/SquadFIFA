@@ -13,6 +13,8 @@ import * as FUTILS from '../../../shared/utils/forms.utils';
 import * as VALS from '../../../shared/validators/general-validators'
 import { Subject, Observable } from 'rxjs';
 import { User } from '../../model/user.model';
+import { numOnlyValidator } from '../../../shared/validators/general-validators';
+import { StepperObj } from '../../../shared/model/general-model';
 
 @Component({
   selector: 'app-dialog-new-season',
@@ -33,9 +35,13 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
   selectClosed$: Subject<any> = new Subject();
   allUsers: User[] = [];
   filteredUsers: Observable<User[]>;
+  formErrors: string[] = [];
+  triedToSubmit: boolean = false;
 
   inputFg: FormGroup;
   steps: StepperObj[] = [];
+  btnConfirm: string = "Start season";
+  btnCancel: string = "Never mind";
 
   get player1Ctrl(): AbstractControl {
     return this.inputFg.get('player1Id');
@@ -61,7 +67,6 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
         takeUntil(this.dialogClosed$)
       ).subscribe((users: User[]) => {
         this.allUsers = users;
-        console.log(this.allUsers)
       })
   }
 
@@ -71,14 +76,21 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     this.inputFg = this.fb.group({
       player1Id: FUTILS.createFormControl(null, false, [Validators.required]),
       player2Id: FUTILS.createFormControl(null, false, [Validators.required]),
-      gamesCount: FUTILS.createFormControl(8, false, [Validators.required]),
+      gamesCount: FUTILS.createFormControl(8, false, [Validators.required, Validators.min(1),
+        numOnlyValidator]),
       review: FUTILS.createFormControl(null, true),
     });
 
+    console.log("init ",this.inputFg.valid)
     this.inputFg.valueChanges.pipe(
       takeUntil(this.dialogClosed$)
     ).subscribe((res) => {
-      //console.log("raw: ",this.inputFg)
+      console.log(this.inputFg);
+    },
+    (err) => {
+    },
+    () => {
+      console.log("new szn form CHANGES done.")
     });
   }
 
@@ -117,18 +129,22 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     this.steps.push(
       new StepperObj("Player One", 'ID/Name', 'Select a player', 'player1Id'),
       new StepperObj("Player Two", 'ID/Name', 'Select a player', 'player2Id'),
-      new StepperObj("Total Games Count", 'Number of games', 'Total amount of games in this season', 'gamesCount'),
+      new StepperObj("Total Games Count", 'Number of games', 'Total amount of games in this season.', 'gamesCount'),
       new StepperObj("Review", null, null, "review")
     )
   }
 
   onNext(isLastStep: boolean, index: number) {
-    console.log(isLastStep, index);
     this.seasonStepper.next();
+    // if it is the last step, submit to save new season (if not errors)
+    if (this.seasonStepper.selectedIndex === (this.steps.length - 1)) {
+      this.triedToSubmit = true;
+      console.log("Submitting...")
+      this.getAllErrors();
+    }
   }
 
   onBack(index: number) {
-    console.log(index)
     this.seasonStepper.previous();
   }
 
@@ -143,6 +159,27 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     return result;
   }
 
+  onConfirm() {
+    this.triedToSubmit = true;
+    if (this.inputFg.valid) {
+      this.dialogRef.close();
+    }
+  }
+
+  onCancel() {
+    this.dialogRef.close();
+  }
+
+  getAllErrors() {
+    this.formErrors = [];
+    for (let key1 of Object.keys(this.inputFg.controls)) {
+      if (this.inputFg.get(key1).errors) {
+        for (let key2 of Object.keys(this.inputFg.get(key1).errors)) {
+          this.formErrors.push(key2);
+        }
+      }
+    }
+  }
   
   ngOnDestroy() {
     this.dialogClosed$.next();
@@ -150,13 +187,3 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
   }
 }
 
-export class StepperObj {
-  constructor(public labelName: string, 
-    public phDisplay: string, 
-    public hint: string,
-    public formCtrlName: string,
-    public buttonNextDisplay: string = "Next",
-    public buttonBackDisplay: string = "Back") {
-
-  }
-}

@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RecordCountPipe } from './record.pipe';
 import { TeamNamePipe } from './team-name.pipe';
+import { UserDisplayPipe } from './user-name.pipe';
 
 @NgModule({
   imports: [],
   exports: [
     RecordCountPipe,
-    TeamNamePipe
+    TeamNamePipe,
+    UserDisplayPipe
   ],
 
   declarations: [
     RecordCountPipe,
-    TeamNamePipe
+    TeamNamePipe,
+    UserDisplayPipe
   ],
 
   providers: [],

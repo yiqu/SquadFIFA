@@ -34,7 +34,7 @@ export class UserInfo {
     public lastName: string = null,
     public avatar: string = "",
     public logIns: UserLogins[] = []) {
-      if (!id) {
+      if (id == null || id == undefined) {
         this.id = "Unknown";
       }
       if (!firstName) {

@@ -17,14 +17,15 @@
       <mat-step *ngFor="let step of steps; index as i; first as isFirst; last as isLast">
         
         <ng-template matStepLabel>
-          <span class="right-font">
-            {{step.labelName}}
+          <span class="right-font font-20">
+            Select {{step.labelName}}
           </span>
         </ng-template>
         
         <input *ngIf="!isLast && step.formCtrlName !== 'gamesCount'" type="text" 
           placeholder="Select a player" matInput (focus)="onSelectFocus(step.formCtrlName)"
           [formControlName]="step.formCtrlName" [matAutocomplete]="playerAuto">
+          
         <mat-autocomplete [autoActiveFirstOption]="false" (opened)="onSelectOpen(step.formCtrlName)"
           (closed)="onSelectClosed()" #playerAuto="matAutocomplete" [displayWith]="playerIdDisplayFn">
           <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
@@ -37,6 +38,18 @@
           <mat-hint>{{step.hint}}</mat-hint>
         </mat-form-field>
 
+        <section class="row" *ngIf="step.formCtrlName === 'review'">
+          <div class="col-md-4 text-break font-weight-bold text-warning font-20">
+            {{player1Ctrl.value | userDisplay:'first_id'}}
+          </div>
+          <div class="col-md-4 right-font font-italic font-weight-bold font-20">
+            vs.
+          </div>
+          <div class="col-md-4 text-break font-weight-bold text-success font-20">
+            {{player2Ctrl.value | userDisplay:'first_id'}}
+          </div>
+        </section>
+
         <div class="mt-4">
           <button class="mr-2" mat-flat-button *ngIf="!isFirst" mat-button [color]="'accent'" 
             (click)="onBack(i)">
@@ -44,14 +57,22 @@
           </button>
           <button mat-flat-button mat-button [color]="'primary'" 
             (click)="onNext(isLast, i)">
-              {{isLast ? 'Submit' : step.buttonNextDisplay}}
+              {{isLast ? btnConfirm : step.buttonNextDisplay}}
           </button>
         </div>
-
       </mat-step>
     </mat-vertical-stepper>
   </form>
-  
+  <div class="text-danger font-12 d-block mt-4" *ngIf="!inputFg.valid && triedToSubmit">
+    Please fix the following errors before starting the season:
+    <ul *ngFor="let err of formErrors">
+      <li>{{err}}</li>
+    </ul>
+  </div>
+</div>
 
-
+<div mat-dialog-actions class="right-font float-right">
+  <button mat-flat-button (click)="onCancel()" color="accent">
+    {{ btnCancel }}
+  </button>
 </div>

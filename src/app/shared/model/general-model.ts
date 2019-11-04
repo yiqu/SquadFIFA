@@ -4,3 +4,13 @@ export class NavItem {
   }
 }
 
+export class StepperObj {
+  constructor(public labelName: string, 
+    public phDisplay: string, 
+    public hint: string,
+    public formCtrlName: string,
+    public buttonNextDisplay: string = "Next",
+    public buttonBackDisplay: string = "Back") {
+
+  }
+}

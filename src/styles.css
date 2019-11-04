@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import url('https://fonts.googleapis.com/css?family=Roboto:100i,300i,100,300,400,400i');
 @import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
@@ -45,6 +45,10 @@ p {
   font-family: 'Permanent Marker', cursive;
 }
 
+.font-30 {
+  font-size: 30px;
+}
+
 .font-20 {
   font-size: 20px;
 }
@@ -59,6 +63,10 @@ p {
 
 .font-15 {
   font-size: 15px;
+}
+
+.font-12 {
+  font-size: 12px;
 }
 
 .font-10 {

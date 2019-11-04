@@ -39,7 +39,7 @@ export class LoginService {
 
   createInitUser(): User {
     let u = new User();
-    u.setUser(new UserInfo(null, null, null, null, []));
+    u.setUser(new UserInfo("", null, null, null, []));
     return u;
   }
 
