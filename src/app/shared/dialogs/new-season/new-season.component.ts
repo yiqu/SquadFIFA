@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper'; 
-import { MatButton } from '@angular/material/button';
 import {FormBuilder, FormGroup, Validators, FormControl, AbstractControl} from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { HttpResponse } from '@angular/common/http';
+import { ToastrService, Toast } from 'ngx-toastr';
 import { take, map, switchMap, exhaustMap, concatMap, tap, 
   takeUntil, mergeMap, startWith } from 'rxjs/operators';
 import { CrudRestServie } from '../../../shared/services/crud.service';
@@ -15,6 +13,7 @@ import { Subject, Observable } from 'rxjs';
 import { User } from '../../model/user.model';
 import { numOnlyValidator } from '../../../shared/validators/general-validators';
 import { StepperObj } from '../../../shared/model/general-model';
+import { ISeason, Season } from '../../model/season.model';
 
 @Component({
   selector: 'app-dialog-new-season',
@@ -57,7 +56,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
 
   constructor(public ls: LoginService, public cs: CrudRestServie,
     public dialogRef: MatDialogRef<NewSeasonComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder, public ts: ToastrService) {
       console.log(data, dialogRef.id)
       if (data !== null) {
         this.inputData = data;
@@ -81,11 +80,10 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
       review: FUTILS.createFormControl(null, true),
     });
 
-    console.log("init ",this.inputFg.valid)
     this.inputFg.valueChanges.pipe(
       takeUntil(this.dialogClosed$)
     ).subscribe((res) => {
-      console.log(this.inputFg);
+     // console.log(this.inputFg);
     },
     (err) => {
     },
@@ -127,9 +125,10 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
 
   constructStepperObj() {
     this.steps.push(
-      new StepperObj("Player One", 'ID/Name', 'Select a player', 'player1Id'),
-      new StepperObj("Player Two", 'ID/Name', 'Select a player', 'player2Id'),
-      new StepperObj("Total Games Count", 'Number of games', 'Total amount of games in this season.', 'gamesCount'),
+      new StepperObj("Select Player One", 'ID/Name', 'Select a player', 'player1Id'),
+      new StepperObj("Select Player Two", 'ID/Name', 'Select a player', 'player2Id'),
+      new StepperObj("Set Total Games Count", 'Number of games', 'Total amount of games in this season.', 
+        'gamesCount'),
       new StepperObj("Review", null, null, "review")
     )
   }
@@ -139,8 +138,11 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     // if it is the last step, submit to save new season (if not errors)
     if (this.seasonStepper.selectedIndex === (this.steps.length - 1)) {
       this.triedToSubmit = true;
-      console.log("Submitting...")
       this.getAllErrors();
+      if (this.inputFg.valid && this.formErrors.length === 0) {
+        console.log("all good")
+        this.constructSeason();
+      }
     }
   }
 
@@ -179,6 +181,10 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  constructSeason() {
+    console.log(this.inputFg)
   }
   
   ngOnDestroy() {

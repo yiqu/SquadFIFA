@@ -15,10 +15,9 @@
   <form [formGroup]="inputFg">
     <mat-vertical-stepper linear="false" #seasonStepper>
       <mat-step *ngFor="let step of steps; index as i; first as isFirst; last as isLast">
-        
         <ng-template matStepLabel>
           <span class="right-font font-20">
-            Select {{step.labelName}}
+            {{step.labelName}}
           </span>
         </ng-template>
         
@@ -38,15 +37,22 @@
           <mat-hint>{{step.hint}}</mat-hint>
         </mat-form-field>
 
-        <section class="row" *ngIf="step.formCtrlName === 'review'">
-          <div class="col-md-4 text-break font-weight-bold text-warning font-20">
-            {{player1Ctrl.value | userDisplay:'first_id'}}
+        <section *ngIf="step.formCtrlName === 'review'">
+          <div class="row">
+            <div class="col-md-4 text-break text-warning font-20">
+              {{player1Ctrl.value | userDisplay:'first_id'}}
+            </div>
+            <div class="col-md-4 right-font font-italic font-weight-bold font-20">
+              vs.
+            </div>
+            <div class="col-md-4 text-break text-success font-20">
+              {{player2Ctrl.value | userDisplay:'first_id'}}
+            </div>
           </div>
-          <div class="col-md-4 right-font font-italic font-weight-bold font-20">
-            vs.
-          </div>
-          <div class="col-md-4 text-break font-weight-bold text-success font-20">
-            {{player2Ctrl.value | userDisplay:'first_id'}}
+          <div class="row">
+            <div class="col-md-12 font-15 mt-2 roboto-font">
+              Total of {{gamesCount.value}} games in this season.
+            </div>
           </div>
         </section>
 
