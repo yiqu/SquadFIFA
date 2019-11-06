@@ -14,6 +14,7 @@ import { User } from '../../model/user.model';
 import { numOnlyValidator } from '../../../shared/validators/general-validators';
 import { StepperObj } from '../../../shared/model/general-model';
 import { ISeason, Season } from '../../model/season.model';
+import { isObject } from '../../../shared/pipes/user-name.pipe';
 
 @Component({
   selector: 'app-dialog-new-season',
@@ -28,7 +29,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
 
   title: string = "Add New Season";
   subTitle: string = "There are currently ";
-  subTitleSuffix: string = " on going seasons. Would you like to start a new one?";
+  subTitleSuffix: string = " on-going seasons. Would you like to start a new one?";
   inputData: any;
   dialogClosed$: Subject<any> = new Subject();
   selectClosed$: Subject<any> = new Subject();
@@ -134,15 +135,15 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
   }
 
   onNext(isLastStep: boolean, index: number) {
-    this.seasonStepper.next();
     // if it is the last step, submit to save new season (if not errors)
     if (this.seasonStepper.selectedIndex === (this.steps.length - 1)) {
       this.triedToSubmit = true;
       this.getAllErrors();
       if (this.inputFg.valid && this.formErrors.length === 0) {
-        console.log("all good")
         this.constructSeason();
       }
+    } else {
+      this.seasonStepper.next();
     }
   }
 
@@ -161,18 +162,12 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  onConfirm() {
-    this.triedToSubmit = true;
-    if (this.inputFg.valid) {
-      this.dialogRef.close();
-    }
-  }
-
   onCancel() {
     this.dialogRef.close();
   }
 
   getAllErrors() {
+    // collect all error states from each form control
     this.formErrors = [];
     for (let key1 of Object.keys(this.inputFg.controls)) {
       if (this.inputFg.get(key1).errors) {
@@ -181,10 +176,23 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
         }
       }
     }
+    // check if selected players are duplicated
+    const p1Hash = isObject(this.player1Ctrl.value) ? 
+      this.player1Ctrl.value.hashKey : this.player1Ctrl.value;
+    const p2Hash = isObject(this.player2Ctrl.value) ? 
+      this.player2Ctrl.value.hashKey : this.player2Ctrl.value;
+    if (p1Hash === p2Hash) {
+      this.formErrors.push("Duplicated");
+    }
   }
 
   constructSeason() {
     console.log(this.inputFg)
+    const p1 = this.player1Ctrl.value;
+    const p2 = this.player2Ctrl.value;
+    const games = this.gamesCount.value;
+    console.log(p1, p2, games)
+
   }
   
   ngOnDestroy() {

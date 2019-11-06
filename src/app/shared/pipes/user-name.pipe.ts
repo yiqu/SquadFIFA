@@ -11,6 +11,9 @@ export class UserDisplayPipe implements PipeTransform {
       result = "Not Selected";
       return result;
     }
+    if (!isObject(value)) {
+      return value + " (Unregistered User)";
+    }
     switch(option) {
       case "first_last": {
         result = value.user.firstName + " " + value.user.lastName;
@@ -38,4 +41,8 @@ export class UserDisplayPipe implements PipeTransform {
     }
     return result;
   }
+}
+
+export function isObject(test: any) {
+  return typeof test === 'object' && test !== null;
 }

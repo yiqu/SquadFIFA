@@ -39,19 +39,19 @@
 
         <section *ngIf="step.formCtrlName === 'review'">
           <div class="row">
-            <div class="col-md-4 text-break text-warning font-20">
-              {{player1Ctrl.value | userDisplay:'first_id'}}
+            <div class="col-md-4 text-break text-primary font-15">
+              {{player1Ctrl.value | userDisplay:'first_id' | titlecase}}
             </div>
-            <div class="col-md-4 right-font font-italic font-weight-bold font-20">
+            <div class="col-md-4 right-font font-italic font-weight-bold font-15">
               vs.
             </div>
-            <div class="col-md-4 text-break text-success font-20">
-              {{player2Ctrl.value | userDisplay:'first_id'}}
+            <div class="col-md-4 text-break text-success font-15">
+              {{player2Ctrl.value | userDisplay:'first_id' | titlecase}}
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12 font-15 mt-2 roboto-font">
-              Total of {{gamesCount.value}} games in this season.
+            <div class="col-md-12 font-13 mt-2 roboto-font text-info">
+              Season length: {{gamesCount.value}} games.
             </div>
           </div>
         </section>
@@ -69,7 +69,8 @@
       </mat-step>
     </mat-vertical-stepper>
   </form>
-  <div class="text-danger font-12 d-block mt-4" *ngIf="!inputFg.valid && triedToSubmit">
+  <div class="text-danger font-12 d-block mt-4" 
+    *ngIf="triedToSubmit && (!inputFg.valid || formErrors.length>0)">
     Please fix the following errors before starting the season:
     <ul *ngFor="let err of formErrors">
       <li>{{err}}</li>
