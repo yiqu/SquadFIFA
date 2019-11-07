@@ -38,10 +38,10 @@ export class UserInfo {
         this.id = "Unknown";
       }
       if (!firstName) {
-        this.firstName = "Johnny";
+        this.firstName = "J";
       }
       if (!lastName) {
-        this.lastName = "Appleseed";
+        this.lastName = "D";
       }
   }
 }

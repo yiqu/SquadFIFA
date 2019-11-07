@@ -9,12 +9,14 @@ import { CrudRestServie } from '../../../shared/services/crud.service';
 import { LoginService } from '../../services/user.service';
 import * as FUTILS from '../../../shared/utils/forms.utils';
 import * as VALS from '../../../shared/validators/general-validators'
-import { Subject, Observable } from 'rxjs';
-import { User } from '../../model/user.model';
+import { Subject, Observable, of } from 'rxjs';
+import { User, UserInfo } from '../../model/user.model';
 import { numOnlyValidator } from '../../../shared/validators/general-validators';
-import { StepperObj } from '../../../shared/model/general-model';
-import { ISeason, Season } from '../../model/season.model';
+import { StepperObj, IFireBaseResponse } from '../../../shared/model/general-model';
+import { ISeason, Season, SeasonRecord, Editor } from '../../model/season.model';
 import { isObject } from '../../../shared/pipes/user-name.pipe';
+import { CoreService } from '../../services/core.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dialog-new-season',
@@ -57,7 +59,8 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
 
   constructor(public ls: LoginService, public cs: CrudRestServie,
     public dialogRef: MatDialogRef<NewSeasonComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder, public ts: ToastrService) {
+    @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder, public ts: ToastrService,
+    public crs: CoreService) {
       console.log(data, dialogRef.id)
       if (data !== null) {
         this.inputData = data;
@@ -187,11 +190,32 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
   }
 
   constructSeason() {
-    console.log(this.inputFg)
-    const p1 = this.player1Ctrl.value;
-    const p2 = this.player2Ctrl.value;
+    const p1Id = isObject(this.player1Ctrl.value) ? 
+      this.player1Ctrl.value : new User(new UserInfo(this.player1Ctrl.value), false, false, null, null);
+    const p2Id = isObject(this.player2Ctrl.value) ? 
+      this.player2Ctrl.value : new User(new UserInfo(this.player2Ctrl.value), false, false, null, null);
     const games = this.gamesCount.value;
-    console.log(p1, p2, games)
+
+    const season = new Season("hash", p1Id, p2Id, null, null, games, [p1Id, p2Id], [p1Id, p2Id], [], undefined,
+      new Date().getTime(), undefined, "FALSE", false, false, false, new Editor(new Date().getTime(), p1Id));
+    console.log(season)
+    this.crs.createNewSeason(season).pipe(
+      concatMap((res: HttpResponse<IFireBaseResponse>) => {
+        if (res.ok && res.body.name) {
+          season.hashKey = res.body.name;
+          return this.crs.editSeason(season, res.body.name);
+        }
+        return of(null);
+      })
+    )
+    .subscribe((res: HttpResponse<ISeason>) => {
+      this.ts.success("The new season is created! (" + res.body.hashKey + ")", "New season!");
+    },
+    (err) => {
+    },
+    () => {
+      console.log("done");
+    });
 
   }
   

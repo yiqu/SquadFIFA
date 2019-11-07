@@ -22,7 +22,6 @@ export interface ISeason {
 }
 
 export class Season implements ISeason {
-  readonly TOTAL_GAMES_PER_SEASON: number = 8;
 
   constructor(
     public hashKey: string = null,
@@ -30,7 +29,7 @@ export class Season implements ISeason {
     public player2: User,
     public player1Record: SeasonRecord,
     public player2Record: SeasonRecord,
-    public gamesTotal: number = 0,
+    public gamesTotal: number = 8,
     public owners: User[] = [],
     public controllers: User[] = [],
     public games: IGame[] = [],
@@ -65,11 +64,20 @@ export class Season implements ISeason {
       }
 
       this.games = [];
-      games.forEach((game: Game) => {
-        if (game) {
-          this.games.push(new Game(game.controllers, game.finished, game.datePlayed, game.gameWinner));
-        }
-      })
+      if (games.length > 0) {
+        games.forEach((game: Game) => {
+          if (game) {
+            this.games.push(new Game(game.controllers, game.finished, game.datePlayed, game.gameWinner));
+          }
+        });
+      } else {
+        let gameCs: IGameController[] = [];
+        gameCs.push(new GameController(0, [], undefined, this.player1));
+        gameCs.push(new GameController(0, [], undefined, this.player2));
+        console.log(gameCs)
+        this.games.push(new Game(gameCs, false, 0, undefined));
+      }
+      
 
       this.startDate = startDate ? startDate : new Date().getTime();
 
@@ -86,7 +94,7 @@ export class Season implements ISeason {
 
       this.archived = archived;
       
-      if (this.games.length >= this.TOTAL_GAMES_PER_SEASON) {
+      if (this.games.length >= this.gamesTotal) {
         this.completed = true;
       } else {
         this.completed = false;
@@ -177,7 +185,7 @@ export class Season implements ISeason {
    * If season is completed
    */
   public getCompleted(): boolean {
-    if (this.games.length >= this.TOTAL_GAMES_PER_SEASON) {
+    if (this.games.length >= this.gamesTotal) {
       return true;
     }
     return false;

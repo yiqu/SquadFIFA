@@ -53,6 +53,16 @@ export class CoreService {
     );
   }
 
+  createNewSeason(season: ISeason): Observable<HttpResponse<any>> {
+    return this.rs.postData(season, SEASON_PATH);
+  }
+
+  //https://kq-1-1a499.firebaseio.com/fifa/seasons/-Lt2zkD1WwVfzv5xxKVr.json
+  editSeason(season: ISeason, hash: string): Observable<HttpResponse<any>> {
+    const seasonPath: string = "seasons/" + hash + ".json";
+    return this.rs.putData(season, seasonPath);
+  }
+
   normalizeSeasonResponse(res: HttpResponse<ISeason[]>): ISeason[] {
     let result: ISeason[] = [];
     console.log(res.body)

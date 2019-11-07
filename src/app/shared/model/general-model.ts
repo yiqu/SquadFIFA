@@ -14,3 +14,7 @@ export class StepperObj {
 
   }
 }
+
+export interface IFireBaseResponse {
+  name: string;
+}
