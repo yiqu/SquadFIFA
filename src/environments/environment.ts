@@ -12,7 +12,7 @@
 
 export const environment = {
   production: false,
-  restDelay: 300,
+  restDelay: 1500,
   urlBase: "https://kq-1-1a499.firebaseio.com/fifa/"
 };
 

@@ -5,6 +5,7 @@ import { LoginDialogComponent } from './login/login.component';
 import { MaterialModules } from '../material-module';
 import { NewSeasonComponent } from './new-season/new-season.component';
 import { PipesBarrelModule } from '../../shared/pipes/pipes.module';
+import { LoadingBarModule } from '../../shared/loading/loading.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { PipesBarrelModule } from '../../shared/pipes/pipes.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModules,
-    PipesBarrelModule
+    PipesBarrelModule,
+    LoadingBarModule
   ],
 
   exports: [

@@ -1,0 +1,11 @@
+.loading-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 10px;
+}
+
+.loading-margin {
+  max-width: 200px;
+  margin: 0 auto;
+}

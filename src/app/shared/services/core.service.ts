@@ -34,7 +34,6 @@ export class CoreService {
       (resultSeasons: ISeason[]) => {
         this.allSeasonsLoading = false;
         this.allSeasons$.next(resultSeasons);
-        console.log(resultSeasons);
       },
       (err) => {
         this.allSeasonsLoading = false;
@@ -65,9 +64,9 @@ export class CoreService {
 
   normalizeSeasonResponse(res: HttpResponse<ISeason[]>): ISeason[] {
     let result: ISeason[] = [];
-    console.log(res.body)
     if (res && res.ok && res.body) {
-
+      // normalize seasons
+      console.log("normalzing",res.body)
     }
     return result;
   }

@@ -199,6 +199,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     const season = new Season("hash", p1Id, p2Id, null, null, games, [p1Id, p2Id], [p1Id, p2Id], [], undefined,
       new Date().getTime(), undefined, "FALSE", false, false, false, new Editor(new Date().getTime(), p1Id));
     console.log(season)
+
     this.crs.createNewSeason(season).pipe(
       concatMap((res: HttpResponse<IFireBaseResponse>) => {
         if (res.ok && res.body.name) {
@@ -209,12 +210,12 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
       })
     )
     .subscribe((res: HttpResponse<ISeason>) => {
-      this.ts.success("The new season is created! (" + res.body.hashKey + ")", "New season!");
     },
     (err) => {
     },
     () => {
-      console.log("done");
+      this.ts.success("The new season is created.", "New season!");
+      this.dialogRef.close();
     });
 
   }

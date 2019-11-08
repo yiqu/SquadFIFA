@@ -56,7 +56,7 @@ export class CoreComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((createdSeason: any) => {
-      console.log("season dialog: ", createdSeason)
+      // fetch seasons
     });
   }
 }

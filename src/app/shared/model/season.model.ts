@@ -74,10 +74,8 @@ export class Season implements ISeason {
         let gameCs: IGameController[] = [];
         gameCs.push(new GameController(0, [], undefined, this.player1));
         gameCs.push(new GameController(0, [], undefined, this.player2));
-        console.log(gameCs)
         this.games.push(new Game(gameCs, false, 0, undefined));
       }
-      
 
       this.startDate = startDate ? startDate : new Date().getTime();
 
@@ -202,10 +200,7 @@ export interface IGame {
 export class Game implements IGame {
   constructor(public controllers: IGameController[], public finished: boolean = false, public datePlayed: number = 0, 
     public gameWinner?: IGameController) {
-      this.controllers = [];
-      controllers.forEach((control: IGameController) => {
-        this.controllers
-      });
+      this.controllers = controllers;
       this.finished = finished;
       this.datePlayed = datePlayed;
       this.gameWinner = gameWinner;

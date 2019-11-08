@@ -59,6 +59,7 @@ export class LoginService {
     let redirectPaths: string[] = [];
     let redirectPathValue: string = this.route.snapshot.queryParams[REDIRECT_KEY];
 
+    // set user to user subject, and set params
     if (data.isUser) {
       this.setUserData(data);
       qparams['user'] = data.user.id;
@@ -66,6 +67,7 @@ export class LoginService {
       qparams = null;
     }
 
+    //set redirect path to the path you were on if the user is valid, or go back to home
     if (redirectPathValue) {
       if (redirectPathValue === SELF_ROUTE && !data.isUser) {
         redirectPaths = [];
@@ -79,6 +81,7 @@ export class LoginService {
       redirectPaths.push('/home')
     }
 
+    // navigate to it
     this.router.navigate(redirectPaths, {
       queryParams: qparams
     });

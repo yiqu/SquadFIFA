@@ -57,6 +57,7 @@ import {
     MatListModule,
     MatDividerModule,
     MatFormFieldModule,
+    MatProgressBarModule,
     MatIconModule,
     MatDialogModule,
     MatExpansionModule,
