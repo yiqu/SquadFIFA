@@ -8,6 +8,7 @@ import { delay, map, timeout, retry, retryWhen, delayWhen, tap,
 import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { ISeason, Season } from '../model/season.model';
+import * as UTILS from '../../shared/utils/general-utils';
 
 
 const SEASON_PATH: string = "seasons.json";
@@ -29,8 +30,7 @@ export class CoreService {
         this.allSeasonsLoading = true;
         return this.getSeasons();
       })
-    )
-    .subscribe(
+    ).subscribe(
       (resultSeasons: ISeason[]) => {
         this.allSeasonsLoading = false;
         this.allSeasons$.next(resultSeasons);
@@ -56,18 +56,15 @@ export class CoreService {
     return this.rs.postData(season, SEASON_PATH);
   }
 
-  //https://kq-1-1a499.firebaseio.com/fifa/seasons/-Lt2zkD1WwVfzv5xxKVr.json
   editSeason(season: ISeason, hash: string): Observable<HttpResponse<any>> {
     const seasonPath: string = "seasons/" + hash + ".json";
     return this.rs.putData(season, seasonPath);
   }
 
   normalizeSeasonResponse(res: HttpResponse<ISeason[]>): ISeason[] {
-    let result: ISeason[] = [];
     if (res && res.ok && res.body) {
-      // normalize seasons
-      console.log("normalzing",res.body)
+      return UTILS.objectToArray(res.body);
     }
-    return result;
+    return [];
   }
 }

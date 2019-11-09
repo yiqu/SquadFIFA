@@ -42,6 +42,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
   btnLogin: string = "Login";
   btnCancel: string;
   warningMsg: string;
+  isLoggingIn: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
@@ -91,6 +92,7 @@ console.log(dialogRef.id)
           this.setWarningMsg(null);
           this.loginRequesting = true;
           this.updateRegisterText();
+          this.isLoggingIn = true;
         }
       ),
       switchMap((res) => {
@@ -118,6 +120,7 @@ console.log(dialogRef.id)
           this.loginRequesting = false;
         }
         this.updateRegisterText();
+        this.isLoggingIn = false;
       },
       (err) => {
       },
@@ -133,6 +136,7 @@ console.log(dialogRef.id)
           this.setWarningMsg(null);
           this.loginRequesting = true;
           this.updateLoginText();
+          this.isLoggingIn = true;
         }
       ),
       switchMap((res: any) => {
@@ -143,7 +147,6 @@ console.log(dialogRef.id)
     )
     .subscribe(
       (res: HttpResponse<any>) => {
-        this.loginRequesting = false;
         this.updateLoginText();
         let results: User[] = UTILS.objectToArray(res.body);
         let loggedInUser: User = _.find(results, {user: {id: this.currentUser.user.id}});
@@ -152,6 +155,8 @@ console.log(dialogRef.id)
         } else {
           this.setWarningMsg("none");
         }
+        this.isLoggingIn = false;
+        this.loginRequesting = false;
       },
       (err) => {
       },

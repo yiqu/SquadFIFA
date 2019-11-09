@@ -39,7 +39,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
   filteredUsers: Observable<User[]>;
   formErrors: string[] = [];
   triedToSubmit: boolean = false;
-
+  isSeasonSaving: boolean = false;
   inputFg: FormGroup;
   steps: StepperObj[] = [];
   btnConfirm: string = "Start season";
@@ -198,26 +198,29 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
 
     const season = new Season("hash", p1Id, p2Id, null, null, games, [p1Id, p2Id], [p1Id, p2Id], [], undefined,
       new Date().getTime(), undefined, "FALSE", false, false, false, new Editor(new Date().getTime(), p1Id));
-    console.log(season)
 
-    this.crs.createNewSeason(season).pipe(
+    this.saveSeason(season);
+  }
+
+  saveSeason(s: Season) {
+    this.isSeasonSaving = true;
+    this.crs.createNewSeason(s).pipe(
       concatMap((res: HttpResponse<IFireBaseResponse>) => {
         if (res.ok && res.body.name) {
-          season.hashKey = res.body.name;
-          return this.crs.editSeason(season, res.body.name);
+          s.hashKey = res.body.name;
+          return this.crs.editSeason(s, res.body.name);
         }
         return of(null);
       })
-    )
-    .subscribe((res: HttpResponse<ISeason>) => {
+    ).subscribe((res: HttpResponse<ISeason>) => {
     },
     (err) => {
     },
     () => {
       this.ts.success("The new season is created.", "New season!");
       this.dialogRef.close();
+      this.isSeasonSaving = false;
     });
-
   }
   
   ngOnDestroy() {

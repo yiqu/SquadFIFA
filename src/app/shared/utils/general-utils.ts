@@ -3,7 +3,9 @@ export function objectToArray<T>(obj: any) {
   if (obj) {
     for (let key in obj) {
       let item = obj[key];
-      item['hashKey'] = key;
+      if (!item['hashKey']) {
+        item['hashKey'] = key;
+      }
       list.push(item);
     }
   }

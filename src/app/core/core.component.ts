@@ -30,7 +30,7 @@ export class CoreComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeToSeasonListener();
-    // fetch all seasons call
+    // fetch all seasons
     this.cs.fetchAllSeasons$.next();
   }
 
@@ -41,6 +41,7 @@ export class CoreComponent implements OnInit {
   subscribeToSeasonListener() {
     this.cs.allSeasons$.subscribe((seasons: ISeason[]) => {
       this.allSeasons = seasons;
+      console.log("ALL: ",this.allSeasons)
     });
   }
 
