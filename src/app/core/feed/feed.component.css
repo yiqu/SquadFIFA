@@ -1,0 +1,16 @@
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+.active-ul {
+  text-decoration: underline;
+}
+
+.title-container {
+  overflow: auto;
+}
+
+.mobile-title {
+  color: #4d5acb;
+}

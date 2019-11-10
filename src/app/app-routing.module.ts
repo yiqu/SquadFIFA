@@ -12,11 +12,18 @@ import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
 import { SelfCoreComponent } from './self/core/core.component';
 import { SelfEditComponent } from './self/edit/edit.component';
 import { SelfSeasonsComponent } from './self/seasons/seasons.component';
+import { FeedComponent } from './core/feed/feed.component';
+import { EditSeasonComponent } from './core/edit/edit.component';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: CoreComponent
+    component: CoreComponent,
+    children: [
+      { path: '', redirectTo: 'feed', pathMatch: 'full' },
+      { path: 'feed', component: FeedComponent },
+      { path: 'edit', component: EditSeasonComponent }
+    ]
   },
   { path: 'about', 
     loadChildren: () => import('./about/about.module').then(m => m.AboutModule) 
@@ -53,7 +60,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/home/feed',
     pathMatch: 'full'
   },
   {

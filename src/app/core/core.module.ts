@@ -7,6 +7,7 @@ import { MaterialModules } from '../shared/material-module';
 import { FeedComponent } from './feed/feed.component';
 import { PipesBarrelModule } from '../shared/pipes/pipes.module';
 import { EditSeasonComponent } from './edit/edit.component';
+import { CoreSideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { EditSeasonComponent } from './edit/edit.component';
   declarations: [
     CoreComponent,
     FeedComponent,
-    EditSeasonComponent
+    EditSeasonComponent,
+    CoreSideNavComponent
   ],
 
   providers: [],

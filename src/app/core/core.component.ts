@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginService } from '../shared/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../shared/model/user.model';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as FUTILS from '../shared/utils/forms.utils';
 import { NewSeasonComponent } from '../shared/dialogs/new-season/new-season.component';
 import { CoreService } from '../shared/services/core.service';
 import { ISeason } from '../shared/model/season.model';
 import { HttpResponse } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-core',
@@ -19,10 +20,11 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./core.component.css']
 })
 
-export class CoreComponent implements OnInit {
+export class CoreComponent implements OnInit, OnDestroy {
 
   newSeasonBtnLoad: boolean = false;
   allSeasons: ISeason[] = [];
+  onCompDestroy$: Subject<any> = new Subject();
 
   constructor(public router: Router, public route: ActivatedRoute,
     public dialog: MatDialog, public cs: CoreService, public ls: LoginService) {
@@ -39,9 +41,16 @@ export class CoreComponent implements OnInit {
   }
 
   subscribeToSeasonListener() {
-    this.cs.allSeasons$.subscribe((seasons: ISeason[]) => {
+    this.cs.allSeasons$.pipe(
+      takeUntil(this.onCompDestroy$)
+    ).subscribe((seasons: ISeason[]) => {
       this.allSeasons = seasons;
       console.log("ALL: ",this.allSeasons)
+    },
+    (err) => {
+    },
+    () => {
+      console.log("szn all done")
     });
   }
 
@@ -59,5 +68,10 @@ export class CoreComponent implements OnInit {
     dialogRef.afterClosed().subscribe((createdSeason: any) => {
       // fetch seasons
     });
+  }
+
+  ngOnDestroy() {
+    this.onCompDestroy$.next();
+    this.onCompDestroy$.complete();
   }
 }
