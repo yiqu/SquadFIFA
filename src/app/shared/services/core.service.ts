@@ -79,11 +79,9 @@ export class CoreService {
     if (e.matches) {
       /* the viewport is 600 pixels wide or less */
       this.isUserMobile = true;
-      console.log("mobile", this.isUserMobile)
     } else {
       /* the viewport is more than than 600 pixels wide */
       this.isUserMobile = false;
-      console.log("not mobile", this.isUserMobile)
     }
     //this.changeDetectorRef.detectChanges();
   }

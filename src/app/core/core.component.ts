@@ -45,7 +45,6 @@ export class CoreComponent implements OnInit, OnDestroy {
       takeUntil(this.onCompDestroy$)
     ).subscribe((seasons: ISeason[]) => {
       this.allSeasons = seasons;
-      console.log("ALL: ",this.allSeasons)
     },
     (err) => {
     },
@@ -67,6 +66,7 @@ export class CoreComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((createdSeason: any) => {
       // fetch seasons
+      this.cs.fetchAllSeasons$.next();
     });
   }
 

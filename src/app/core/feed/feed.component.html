@@ -1,35 +1,31 @@
-<div class="row mb-3 mt-3">
-  <div class="col-md-12">
-    <div class="d-flex title-container">
-      <h2 [ngClass]="{'mobile-title':this.cs.isUserMobile}">Seasons</h2>
-      <a *ngFor="let item of seasonCategoryLinks" 
-        [ngClass]="{'nav-item':true, 'nav-link':true, 'disabled-link disabled':item.disabled}" 
-        [routerLink]="item.params"
-        [preserveFragment]="false"
-        [queryParamsHandling]="item.handling"
-        [queryParams]="item.qparams"
-        [fragment]="item.fragment"
-        [routerLinkActiveOptions]="{exact:true}"
-        routerLinkActive="">
-          {{item.display}} 
-      </a>
-    </div>
-  </div>
+<div class="row mb-5 mt-2">
+  <h2 [ngClass]="{'mobile-title':this.cs.isUserMobile, 'col-md-6':true}">
+    {{title | titlecase}}
+  </h2>
+  <a *ngFor="let item of seasonCategoryLinks" 
+    [ngClass]="{'nav-item':true, 'nav-link':true, 'col-md-2':true,
+      'disabled-link disabled':item.disabled, 'selected':(currentFagment===item.fragment)}" 
+    [routerLink]="item.params"
+    [preserveFragment]="false"
+    [queryParamsHandling]="item.handling"
+    [queryParams]="item.qparams"
+    [fragment]="item.fragment"
+    [routerLinkActiveOptions]="{exact:true}"
+    routerLinkActive="">
+      {{item.display}} 
+  </a>
 </div>
 
-<div class="row">
+<div *ngFor="let season of allSeasons; index as seasonIndex; trackBy: trackByFn" class="row mb-5">
   <div class="col-md-8">
-    <mat-card class="example-card">
+    <mat-card class="season-card">
       <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        <mat-card-title>Season</mat-card-title>
+        <mat-card-subtitle>Winner:</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-          bred for hunting.
+          Season content.
         </p>
       </mat-card-content>
       <mat-card-actions>
@@ -39,4 +35,6 @@
     </mat-card>
   </div>
 </div>
+  
+
   

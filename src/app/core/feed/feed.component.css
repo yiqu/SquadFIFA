@@ -14,3 +14,24 @@ a {
 .mobile-title {
   color: #4d5acb;
 }
+
+.nav-item {
+  text-align: center;
+  background-color:#e5e7f5;
+  border-radius: 25px;
+  font-family: 'Righteous';
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.nav-item:hover {
+  color: #3f51b5;
+}
+
+.nav-item.selected:hover {
+  color: #fff;
+}
+
+a.selected {
+  background-color: #858cc3;
+}
