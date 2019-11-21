@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CoreService } from 'src/app/shared/services/core.service';
 import { take, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-core-feed',
@@ -17,7 +18,7 @@ export class FeedComponent implements OnInit, OnDestroy {
   
   seasonCategoryLinks: NavItem[] = [];
   onCompDestroy$: Subject<any> = new Subject();
-  allSeasons: ISeason[] = [];
+  seasonsDisplay: ISeason[] = [];
   currentFagment: string = "all";
   title: string = "";
 
@@ -43,8 +44,9 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.cs.allSeasons$.pipe(
       takeUntil(this.onCompDestroy$)
     ).subscribe((seasons: ISeason[]) => {
-      this.allSeasons = seasons;
-      console.log("ALL: ",this.allSeasons)
+      this.seasonsDisplay = seasons;
+      this.seasonsDisplay = this.sortSeasons("DESC");
+      console.log("ALL: ",this.seasonsDisplay)
     },
     (err) => {
     },
@@ -58,6 +60,20 @@ export class FeedComponent implements OnInit, OnDestroy {
       return null;
     }
     return item.hashKey;
+  }
+
+  sortSeasons(sortType: string) {
+    switch(sortType) {
+      case "ASC": {
+        return _.sortBy(this.seasonsDisplay, ['startDate']);
+      }
+      case "DESC": {
+        return (_.sortBy(this.seasonsDisplay, ['startDate'])).reverse();
+      }
+      default: {
+        return this.seasonsDisplay;
+      }
+    }
   }
 
   ngOnDestroy() {
