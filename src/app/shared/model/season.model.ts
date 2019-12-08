@@ -19,6 +19,7 @@ export interface ISeason {
   completed: boolean;
   editing: boolean;
   lastEdited: Editor;
+  title: string;
 }
 
 export class Season implements ISeason {
@@ -40,8 +41,9 @@ export class Season implements ISeason {
     public archived: boolean = false,
     public completed: boolean = false,
     public editing: boolean = false,
-    public lastEdited: Editor) {
-
+    public lastEdited: Editor,
+    public title: string) {
+      
       this.hashKey = hashKey;
       this.player1 = new User(player1.user, player1.admin, player1.isUser, player1.data, player1.hashKey);
       this.player2 = new User(player2.user, player2.admin, player2.isUser, player2.data, player2.hashKey);

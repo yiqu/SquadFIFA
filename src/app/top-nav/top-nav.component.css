@@ -7,7 +7,7 @@
 .logo-side {
   position: absolute;
   transform: rotate(335deg);
-  left: -17px;
+  left: 100px;
   top: 10px;
   z-index: 99;
   color: #2F91F2;

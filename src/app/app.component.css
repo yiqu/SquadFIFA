@@ -1,9 +1,10 @@
 .wrapper {
-  min-height: calc(100vh - 74px);
+  min-height: calc(100vh - 50px);
 }
 
 .footer {
   height: 50px;
+  line-height: 50px;
 }
 
 .p-top {
@@ -23,5 +24,9 @@
 }
 
 .footer-font {
+  background-color: #ffffff;
+}
+
+.footer-parent {
   background-color: #ffffff;
 }

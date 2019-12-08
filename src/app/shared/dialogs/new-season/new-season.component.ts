@@ -57,6 +57,10 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     return this.inputFg.get('gamesCount');
   }
 
+  get seasonTitle(): AbstractControl {
+    return this.inputFg.get('title');
+  }
+
   constructor(public ls: LoginService, public cs: CrudRestServie,
     public dialogRef: MatDialogRef<NewSeasonComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder, public ts: ToastrService,
@@ -77,6 +81,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     this.constructStepperObj();
 
     this.inputFg = this.fb.group({
+      title: FUTILS.createFormControl(null, false),
       player1Id: FUTILS.createFormControl(null, false, [Validators.required]),
       player2Id: FUTILS.createFormControl(null, false, [Validators.required]),
       gamesCount: FUTILS.createFormControl(8, false, [Validators.required, Validators.min(1),
@@ -133,11 +138,14 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
       new StepperObj("Select Player Two", 'ID/Name', 'Select a player', 'player2Id'),
       new StepperObj("Set Total Games Count", 'Number of games', 'Total amount of games in this season.', 
         'gamesCount'),
+      new StepperObj("Set Season Title", 'Title', 'Enter a season title or it will be set automatically', 
+        'title'),
       new StepperObj("Review", null, null, "review")
     )
   }
 
   onNext(isLastStep: boolean, index: number) {
+    console.log(this.inputFg)
     // if it is the last step, submit to save new season (if not errors)
     if (this.seasonStepper.selectedIndex === (this.steps.length - 1)) {
       this.triedToSubmit = true;
@@ -175,7 +183,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     for (let key1 of Object.keys(this.inputFg.controls)) {
       if (this.inputFg.get(key1).errors) {
         for (let key2 of Object.keys(this.inputFg.get(key1).errors)) {
-          this.formErrors.push(key2);
+          this.formErrors.push(key1 + ": " + key2);
         }
       }
     }
@@ -185,7 +193,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     const p2Hash = isObject(this.player2Ctrl.value) ? 
       this.player2Ctrl.value.hashKey : this.player2Ctrl.value;
     if (p1Hash === p2Hash) {
-      this.formErrors.push("Duplicated");
+      this.formErrors.push("Both player names are the same.");
     }
   }
 
@@ -196,8 +204,27 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
       this.player2Ctrl.value : new User(new UserInfo(this.player2Ctrl.value), false, false, null, null);
     const games = this.gamesCount.value;
 
-    const season = new Season("hash", p1Id, p2Id, null, null, games, [p1Id, p2Id], [p1Id, p2Id], [], undefined,
-      new Date().getTime(), undefined, "FALSE", false, false, false, new Editor(new Date().getTime(), p1Id));
+    const title = "";
+
+    const season = new Season(
+      "hash", 
+      p1Id, 
+      p2Id, 
+      null, 
+      null, 
+      games, 
+      [p1Id, p2Id], 
+      [p1Id, p2Id], 
+      [], 
+      undefined,
+      new Date().getTime(), 
+      undefined, 
+      "FALSE", 
+      false, 
+      false, 
+      false, 
+      new Editor(new Date().getTime(), p1Id),
+      title);
 
     this.saveSeason(season);
   }

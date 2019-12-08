@@ -1,8 +1,8 @@
-<div class="row mb-5 mt-2">
+<div class="row mb-2 mt-2">
   <h2 [ngClass]="{'mobile-title':this.cs.isUserMobile, 'col-md':true}">
     {{title | titlecase}}
   </h2>
-  <a *ngFor="let item of seasonCategoryLinks" 
+  <!-- <a *ngFor="let item of seasonCategoryLinks" 
     [ngClass]="{'nav-item':true, 'nav-link':true, 'col-md-2':true,
       'disabled-link disabled':item.disabled, 'selected':(currentFagment===item.fragment)}" 
     [routerLink]="item.params"
@@ -13,12 +13,13 @@
     [routerLinkActiveOptions]="{exact:true}"
     routerLinkActive="">
       {{item.display}} 
-  </a>
+  </a> -->
 </div>
 
-<div *ngFor="let season of seasonsDisplay; index as seasonIndex; trackBy: trackByFn" class="row mb-5">
-  <div class="col-md-8">
-    <mat-card class="season-card">
+<div *ngFor="let season of seasonsDisplay; index as seasonIndex; 
+  trackBy: trackByFn; last as isLast" class="row">
+  <div class="col-md-8 mb-5">
+    <mat-card class="season-card mat-elevation-z0">
       <mat-card-header>
         <mat-card-title>
           <div>

@@ -14,7 +14,7 @@
   </div>
 
   <form [formGroup]="inputFg">
-    <mat-vertical-stepper linear="false" #seasonStepper>
+    <mat-vertical-stepper linear="true" #seasonStepper>
       <mat-step *ngFor="let step of steps; index as i; first as isFirst; last as isLast">
         <ng-template matStepLabel>
           <span class="right-font font-20">
@@ -22,7 +22,7 @@
           </span>
         </ng-template>
         
-        <input *ngIf="!isLast && step.formCtrlName !== 'gamesCount'" type="text" 
+        <input *ngIf="!isLast && step.formCtrlName !== 'gamesCount' && step.formCtrlName !== 'title'" type="text" 
           placeholder="Select a player" matInput (focus)="onSelectFocus(step.formCtrlName)"
           [formControlName]="step.formCtrlName" [matAutocomplete]="playerAuto">
           
@@ -33,7 +33,8 @@
           </mat-option>
         </mat-autocomplete>
 
-        <mat-form-field *ngIf="!isLast && step.formCtrlName === 'gamesCount'" class="mt-2">
+        <mat-form-field *ngIf="!isLast && (step.formCtrlName === 'gamesCount' || step.formCtrlName === 'title')" 
+          class="mt-2">
           <input matInput [placeholder]="step.phDisplay" [formControlName]="step.formCtrlName">
           <mat-hint>{{step.hint}}</mat-hint>
         </mat-form-field>
@@ -55,15 +56,19 @@
               Season length: {{gamesCount.value}} games.
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12 font-13 mt-2 roboto-font text-info">
+              Season Title: {{seasonTitle.value}}.
+            </div>
+          </div>
         </section>
 
         <div class="mt-4">
-          <button class="mr-2" mat-flat-button *ngIf="!isFirst" mat-button [color]="'accent'" 
+          <button class="mr-2" mat-stroked-button *ngIf="!isFirst" mat-button [color]="'accent'" 
             (click)="onBack(i)">
               {{step.buttonBackDisplay}}
           </button>
-          <button mat-flat-button mat-button [color]="'primary'" 
-            (click)="onNext(isLast, i)">
+          <button mat-stroked-button mat-button [color]="'primary'" (click)="onNext(isLast, i)">
               {{isLast ? btnConfirm : step.buttonNextDisplay}}
           </button>
         </div>
