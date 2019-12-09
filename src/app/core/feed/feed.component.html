@@ -1,52 +1,28 @@
-<div class="row mb-2 mt-2">
-  <h2 [ngClass]="{'mobile-title':this.cs.isUserMobile, 'col-md':true}">
-    {{title | titlecase}}
-  </h2>
-  <!-- <a *ngFor="let item of seasonCategoryLinks" 
-    [ngClass]="{'nav-item':true, 'nav-link':true, 'col-md-2':true,
-      'disabled-link disabled':item.disabled, 'selected':(currentFagment===item.fragment)}" 
-    [routerLink]="item.params"
-    [preserveFragment]="false"
-    [queryParamsHandling]="item.handling"
-    [queryParams]="item.qparams"
-    [fragment]="item.fragment"
-    [routerLinkActiveOptions]="{exact:true}"
-    routerLinkActive="">
-      {{item.display}} 
-  </a> -->
-</div>
-
-<div *ngFor="let season of seasonsDisplay; index as seasonIndex; 
-  trackBy: trackByFn; last as isLast" class="row">
-  <div class="col-md-8 mb-5">
-    <mat-card class="season-card mat-elevation-z0">
-      <mat-card-header>
-        <mat-card-title>
-          <div>
-            Season {{seasonIndex + 1}}
-          </div>
-          <div>
-            Start Date: {{season.startDate | dateDisplay:'FULLDATE'}}
-          </div>
-          <div>
-            {{season.startDate | dateDisplay:'FROMNOW'}}
-          </div>
-
-        </mat-card-title>
-        <mat-card-subtitle>Winner:</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          Season content.
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
+<div class="container">
+  <div class="row mb-2 mt-2">
+    <h2 [ngClass]="{'mobile-title':this.cs.isUserMobile, 'col-md':true}">
+      {{title | titlecase}}
+    </h2>
+    <!-- <a *ngFor="let item of seasonCategoryLinks" 
+      [ngClass]="{'nav-item':true, 'nav-link':true, 'col-md-2':true,
+        'disabled-link disabled':item.disabled, 'selected':(currentFagment===item.fragment)}" 
+      [routerLink]="item.params"
+      [preserveFragment]="false"
+      [queryParamsHandling]="item.handling"
+      [queryParams]="item.qparams"
+      [fragment]="item.fragment"
+      [routerLinkActiveOptions]="{exact:true}"
+      routerLinkActive="">
+        {{item.display}} 
+    </a> -->
+  </div>
+  
+  <div *ngFor="let season of seasonsDisplay; index as seasonIndex; trackBy: trackByFn;" class="row">
+    <feed-season class="col-md-8 mb-5" [seasonInfo]="season"></feed-season>
   </div>
 </div>
+
+
   
 
   

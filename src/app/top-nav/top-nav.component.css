@@ -7,7 +7,7 @@
 .logo-side {
   position: absolute;
   transform: rotate(335deg);
-  left: 100px;
+  left: -55px;
   top: 10px;
   z-index: 99;
   color: #2F91F2;
@@ -17,7 +17,7 @@
 
 .logo-side.mobile-logo {
   font-size: 25px;
-  left: 5px;
+  left: -25px;
 }
 
 .active-ul {
@@ -26,6 +26,7 @@
 
 .banner-logo-parent {
   margin-left: 30px;
+  position: relative;
 }
 
 .brand {

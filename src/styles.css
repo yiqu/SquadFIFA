@@ -150,3 +150,10 @@ button.mat-button.round-15 {
 a.nav-item.nav-link.active.active-ul {
   color: #fff;
 }
+
+@media screen and (max-width: 479px) {
+  /* start of phone styles */
+  .main-nav .navbar-nav {
+    padding-left: 15px;
+  }
+}

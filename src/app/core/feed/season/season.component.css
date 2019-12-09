@@ -1,0 +1,20 @@
+.season-avartar {
+  background-image: url('/assets/images/ball-icon.png');
+  background-size: cover;
+}
+
+/**
+Material overrides
+**/
+.mat-card-header .mat-card-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.mat-card-content, .mat-card-subtitle {
+  font-size: 13px;
+}
+
+/**
+Material overrides ENDs
+**/

@@ -15,7 +15,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
   
-    <div class="collapse navbar-collapse" [bsDropDown]="menuOpen" id="navbarNavAltMarkup">
+    <div class="collapse navbar-collapse main-nav" [bsDropDown]="menuOpen" id="navbarNavAltMarkup">
       <div class="navbar-nav right-font app-nav-links">
         <a *ngFor="let item of navItemsList" 
           [ngClass]="{'nav-item':true, 'nav-link':true, 'disabled-link disabled':item.disabled, 

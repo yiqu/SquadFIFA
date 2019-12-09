@@ -8,6 +8,7 @@ import { FeedComponent } from './feed/feed.component';
 import { PipesBarrelModule } from '../shared/pipes/pipes.module';
 import { EditSeasonComponent } from './edit/edit.component';
 import { CoreSideNavComponent } from './side-nav/side-nav.component';
+import { FeedSeasonComponent } from './feed/season/season.component';
 
 @NgModule({
   imports: [
@@ -20,14 +21,14 @@ import { CoreSideNavComponent } from './side-nav/side-nav.component';
   ],
 
   exports: [
-    
   ],
 
   declarations: [
     CoreComponent,
     FeedComponent,
     EditSeasonComponent,
-    CoreSideNavComponent
+    CoreSideNavComponent,
+    FeedSeasonComponent
   ],
 
   providers: [],
