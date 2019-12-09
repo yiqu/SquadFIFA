@@ -46,7 +46,7 @@ export class FeedComponent implements OnInit, OnDestroy {
     ).subscribe((seasons: ISeason[]) => {
       this.seasonsDisplay = seasons;
       this.seasonsDisplay = this.sortSeasons("DESC");
-      console.log("ALL: ",this.seasonsDisplay)
+      //console.log("ALL: ",this.seasonsDisplay)
     },
     (err) => {
     },

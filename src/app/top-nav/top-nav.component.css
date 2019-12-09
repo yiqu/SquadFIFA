@@ -1,5 +1,5 @@
 .top-nav {
-  background-color: #ffffff;
+  background-color: #24292e;
   border-bottom: 1px solid #dee2e6;
   z-index: 900 !important;
 }
@@ -13,6 +13,11 @@
   color: #2F91F2;
   font-size: 35px;
   text-decoration: underline;
+}
+
+.logo-side.mobile-logo {
+  font-size: 25px;
+  left: 5px;
 }
 
 .active-ul {
@@ -38,7 +43,6 @@
 }
 
 a {
-  color: #333;
   text-decoration: none;
 }
 

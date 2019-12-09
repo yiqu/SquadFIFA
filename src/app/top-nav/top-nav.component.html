@@ -1,8 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light sticky-top top-nav no-padding font-25">
+<nav class="navbar navbar-dark navbar-expand-lg sticky-top top-nav no-padding font-25">
   <div class="container">
     <a class="navbar-brand brand" [routerLink]="['/']">
       <div class="banner-logo-parent">
-        <span class="logo-side cursive-font font-weight-bold">Squad</span>
+        <span class="logo-side cursive-font font-weight-bold"
+          [ngClass]="{'mobile-logo':this.cs.isUserMobile}">Squad</span>
         <img src="assets/images/banner1.png" class="logo-img d-inline-block" alt="logo">
         <div class="font-25 pl-1 right-font a-green">{{ subTitle }}</div>
       </div>
@@ -15,7 +16,7 @@
     </button>
   
     <div class="collapse navbar-collapse" [bsDropDown]="menuOpen" id="navbarNavAltMarkup">
-      <div class="navbar-nav right-font">
+      <div class="navbar-nav right-font app-nav-links">
         <a *ngFor="let item of navItemsList" 
           [ngClass]="{'nav-item':true, 'nav-link':true, 'disabled-link disabled':item.disabled, 
             'login-link':item.display === 'Login', 'logout-link':item.display === 'Logout'}" 

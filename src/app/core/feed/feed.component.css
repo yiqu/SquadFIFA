@@ -1,5 +1,4 @@
 a {
-  color: #333;
   text-decoration: none;
 }
 
@@ -17,7 +16,6 @@ a {
 
 .nav-item {
   text-align: center;
-  background-color:#e5e7f5;
   border-radius: 25px;
   font-family: 'Righteous';
   margin-bottom: 5px;

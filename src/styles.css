@@ -146,3 +146,7 @@ p {
 button.mat-button.round-15 {
   border-radius: 15px;
 }
+
+a.nav-item.nav-link.active.active-ul {
+  color: #fff;
+}

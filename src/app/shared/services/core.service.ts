@@ -19,8 +19,11 @@ const SEASON_PATH: string = "seasons.json";
 })
 export class CoreService {
 
-  allSeasons$: BehaviorSubject<ISeason[]>;
-  fetchAllSeasons$: Subject<any> = new Subject();
+  // B-subj for all seasons info. Use this for all seasons information.
+  public allSeasons$: BehaviorSubject<ISeason[]>;
+  // Subj for making a call to backend for seasons, triggers allSeasons b-subj
+  public fetchAllSeasons$: Subject<any> = new Subject();
+
   allSeasonsLoading: boolean = false;
   isUserMobile: boolean = false;
   mobileQuery: MediaQueryList;
@@ -51,6 +54,9 @@ export class CoreService {
     );
   }
 
+  /**
+   * Query to backend for all seasons
+   */
   getSeasons(): Observable<ISeason[]> {
     return this.rs.getData(SEASON_PATH).pipe(
       map((res: HttpResponse<ISeason[]>) => {
@@ -59,20 +65,45 @@ export class CoreService {
     );
   }
 
+  /**
+   * Create a new season
+   * @param season 
+   */
   createNewSeason(season: ISeason): Observable<HttpResponse<any>> {
     return this.rs.postData(season, SEASON_PATH);
   }
 
+  /**
+   * Edit a existing season info.
+   * @param season 
+   * @param hash 
+   */
   editSeason(season: ISeason, hash: string): Observable<HttpResponse<any>> {
     const seasonPath: string = "seasons/" + hash + ".json";
     return this.rs.putData(season, seasonPath);
   }
 
+  /**
+   * Normalize the seasons info reponse from the backend. Fill in any
+   * missing info from defaults.
+   * @param res 
+   */
   normalizeSeasonResponse(res: HttpResponse<ISeason[]>): ISeason[] {
+    let seasons: ISeason[] = [];
     if (res && res.ok && res.body) {
-      return UTILS.objectToArray(res.body);
+      seasons = UTILS.objectToArray(res.body);
+      seasons = seasons.map((season, i) => {
+        // create the Season object if the hashkey exists
+        if (season.hashKey) {
+          return new Season(season.hashKey, season.player1, season.player2, season.player1Record, season.player2Record,
+            season.gamesTotal, season.owners, season.controllers, season.games, season.winner, season.startDate,
+            season.endDate, season.pending, season.archived, season.completed, season.editing, season.lastEdited,
+            season.title);
+        }
+      });
     }
-    return [];
+    console.log("normialize: ", seasons)
+    return seasons;
   }
 
   mobileQListener(e: MediaQueryListEvent) {
@@ -83,7 +114,6 @@ export class CoreService {
       /* the viewport is more than than 600 pixels wide */
       this.isUserMobile = false;
     }
-    //this.changeDetectorRef.detectChanges();
   }
 
   initMobileCheck() {

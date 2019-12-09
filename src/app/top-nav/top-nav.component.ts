@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { LoginDialogComponent } from '../shared/dialogs/login/login.component';
 import { LoginService } from '../shared/services/user.service';
 import * as _ from 'lodash';
+import { CoreService } from '../shared/services/core.service';
 
 const NAV_ITEM_LIST = [
   new NavItem("Home", ["home"]),
@@ -34,7 +35,7 @@ export class TopNavComponent implements OnInit {
   userLoginText: string = "Login";
   
   constructor(public router: Router, public route: ActivatedRoute,
-    public dialog: MatDialog, public ls: LoginService) {
+    public dialog: MatDialog, public ls: LoginService, public cs: CoreService) {
       this.navItemsList.push(...NAV_ITEM_LIST);
   }
 

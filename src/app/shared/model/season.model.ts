@@ -105,6 +105,9 @@ export class Season implements ISeason {
 
       this.winner = winner ? 
         new User(winner.user, winner.admin, winner.isUser, winner.data, winner.hashKey) : this.getSeasonWinner();
+
+      this.title = title ? title : ("Season between " + player1.user.firstName + " (" + player1.user.id + ") and " +
+        player2.user.firstName + " (" + player1.user.id + ")");
   }
 
 
