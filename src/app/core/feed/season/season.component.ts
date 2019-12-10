@@ -12,6 +12,8 @@ export class FeedSeasonComponent implements OnInit {
   @Input('seasonInfo')
   season: ISeason;
 
+  createdDateDisplay: string = "FROMNOW";
+
   constructor() {
     
   }
