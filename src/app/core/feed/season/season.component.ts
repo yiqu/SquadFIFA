@@ -12,7 +12,6 @@ export class FeedSeasonComponent implements OnInit {
   @Input('seasonInfo')
   season: ISeason;
 
-
   constructor() {
     
   }
@@ -20,4 +19,5 @@ export class FeedSeasonComponent implements OnInit {
   ngOnInit() {
     console.log(this.season)
   }
+
 }

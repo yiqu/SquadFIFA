@@ -9,6 +9,7 @@ import { PipesBarrelModule } from '../shared/pipes/pipes.module';
 import { EditSeasonComponent } from './edit/edit.component';
 import { CoreSideNavComponent } from './side-nav/side-nav.component';
 import { FeedSeasonComponent } from './feed/season/season.component';
+import { DirectivesModule } from '../shared/directives/directives.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { FeedSeasonComponent } from './feed/season/season.component';
     PipesBarrelModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DirectivesModule
   ],
 
   exports: [
