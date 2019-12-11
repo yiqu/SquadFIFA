@@ -145,7 +145,6 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
   }
 
   onNext(isLastStep: boolean, index: number) {
-    console.log(this.inputFg)
     // if it is the last step, submit to save new season (if not errors)
     if (this.seasonStepper.selectedIndex === (this.steps.length - 1)) {
       this.triedToSubmit = true;
@@ -203,8 +202,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
     const p2Id = isObject(this.player2Ctrl.value) ? 
       this.player2Ctrl.value : new User(new UserInfo(this.player2Ctrl.value), false, false, null, null);
     const games = this.gamesCount.value;
-
-    const title = "";
+    const title = this.seasonTitle.value;
 
     const season = new Season(
       "hash", 

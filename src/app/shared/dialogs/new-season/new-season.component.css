@@ -18,3 +18,7 @@
 .mat-form-field {
   display: block !important;
 }
+
+input.player.mat-input-element  {
+  border-bottom: 1px solid #ccc;
+}

@@ -23,6 +23,8 @@ import { LogoutResolver } from './shared/resolvers/logout.resolver';
 import { SelfModule } from './self/self.module';
 import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
 import { NewSeasonComponent } from './shared/dialogs/new-season/new-season.component';
+import { SingleSeasonComponent } from './core/feed/season/types/single.component';
+import { PvpSeasonComponent } from './core/feed/season/types/pvp.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { NewSeasonComponent } from './shared/dialogs/new-season/new-season.compo
 
   entryComponents: [
     LoginDialogComponent,
-    NewSeasonComponent
+    NewSeasonComponent,
+    // SingleSeasonComponent,
+    // PvpSeasonComponent
   ],
 
   bootstrap: [

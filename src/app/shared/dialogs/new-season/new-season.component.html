@@ -23,9 +23,9 @@
         </ng-template>
         
         <input *ngIf="!isLast && step.formCtrlName !== 'gamesCount' && step.formCtrlName !== 'title'" type="text" 
-          placeholder="Select a player" matInput (focus)="onSelectFocus(step.formCtrlName)"
+          placeholder="Select a player" matInput (focus)="onSelectFocus(step.formCtrlName)" class="player"
           [formControlName]="step.formCtrlName" [matAutocomplete]="playerAuto">
-          
+        
         <mat-autocomplete [autoActiveFirstOption]="false" (opened)="onSelectOpen(step.formCtrlName)"
           (closed)="onSelectClosed()" #playerAuto="matAutocomplete" [displayWith]="playerIdDisplayFn">
           <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
@@ -35,7 +35,7 @@
 
         <mat-form-field *ngIf="!isLast && (step.formCtrlName === 'gamesCount' || step.formCtrlName === 'title')" 
           class="mt-2">
-          <input matInput [placeholder]="step.phDisplay" [formControlName]="step.formCtrlName">
+            <input matInput [placeholder]="step.phDisplay" [formControlName]="step.formCtrlName">
           <mat-hint>{{step.hint}}</mat-hint>
         </mat-form-field>
 

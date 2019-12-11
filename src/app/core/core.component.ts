@@ -53,6 +53,10 @@ export class CoreComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * New Season dialog handler
+   * @param dialogData 
+   */
   openDialog(dialogData: any): void {
     this.ls.queryAllUsers();
     const dialogRef = this.dialog.open(NewSeasonComponent, {

@@ -10,6 +10,9 @@ import { EditSeasonComponent } from './edit/edit.component';
 import { CoreSideNavComponent } from './side-nav/side-nav.component';
 import { FeedSeasonComponent } from './feed/season/season.component';
 import { DirectivesModule } from '../shared/directives/directives.module';
+import { SingleSeasonComponent } from './feed/season/types/single.component';
+import { PvpSeasonComponent } from './feed/season/types/pvp.component';
+import { SeasonDirective } from './feed/season/directives/season.dir';
 
 @NgModule({
   imports: [
@@ -30,9 +33,17 @@ import { DirectivesModule } from '../shared/directives/directives.module';
     FeedComponent,
     EditSeasonComponent,
     CoreSideNavComponent,
-    FeedSeasonComponent
+    FeedSeasonComponent,
+    SeasonDirective,
+    SingleSeasonComponent,
+    PvpSeasonComponent
   ],
 
   providers: [],
+
+  entryComponents: [ 
+    SingleSeasonComponent, 
+    PvpSeasonComponent 
+  ],
 })
 export class CoreModule { }
