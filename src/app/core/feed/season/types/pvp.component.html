@@ -8,13 +8,22 @@
           <i class="material-icons md-18 mr-1" title="Date created">
             date_range
           </i>
-          <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.startDate">
+          <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.startDate" class="mr-2">
             {{seasonInfo.startDate}}
+          </span>
+          <i class="material-icons md-18 mr-1">
+            edit
+          </i>
+          <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.lastEdited.date" class="mr-2"
+            [title]="'editor'">
+            {{seasonInfo.lastEdited.date}}
           </span>
         </div>
       </div>
     </mat-card-subtitle>
   </mat-card-header>
+  <img mat-card-image 
+    src="/assets/images/season-kickoff-mode.jpg" alt="pvp mode img">
   <mat-card-content>
     <p>
       Season content.
