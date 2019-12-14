@@ -38,7 +38,7 @@ export class FeedSeasonComponent implements OnInit {
     } else {
       seasonItem = new SeasonItem(PvpSeasonComponent, this.season);
     }
-
+    
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(seasonItem.component);
 
     const viewContainerRef = this.seasonHost.viewContainerRef;

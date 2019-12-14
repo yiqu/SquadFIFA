@@ -16,6 +16,9 @@
         {{item.display}} 
     </a> -->
   </div>
+  <div class="row mb-2 mt-2" *ngIf="this.cs.badSeasonCount > 0">
+    <h5 class="col-md-12">There are {{this.cs.badSeasonCount}} seasons with errors.</h5>
+  </div>
   
   <div *ngFor="let season of seasonsDisplay; index as seasonIndex; trackBy: trackByFn;" class="row">
     <feed-season class="col-md-8 mb-5" [seasonInfo]="season"></feed-season>

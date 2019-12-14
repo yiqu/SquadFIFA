@@ -24,6 +24,8 @@ export class CoreService {
   // Subj for making a call to backend for seasons, triggers allSeasons b-subj
   public fetchAllSeasons$: Subject<any> = new Subject();
 
+  public badSeasonCount: number = 0;
+
   allSeasonsLoading: boolean = false;
   isUserMobile: boolean = false;
   mobileQuery: MediaQueryList;
@@ -90,20 +92,24 @@ export class CoreService {
    */
   normalizeSeasonResponse(res: HttpResponse<ISeason[]>): ISeason[] {
     let seasons: ISeason[] = [];
+    let seas: ISeason[] = [];
     if (res && res.ok && res.body) {
       seasons = UTILS.objectToArray(res.body);
-      seasons = seasons.map((season, i) => {
+      seasons.forEach((season, i) => {
         // create the Season object if the hashkey exists
-        if (season.hashKey) {
-          return new Season(season.hashKey, season.player1, season.player2, season.player1Record, season.player2Record,
+        if (season.hashKey && season.player1 && season.player2) {
+          const result =  new Season(season.hashKey, season.player1, season.player2, season.player1Record, season.player2Record,
             season.gamesTotal, season.owners, season.controllers, season.games, season.winner, season.startDate,
             season.endDate, season.pending, season.archived, season.completed, season.editing, season.lastEdited,
             season.title);
+          seas.push(result);
+        } else {
+          this.badSeasonCount += 1;
         }
       });
     }
     console.log("normialize: ", seasons)
-    return seasons;
+    return seas;
   }
 
   mobileQListener(e: MediaQueryListEvent) {
