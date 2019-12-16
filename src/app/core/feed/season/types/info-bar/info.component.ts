@@ -15,6 +15,7 @@ export class InfoBarComponent implements OnInit {
 
   playerOne: User;
   playerTwo: User;
+  createdDateDisplay: string = "FROMNOW";
 
   constructor() {
   }

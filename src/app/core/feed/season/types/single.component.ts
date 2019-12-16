@@ -12,8 +12,6 @@ export class SingleSeasonComponent implements SeasonDynamicBase {
   @Input()
   seasonInfo: ISeason;
   
-  createdDateDisplay: string = "FROMNOW";
-
   constructor() {
   }
 
