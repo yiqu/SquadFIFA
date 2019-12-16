@@ -46,3 +46,21 @@ export class UserDisplayPipe implements PipeTransform {
 export function isObject(test: any) {
   return typeof test === 'object' && test !== null;
 }
+
+
+@Pipe({name: 'userIconDisplay', pure: true})
+export class UserIconDisplayPipe implements PipeTransform { 
+
+  @memo()
+  transform(value: User): any {
+    let result: string = "android";
+    if (value.isUser && 
+        (
+          !value.user.id.toLowerCase().includes("comp") || 
+          !value.user.firstName.toLowerCase().includes("comp")
+        )) {
+      result = "face";
+    }
+    return result;
+  }
+}

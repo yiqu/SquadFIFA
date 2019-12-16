@@ -1,0 +1,31 @@
+<div>
+  <div class="d-flex">
+    <i class="material-icons md-18 mr-1" title="Date created">
+      date_range
+    </i>
+    <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.startDate" class="mr-2">
+      {{seasonInfo.startDate}}
+    </span>
+    <i class="material-icons md-18 mr-1">
+      edit
+    </i>
+    <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.lastEdited.date" class="mr-2"
+      [title]="'editor'">
+      {{seasonInfo.lastEdited.date}}
+    </span>
+
+    <!-- User One -->
+    <i class="material-icons md-18 mr-1" title="Date created">
+      {{playerOne | userIconDisplay}}
+    </i>
+    <span class="mr-1">{{playerOne | userDisplay:'first_id'}}</span>
+
+    <span class="mr-1">vs.</span>
+
+    <!-- User Two -->
+    <i class="material-icons md-18 mr-1" title="Date created">
+      {{playerTwo | userIconDisplay}}
+    </i>
+    <span>{{playerTwo | userDisplay:'first_id'}}</span>
+  </div>
+</div>

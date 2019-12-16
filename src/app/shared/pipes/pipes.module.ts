@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RecordCountPipe } from './record.pipe';
 import { TeamNamePipe } from './team-name.pipe';
-import { UserDisplayPipe } from './user-name.pipe';
+import { UserDisplayPipe, UserIconDisplayPipe } from './user-name.pipe';
 import { DateDisplayPipe } from './date-display.pipe';
 
 @NgModule({
@@ -10,14 +10,16 @@ import { DateDisplayPipe } from './date-display.pipe';
     RecordCountPipe,
     TeamNamePipe,
     UserDisplayPipe,
-    DateDisplayPipe
+    DateDisplayPipe,
+    UserIconDisplayPipe
   ],
 
   declarations: [
     RecordCountPipe,
     TeamNamePipe,
     UserDisplayPipe,
-    DateDisplayPipe
+    DateDisplayPipe,
+    UserIconDisplayPipe
   ],
 
   providers: [],

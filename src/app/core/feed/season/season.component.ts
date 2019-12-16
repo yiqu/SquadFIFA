@@ -25,7 +25,6 @@ export class FeedSeasonComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.season)
     this.loadSeasonComponent();
   }
 
