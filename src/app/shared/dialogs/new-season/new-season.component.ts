@@ -86,7 +86,7 @@ export class NewSeasonComponent implements OnInit, OnDestroy {
       player2Id: FUTILS.createFormControl(null, false, [Validators.required]),
       gamesCount: FUTILS.createFormControl(8, false, [Validators.required, Validators.min(1),
         numOnlyValidator]),
-      review: FUTILS.createFormControl(null, true),
+      review: FUTILS.createFormControl(null, false),
     });
 
     this.inputFg.valueChanges.pipe(

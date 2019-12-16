@@ -15,7 +15,7 @@
 
   <form [formGroup]="inputFg">
     <mat-vertical-stepper linear="true" #seasonStepper>
-      <mat-step *ngFor="let step of steps; index as i; first as isFirst; last as isLast">
+      <mat-step *ngFor="let step of steps; index as i; first as isFirst; last as isLast" [stepControl]="this.inputFg.get(step.formCtrlName)">
         <ng-template matStepLabel>
           <span class="right-font font-20">
             {{step.labelName}}
@@ -64,12 +64,11 @@
         </section>
 
         <div class="mt-4">
-          <button class="mr-2" mat-stroked-button *ngIf="!isFirst" mat-button [color]="'accent'" 
-            (click)="onBack(i)">
-              {{step.buttonBackDisplay}}
+          <button class="mr-2" *ngIf="!isFirst" mat-button color="primary" (click)="onBack(i)">
+            {{step.buttonBackDisplay}}
           </button>
-          <button mat-stroked-button mat-button [color]="'primary'" (click)="onNext(isLast, i)">
-              {{isLast ? btnConfirm : step.buttonNextDisplay}}
+          <button mat-flat-button color="primary" (click)="onNext(isLast, i)" [disabled]="!this.inputFg.get(step.formCtrlName).valid"> 
+            {{isLast ? btnConfirm : step.buttonNextDisplay}}
           </button>
         </div>
       </mat-step>

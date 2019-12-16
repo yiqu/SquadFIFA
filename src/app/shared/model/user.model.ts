@@ -9,8 +9,13 @@ export class User {
     public data: UserData = new UserData(),
     public hashKey: string = null) {
       this.admin = (admin == null) ? false : admin;
-      this.data = new UserData(data.matchesPlayed, data.seasonsPlayed, data.wins, data.draws, data.losses,
-        data.mostUsedTeam, data.favoritePlayer, data.totalGoalsScored, data.totalGoalsConceded);
+      if (data) {
+        this.data = new UserData(data.matchesPlayed, data.seasonsPlayed, data.wins, data.draws, data.losses,
+          data.mostUsedTeam, data.favoritePlayer, data.totalGoalsScored, data.totalGoalsConceded);
+      } else {
+        this.data = new UserData(0, 0, 0, 0, 0 , null, null, 0, 0);
+      }
+      
   }
 
   public setUser(u: UserInfo) {
@@ -35,13 +40,13 @@ export class UserInfo {
     public avatar: string = "",
     public logIns: UserLogins[] = []) {
       if (id == null || id == undefined) {
-        this.id = "Unknown";
+        this.id = "FIFAPlayer" + (Math.random() * 1000).toFixed(0).padEnd(3, "0");
       }
       if (!firstName) {
-        this.firstName = "John";
+        this.firstName = "FIFA";
       }
       if (!lastName) {
-        this.lastName = "Doe";
+        this.lastName = "Player";
       }
   }
 }

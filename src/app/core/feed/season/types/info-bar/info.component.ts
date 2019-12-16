@@ -16,6 +16,7 @@ export class InfoBarComponent implements OnInit {
   playerOne: User;
   playerTwo: User;
   createdDateDisplay: string = "FROMNOW";
+  dateTooltipSuffix: string = ". Click to see full date";
 
   constructor() {
   }
