@@ -1,16 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <button mat-flat-button (click)="onNewSeason()" 
+      <button mat-flat-button (click)="onNewSeason()" color="primary"
         [disabled]="this.cs.allSeasonsLoading">
           {{ this.cs.allSeasonsLoading ? 'Working...' : 'New season'}}
       </button>
     </div>
     <div class="col-md-12">
-      <button mat-button>
-        <i class="material-icons">
-          filter_list
-        </i>
+      <button class="season-filter btn btn-sm">
+        <i class="material-icons">filter_list</i>
       </button>
     </div>
   </div>

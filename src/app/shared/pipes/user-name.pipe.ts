@@ -35,6 +35,10 @@ export class UserDisplayPipe implements PipeTransform {
         result = value.user.firstName + " (" +  value.user.id + ")";
         break;
       }
+      case "full": {
+        result = value.user.firstName + " " + value.user.lastName + " (" + value.user.id + ")";
+        break;
+      }
       default: {
         result = "User_name";
       }

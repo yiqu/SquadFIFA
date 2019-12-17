@@ -1,41 +1,35 @@
-<div>
-  <div class="d-flex">
-    <i class="material-icons md-18" [title]="'Season start date' + dateTooltipSuffix">
-      date_range
-    </i>
-    <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.startDate" class="mr-2"
-      title="Season start date">
+<div class="d-inline-block">
+  <div class="d-inline-flex" [title]="'Season start date' + dateTooltipSuffix">
+    <i class="material-icons md-18">date_range</i>
+    <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.startDate" class="mr-2">
       {{seasonInfo.startDate}}
     </span>
+  </div>
 
-    <i class="material-icons md-18" [title]="'Last edited date' + dateTooltipSuffix">
-      edit
-    </i>
-    <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.lastEdited.date" class="mr-2"
-      [title]="'Last edited date'">
+  <div class="d-inline-flex" [title]="'Last edited date' + dateTooltipSuffix">
+    <i class="material-icons md-18" >edit</i>
+    <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.lastEdited.date" class="mr-2">
       {{seasonInfo.lastEdited.date}}
     </span>
-
-    <!-- User One -->
-    <i class="material-icons md-18" title="Player 1">
-      {{playerOne | userIconDisplay}}
-    </i>
-    <span class="mr-1">{{playerOne | userDisplay:'first_id'}}</span>
-
-    <span class="mr-1">vs.</span>
-
-    <!-- User Two -->
-    <i class="material-icons md-18" title="Player 2">
-      {{playerTwo | userIconDisplay}}
-    </i>
-    <span class="mr-2">{{playerTwo | userDisplay:'first_id'}}</span>
-
-    <!-- Number of games -->
-    <i class="material-icons md-18" title="Number of games to play">
-      emoji_flags
-    </i>
-    <span class="mr-2">{{seasonInfo.gamesTotal}} to play</span>
-
-
   </div>
+
+  <div class="d-inline-flex" [title]="playerOne|userDisplay:'full'">
+    <!-- User One -->
+    <i class="material-icons md-18 mr-1">{{playerOne | userIconDisplay}}</i>
+    <span class="mr-1">{{playerOne | userDisplay:'first_id'}}</span>
+    <span class="mr-1">vs.</span>
+  </div>
+  
+  <div class="d-inline-flex" [title]="playerTwo|userDisplay:'full'">
+    <!-- User Two -->
+    <i class="material-icons md-18 mr-1">{{playerTwo | userIconDisplay}}</i>
+    <span class="mr-2">{{playerTwo | userDisplay:'first_id'}}</span>
+  </div>
+  
+  <div class="d-inline-flex" [title]="gamesPlayed + ' games played out of ' + seasonInfo.gamesTotal">
+    <!-- Number of games -->
+    <i class="material-icons md-18" title="Number of games to play">emoji_flags</i>
+    <span class="mr-2">{{gamesPlayed}}/{{seasonInfo.gamesTotal}} played</span>
+  </div>
+
 </div>
