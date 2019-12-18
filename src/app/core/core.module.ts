@@ -14,6 +14,7 @@ import { SingleSeasonComponent } from './feed/season/types/single.component';
 import { PvpSeasonComponent } from './feed/season/types/pvp.component';
 import { SeasonDirective } from './feed/season/directives/season.dir';
 import { InfoBarComponent } from './feed/season/types/info-bar/info.component';
+import { GamesComponent } from './feed/season/types/games/games.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { InfoBarComponent } from './feed/season/types/info-bar/info.component';
     SeasonDirective,
     SingleSeasonComponent,
     PvpSeasonComponent,
-    InfoBarComponent
+    InfoBarComponent,
+    GamesComponent
   ],
 
   providers: [],
