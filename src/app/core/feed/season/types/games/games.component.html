@@ -1,7 +1,11 @@
 <div class="container-fluid">
-  <div class="row" *ngFor="let game of season.games; index as i" >
-    <div class="col-md-12">
-      Game {{i+1}}
+  <div class="row" *ngFor="let game of seasonGames; index as i" >
+    <div class="col-md-12 text-center">
+      <span class="game-title font-15">Game {{i+1}}
+        <span class="font-13 font-weight-bold">{{game.finished ? 'COMPLETED' : 'ON GOING'}}</span>
+      </span> 
     </div>
+    
+
   </div>
 </div>
