@@ -49,6 +49,10 @@ p {
   font-family: 'Permanent Marker', cursive;
 }
 
+.font-1 {
+  font-size: 1px;
+}
+
 .font-30 {
   font-size: 30px;
 }
@@ -155,5 +159,64 @@ a.nav-item.nav-link.active.active-ul {
   /* start of phone styles */
   .main-nav .navbar-nav {
     padding-left: 15px;
+  }
+}
+
+.animate-loading {
+  animation: pulse 2s infinite ease-in-out;
+  opacity: 0.2;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: .2;
+  }
+  5% {
+    opacity: .25;
+  }
+  10% {
+    opacity: .35;
+  }
+  15% {
+    opacity: .45;
+  }
+  25% {
+    opacity: .5;
+  }
+  37% {
+    opacity: .6;
+  }
+  40% {
+    opacity: .7;
+  }
+  50% {
+    opacity: .9;
+  }
+  55% {
+    opacity: .9;
+  }
+  60% {
+    opacity: .8;
+  }
+  65% {
+    opacity: .7;
+  }
+  68% {
+    opacity: .6;
+  }
+  75% {
+    opacity: .5;
+  }
+  83% {
+    opacity: .45;
+  }
+  90% {
+    opacity: .4;
+  }
+  95% {
+    opacity: .3;
+  }
+  100% {
+    opacity: .2;
   }
 }
