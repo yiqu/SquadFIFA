@@ -23,27 +23,45 @@ export interface ISeason {
 }
 
 export class Season implements ISeason {
+  hashKey: string;
+  player1: User;
+  player2: User;
+  player1Record: SeasonRecord;
+  player2Record: SeasonRecord;
+  gamesTotal: number = 8;
+  owners: User[] = [];
+  controllers: User[] = [];
+  games: IGame[] = [];
+  winner: User | any;
+  startDate: number = 0;
+  endDate: number = 0;
+  pending: string = "TRUE";
+  archived: boolean = false;
+  completed: boolean = false;
+  editing: boolean = false;
+  lastEdited: Editor;
+  title: string;
 
   constructor(
-    public hashKey: string = null,
-    public player1: User,
-    public player2: User,
-    public player1Record: SeasonRecord,
-    public player2Record: SeasonRecord,
-    public gamesTotal: number = 8,
-    public owners: User[] = [],
-    public controllers: User[] = [],
-    public games: IGame[] = [],
-    public winner: User | any,
-    public startDate: number = 0,
-    public endDate: number = 0,
-    public pending: string = "TRUE",
-    public archived: boolean = false,
-    public completed: boolean = false,
-    public editing: boolean = false,
-    public lastEdited: Editor,
-    public title: string) {
-      
+     hashKey: string = null,
+     player1: User,
+     player2: User,
+     player1Record: SeasonRecord,
+     player2Record: SeasonRecord,
+     gamesTotal: number = 8,
+     owners: User[] = [],
+     controllers: User[] = [],
+     games: IGame[] = [],
+     winner: User | any,
+     startDate: number = 0,
+     endDate: number = 0,
+     pending: string = "TRUE",
+     archived: boolean = false,
+     completed: boolean = false,
+     editing: boolean = false,
+     lastEdited: Editor,
+     title: string) {
+
       this.hashKey = hashKey;
       this.player1 = new User(player1.user, player1.admin, player1.isUser, player1.data, player1.hashKey);
       this.player2 = new User(player2.user, player2.admin, player2.isUser, player2.data, player2.hashKey);
@@ -66,7 +84,7 @@ export class Season implements ISeason {
       }
 
       this.games = [];
-      if (games.length > 0) {
+      if (games && games.length > 0) {
         games.forEach((game: Game) => {
           if (game) {
             this.games.push(new Game(game.controllers, game.finished, game.datePlayed, game.gameWinner));
@@ -203,9 +221,21 @@ export interface IGame {
 }
 
 export class Game implements IGame {
-  constructor(public controllers: IGameController[], public finished: boolean = false, public datePlayed: number = 0, 
-    public gameWinner?: IGameController) {
-      this.controllers = controllers;
+  controllers: IGameController[] = [];
+  finished: boolean;
+  datePlayed: number;
+  gameWinner: IGameController;
+
+  constructor(
+    controllers: IGameController[], 
+    finished: boolean = false, 
+    datePlayed: number = 0, 
+    gameWinner?: IGameController) {
+
+      controllers.forEach((controller: IGameController) => {
+        this.controllers.push(new GameController(controller.goalsScored, controller.goalDetails, 
+          controller.teamName, controller.user));
+      });
       this.finished = finished;
       this.datePlayed = datePlayed;
       this.gameWinner = gameWinner;
@@ -220,11 +250,16 @@ export interface IGameController {
 }
 
 export class GameController implements IGameController {
-  constructor(public goalsScored: number = 0, 
-    public goalDetails: GoalDetail[] = [], 
-    public teamName: string, 
-    public user: User) {
-      
+  goalsScored: number;
+  goalDetails: GoalDetail[] = [];
+  teamName: string;
+  user: User;
+
+  constructor(
+    goalsScored: number = 0, 
+    goalDetails: GoalDetail[] = [], 
+    teamName: string, 
+    user: User) {
       this.goalsScored = +goalsScored;
       this.goalDetails = [];
       goalDetails.forEach((goalDeet: GoalDetail) => {

@@ -1,26 +1,34 @@
 <div class="container-fluid">
   <div *ngFor="let game of seasonGames; index as i" >
-    <div class="row" >
-      <div class="col-md-12 text-center">
-        <span class="game-title font-15">
+    <div class="row mb-2">
+      <div class="col-md-12 text-center info-banner">
+        <!-- <span class="game-title font-15">
           Game {{i+1}}
           <div class="font-1">
             <i class="material-icons done-green animate-loading">{{game.finished ? 'check_circle' : 'fiber_manual_record'}}</i>
           </div>
-        </span> 
+        </span>  -->
+        <div class="hor-line"></div>
+        <h6 class="no-margin" [title]="game.finished ? 'Game over' : 'Game in progress'">
+          Game {{i+1}}
+          <div class="font-1">
+            <i class="material-icons done-green animate-loading">{{game.finished ? 'check_circle' : 'fiber_manual_record'}}</i>
+          </div>
+        </h6>
+        <div class="hor-line"></div>
       </div>
     </div>
     
 
     <div class="row">
       <ng-template ngFor let-controller [ngForOf]="game.controllers" let-i="index" let-isLast="last">
-        <div class="text-center" [ngClass]="{'col-md-1 col-2':isLast, 'col-md-3 col-3':!isLast}">
+        <div class="text-center team-name" [ngClass]="{'col-md-1 col-2':isLast, 'col-md-3 col-3':!isLast}">
           {{ isLast ? controller.goalsScored : controller.teamName}}
         </div>
-        <div class="text-center" [ngClass]="{'col-md-3 col-3':isLast, 'col-md-1 col-2':!isLast}">
+        <div class="text-center team-name" [ngClass]="{'col-md-3 col-3':isLast, 'col-md-1 col-2':!isLast}">
           {{ isLast ? controller.teamName : controller.goalsScored}}
         </div>
-        <div class="col-md-4 col-2 text-center" *ngIf="!isLast">
+        <div class="col-md-4 col-2 text-center middle-text" *ngIf="!isLast">
           vs
         </div>
       </ng-template>

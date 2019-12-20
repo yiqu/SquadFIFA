@@ -98,6 +98,10 @@ p {
   padding: 0 !important;
 }
 
+.no-margin {
+  margin: 0;
+}
+
 .timer-snack-bar {
   color: #fff !important;
   font-family: 'Roboto';

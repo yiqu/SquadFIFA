@@ -8,3 +8,31 @@
 .done-green {
   color: #00b300;
 }
+
+.team-name {
+  font-weight: 700;
+  font-size: 20px;
+  color: #1d1e1f;
+}
+
+.middle-text {
+  font-size: 18px;
+}
+
+.faded {
+  color: #727274;
+}
+
+.hor-line {
+  border-top: 1px solid #ccc;
+  flex: auto;
+  min-width: 32px;
+  margin: 0 20px;
+}
+
+.info-banner { 
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+}

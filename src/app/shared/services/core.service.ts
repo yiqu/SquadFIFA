@@ -98,7 +98,7 @@ export class CoreService {
       seasons.forEach((season, i) => {
         // create the Season object if the hashkey exists
         if (season.hashKey && season.player1 && season.player2) {
-          const result =  new Season(season.hashKey, season.player1, season.player2, season.player1Record, season.player2Record,
+          const result: ISeason =  new Season(season.hashKey, season.player1, season.player2, season.player1Record, season.player2Record,
             season.gamesTotal, season.owners, season.controllers, season.games, season.winner, season.startDate,
             season.endDate, season.pending, season.archived, season.completed, season.editing, season.lastEdited,
             season.title);
@@ -108,7 +108,7 @@ export class CoreService {
         }
       });
     }
-    console.log("normialize: ", seasons)
+    console.log("normialize: ", seas)
     return seas;
   }
 
@@ -117,7 +117,7 @@ export class CoreService {
       /* the viewport is 600 pixels wide or less */
       this.isUserMobile = true;
     } else {
-      /* the viewport is more than than 600 pixels wide */
+      /* the viewport is more than than 600 pixels wide */ 
       this.isUserMobile = false;
     }
   }
