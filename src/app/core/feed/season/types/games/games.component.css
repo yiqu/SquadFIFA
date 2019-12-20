@@ -27,7 +27,7 @@
   border-top: 1px solid #ccc;
   flex: auto;
   min-width: 32px;
-  margin: 0 20px;
+  /* margin: 0 20px; give a padding on left and right side*/
 }
 
 .info-banner { 
