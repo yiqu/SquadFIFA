@@ -3,6 +3,7 @@ import { RecordCountPipe } from './record.pipe';
 import { TeamNamePipe } from './team-name.pipe';
 import { UserDisplayPipe, UserIconDisplayPipe } from './user-name.pipe';
 import { DateDisplayPipe } from './date-display.pipe';
+import { GameSortDisplayPipe } from './sort.pipe';
 
 @NgModule({
   imports: [],
@@ -11,7 +12,8 @@ import { DateDisplayPipe } from './date-display.pipe';
     TeamNamePipe,
     UserDisplayPipe,
     DateDisplayPipe,
-    UserIconDisplayPipe
+    UserIconDisplayPipe,
+    GameSortDisplayPipe
   ],
 
   declarations: [
@@ -19,7 +21,8 @@ import { DateDisplayPipe } from './date-display.pipe';
     TeamNamePipe,
     UserDisplayPipe,
     DateDisplayPipe,
-    UserIconDisplayPipe
+    UserIconDisplayPipe,
+    GameSortDisplayPipe
   ],
 
   providers: [],

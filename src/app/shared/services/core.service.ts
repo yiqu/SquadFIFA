@@ -11,7 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ISeason, Season } from '../model/season.model';
 import * as UTILS from '../../shared/utils/general-utils';
 
-
 const SEASON_PATH: string = "seasons.json";
 
 @Injectable({
@@ -29,6 +28,7 @@ export class CoreService {
   allSeasonsLoading: boolean = false;
   isUserMobile: boolean = false;
   mobileQuery: MediaQueryList;
+  gameKeyInEdit: string;
 
   constructor(public rs: CrudRestServie, public media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');

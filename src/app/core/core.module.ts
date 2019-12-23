@@ -15,6 +15,9 @@ import { PvpSeasonComponent } from './feed/season/types/pvp.component';
 import { SeasonDirective } from './feed/season/directives/season.dir';
 import { InfoBarComponent } from './feed/season/types/info-bar/info.component';
 import { GamesComponent } from './feed/season/types/games/games.component';
+import { SeasonGameEditComponent } from './feed/season/types/edit/edit.component';
+import { GameSortDisplayPipe } from '../shared/pipes/sort.pipe';
+
 
 @NgModule({
   imports: [
@@ -40,10 +43,13 @@ import { GamesComponent } from './feed/season/types/games/games.component';
     SingleSeasonComponent,
     PvpSeasonComponent,
     InfoBarComponent,
-    GamesComponent
+    GamesComponent,
+    SeasonGameEditComponent
   ],
 
-  providers: [],
+  providers: [
+    GameSortDisplayPipe
+  ],
 
   entryComponents: [ 
     SingleSeasonComponent, 

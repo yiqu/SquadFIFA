@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ISeason, IGame } from 'src/app/shared/model/season.model';
+import { CoreService } from 'src/app/shared/services/core.service';
 
 @Component({
   selector: 'season-games',
@@ -12,13 +13,29 @@ export class GamesComponent implements OnInit {
   @Input()
   season: ISeason;
 
+  gameToEdit: IGame;
+
   get seasonGames(): IGame[] {
     return this.season.games;
   }
 
-  constructor() {
+  constructor(public cs: CoreService) {
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
+
+  onEditGame(index: number) {
+    this.gameToEdit = this.seasonGames[index];
+  }
+
+  getGameFromKey(gameKey: any): number {
+    return gameKey;
+  }
+
+  onGameSave() {
+    this.gameToEdit = undefined;
+  }
 }

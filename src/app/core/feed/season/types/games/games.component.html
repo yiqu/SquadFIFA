@@ -1,11 +1,10 @@
 <div class="container-fluid">
-  <div *ngFor="let game of seasonGames; index as i" class="mt-4">
-
+  <div *ngFor="let game of seasonGames; index as gameIndex" class="mt-4">
     <div class="row mb-2">
       <div class="col-md-12 text-center info-banner">
         <div class="hor-line"></div>
         <h6 class="no-margin" [title]="game.finished ? 'Game over' : 'Game in progress'">
-          Game {{i+1}}
+          Game {{gameIndex+1}}
           <div class="font-1">
             <i class="material-icons done-green animate-loading">{{game.finished ? 'check_circle' : 'fiber_manual_record'}}</i>
           </div>
@@ -17,10 +16,10 @@
     <div class="row">
       <ng-template ngFor let-controller [ngForOf]="game.controllers" let-i="index" let-isLast="last">
         <div class="text-center team-name" [ngClass]="{'col-md-1 col-2':isLast, 'col-md-3 col-3':!isLast}">
-          {{ isLast ? controller.goalsScored : controller.teamName}}
+          {{ isLast ? controller.goalsScored : (controller.teamName + ' (' + controller.user.user.id + ')') }}
         </div>
         <div class="text-center team-name" [ngClass]="{'col-md-3 col-3':isLast, 'col-md-1 col-2':!isLast}">
-          {{ isLast ? controller.teamName : controller.goalsScored}}
+          {{ isLast ? (controller.teamName + ' (' + controller.user.user.id + ')') : controller.goalsScored }}
         </div>
         <div class="col-md-4 col-2 text-center middle-text" *ngIf="!isLast">
           vs
@@ -28,12 +27,15 @@
       </ng-template>
     </div>
 
-    <div class="row mt-4">
+    <ng-template [ngIf]="gameToEdit">
+      <season-game-editor [game]="gameToEdit" (onGameSaved)="onGameSave()"></season-game-editor>
+    </ng-template>
+
+    <div *ngIf="!gameToEdit" class="row mt-4">
       <div class="col">
-        <button mat-stroked-button class="" color="primary">Edit</button>
+        <button mat-stroked-button class="" color="primary" (click)="onEditGame(gameIndex)">Edit</button>
       </div>
     </div>
     
-
   </div>
 </div>
