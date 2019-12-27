@@ -31,11 +31,12 @@ export class GamesComponent implements OnInit {
     this.gameToEdit = this.seasonGames[index];
   }
 
-  getGameFromKey(gameKey: any): number {
-    return gameKey;
+  onGameSave() {
+    this.resetGameToEdit();
   }
 
-  onGameSave() {
+  resetGameToEdit() {
     this.gameToEdit = undefined;
   }
+
 }
