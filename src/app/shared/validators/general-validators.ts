@@ -3,6 +3,7 @@ import { AbstractControl } from '@angular/forms';
 const alphanumeric: RegExp = new RegExp(/^[a-z0-9]+$/i);
 const alpha: RegExp = new RegExp(/^[a-z]+$/i);
 const numbers: RegExp = new RegExp(/^\d+$/);
+const letters: RegExp = new RegExp(/.*[a-zA-Z].*/);
 
 export function alphaValidator(control: AbstractControl): any {
   let errors: any[] = [];
@@ -40,5 +41,12 @@ export function numOnlyValidator(control: AbstractControl): any {
     return errObj;
   }
 
+  return null;
+}
+
+export function dateInputValidator(control: AbstractControl): any {
+  if (control.value && letters.test(control.value)) {
+    return { dateInputError: true };
+  }
   return null;
 }

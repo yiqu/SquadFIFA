@@ -1,14 +1,40 @@
 <div class="row mt-3">
-  <h6 class="col text-center">
+  <h6 class="col">
     {{defaultTitle}}
   </h6>
 </div>
 <div class="row">
-  <div class="col col-md-12 text-center">
+  <div class="col col-md-12">
     Game started on <span class="font-weight-bold">{{datePlayedTitle}}</span>, 
     it is <span class="font-weight-bold">{{gameStatusTitle}}</span>.
   </div>
 </div>
+
+<div [formGroup]="gameFg">
+  <div class="row">
+    <div class="col col-md-12 mt-3">
+      <mat-checkbox class="" formControlName="finished">Game Completed?</mat-checkbox>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-12 mt-3">
+      <mat-form-field class="">
+        <input matInput placeholder="Date played (format: 1/1/20 20:20)" 
+          formControlName="datePlayed" [errorStateMatcher]="initErrorMatcher">
+        <mat-hint>Date format: 1/1/20 20:20</mat-hint>
+        <mat-error *ngIf="datePlayedControl.hasError('required')">
+          Game date is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="!datePlayedControl.hasError('required') && datePlayedControl.hasError('dateInputError')">
+          Date format is <strong>invalid</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  
+  </div>
+</div>
+
+
 
 <div class="row mt-4">
   <div class="col">

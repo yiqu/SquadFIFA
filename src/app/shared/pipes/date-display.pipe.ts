@@ -15,6 +15,9 @@ export class DateDisplayPipe implements PipeTransform {
         case "FULLDATE": {
           return moment(dateMilli).format("MM/DD/YY, h:mm A");
         }
+        case "INPUTDATE": {
+          return moment(dateMilli).format("MM/DD/YY, HH:mm");
+        }
         default: {
           return value;
         }
