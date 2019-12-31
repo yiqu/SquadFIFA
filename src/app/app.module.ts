@@ -65,7 +65,8 @@ import { NewSeasonComponent } from './shared/dialogs/new-season/new-season.compo
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: null },
     LogoutResolver,
-    SelfChildrenGuard
+    SelfChildrenGuard,
+    SelfGuard
   ],
 
   entryComponents: [
