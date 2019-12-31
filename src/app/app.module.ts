@@ -13,18 +13,14 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundModule } from './404/not-found.module';
 import { DirectivesModule } from './shared/directives/directives.module';
-import { PlayersModule } from './players/players.module';
 import { StatsModule } from './stats/stats.module';
 import { TeamsModule } from './teams/teams.module';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginDialogComponent } from './shared/dialogs/login/login.component';
 import { DialogsModule } from './shared/dialogs/dialogs.module';
 import { LogoutResolver } from './shared/resolvers/logout.resolver';
-import { SelfModule } from './self/self.module';
 import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
 import { NewSeasonComponent } from './shared/dialogs/new-season/new-season.component';
-import { SingleSeasonComponent } from './core/feed/season/types/single.component';
-import { PvpSeasonComponent } from './core/feed/season/types/pvp.component';
 
 @NgModule({
   declarations: [
@@ -59,11 +55,9 @@ import { PvpSeasonComponent } from './core/feed/season/types/pvp.component';
     }),
     NotFoundModule,
     DirectivesModule,
-    PlayersModule,
     StatsModule,
     TeamsModule,
     DialogsModule,
-    SelfModule,
     AppRoutingModule
   ],
 
@@ -71,15 +65,12 @@ import { PvpSeasonComponent } from './core/feed/season/types/pvp.component';
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: null },
     LogoutResolver,
-    SelfGuard,
     SelfChildrenGuard
   ],
 
   entryComponents: [
     LoginDialogComponent,
     NewSeasonComponent,
-    // SingleSeasonComponent,
-    // PvpSeasonComponent
   ],
 
   bootstrap: [

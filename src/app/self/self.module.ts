@@ -8,6 +8,7 @@ import { SelfSeasonsComponent } from './seasons/seasons.component';
 import { SelfCoreComponent } from './core/core.component';
 import { MaterialModules } from '../shared/material-module';
 import { PipesBarrelModule } from '../shared/pipes/pipes.module';
+import { SelfRoutingModule } from './self-routing.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { PipesBarrelModule } from '../shared/pipes/pipes.module';
     ReactiveFormsModule,
     MaterialModules,
     PipesBarrelModule,
-    RouterModule
+    SelfRoutingModule
   ],
 
   exports: [
@@ -31,7 +32,6 @@ import { PipesBarrelModule } from '../shared/pipes/pipes.module';
   ],
 
   providers: [
-
   ],
 })
 export class SelfModule { }

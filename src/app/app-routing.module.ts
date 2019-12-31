@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { CoreComponent } from './core/core.component';
 import { NotFoundComponent } from './404/not-found.component';
 import { TeamsComponent } from './teams/teams.component';
-import { PlayersComponent } from './players/players.component';
 import { StatsComponent } from './stats/stats.component';
 import { LogoutComponent } from './top-nav/logout/logout.component';
 import { LogoutResolver } from './shared/resolvers/logout.resolver';
@@ -30,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'players',
-    component: PlayersComponent
+    loadChildren: () => import ('./players/players.module').then(m => m.PlayersModule)
   },
   {
     path: 'teams',
@@ -49,14 +48,7 @@ const routes: Routes = [
   },
   {
     path: 'self',
-    component: SelfComponent,
-    canActivate: [SelfGuard],
-    //canActivateChild: [SelfChildrenGuard],
-    children: [
-      { path: '', component: SelfCoreComponent },
-      { path: 'edit', component: SelfEditComponent },
-      { path: 'seasons', component: SelfSeasonsComponent }
-    ]
+    loadChildren: () => import ('./self/self.module').then(m => m.SelfModule),
   },
   {
     path: '',

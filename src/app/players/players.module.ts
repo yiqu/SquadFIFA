@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 
 import { PlayersComponent } from './players.component';
+import { PlayersRoutingModule } from './players-routing.module';
 
 @NgModule({
     imports: [
-
+      PlayersRoutingModule
     ],
 
     exports: [
@@ -12,7 +13,7 @@ import { PlayersComponent } from './players.component';
     ],
 
     declarations: [
-        PlayersComponent
+      PlayersComponent
     ],
 
     providers: [
