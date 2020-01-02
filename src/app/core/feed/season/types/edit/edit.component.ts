@@ -35,8 +35,8 @@ export class SeasonGameEditComponent implements OnInit {
 
     }
 
-    get datePlayedControl(): AbstractControl {
-      return this.gameFg.get("datePlayed");
+    get datePlayedControl(): FormControl {
+      return <FormControl>this.gameFg.get("datePlayed");
     }
 
     ngOnInit() {
@@ -56,33 +56,11 @@ export class SeasonGameEditComponent implements OnInit {
      */
 
     createGameFormGroup() {
-      const p1GoalDetails: FormArray = new FormArray([]);
-      const p2GoalDetails: FormArray = new FormArray([]);
-
-      this.game.controllers[0].goalDetails.forEach((gd: GoalDetail) => {
-        p1GoalDetails.push(this.createFgFromGoalDetail(gd));
-      });
-
-      this.game.controllers[1].goalDetails.forEach((gd: GoalDetail) => {
-        p2GoalDetails.push(this.createFgFromGoalDetail(gd));
-      });
 
       this.gameFg = this.fb.group({
         finished: FUTILS.createFormControl2(this.game.finished, false),
         datePlayed: FUTILS.createFormControl2(moment(this.game.datePlayed).format(INPUT_FORMAT), false, 
-          [Validators.required, dateInputValidator]),
-        p1: this.fb.group({
-          user: this.game.controllers[0].user,
-          teamName: FUTILS.createFormControl2(this.game.controllers[0].teamName, false, [Validators.required]),
-          goalsScored: this.game.controllers[0].goalsScored,
-          goalDetails: p1GoalDetails
-        }),
-        p2: this.fb.group({
-          user: this.game.controllers[1].user,
-          teamName: FUTILS.createFormControl2(this.game.controllers[1].teamName, false, [Validators.required]),
-          goalsScored: this.game.controllers[1].goalsScored,
-          goalDetails: p2GoalDetails
-        })
+          [Validators.required, dateInputValidator])
       });
 
       console.log(this.gameFg)
