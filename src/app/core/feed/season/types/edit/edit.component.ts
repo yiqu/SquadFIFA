@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IGame, GoalDetail } from 'src/app/shared/model/season.model';
+import { IGame, GoalDetail, IGameController } from 'src/app/shared/model/season.model';
 import * as moment from 'moment';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { dateInputValidator } from '../../../../../shared/validators/general-validators';
@@ -56,13 +56,29 @@ export class SeasonGameEditComponent implements OnInit {
      */
 
     createGameFormGroup() {
-
       this.gameFg = this.fb.group({
         finished: FUTILS.createFormControl2(this.game.finished, false),
         datePlayed: FUTILS.createFormControl2(moment(this.game.datePlayed).format(INPUT_FORMAT), false, 
-          [Validators.required, dateInputValidator])
+          [Validators.required, dateInputValidator]),
+        controllers: this.fb.array([])
       });
 
+      //loop through controllers
+      this.game.controllers.forEach((controller: IGameController, index: number) => {
+        // loop through goal details and create array
+        //const goalScoredFga = this.fb.array();
+
+        // create the individual controller fg
+        const controllerFg = this.fb.group({
+          goalsScored: FUTILS.createFormControl2(this.game.controllers[index].goalsScored, false, [
+            Validators.required, Validators.min(0)]),
+          teamName: FUTILS.createFormControl2(this.game.controllers[index].teamName, true),
+          user: FUTILS.createFormControl2(this.game.controllers[index].user, true)
+        });
+
+        // push the fg to controller form array
+        (<FormArray>this.gameFg.get("controllers")).push(controllerFg);
+      });
       console.log(this.gameFg)
     }
 
