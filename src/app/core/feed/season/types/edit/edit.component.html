@@ -1,33 +1,48 @@
-<div class="row mt-3 text-center">
+<div class="row text-center">
   <h6 class="col">
     {{defaultTitle}}
   </h6>
 </div>
-<hr/>
-<div class="row">
+<div class="row text-center">
   <div class="col col-md-12">
     Game started on <span class="font-weight-bold">{{datePlayedTitle}}</span>, 
     it is <span class="font-weight-bold">{{gameStatusTitle}}</span>.
   </div>
 </div>
-
+<hr/>
 <div [formGroup]="gameFg">
-  <div class="row">
-    <div class="col col-md-12 mt-3">
-
+  <div formArrayName="controllers">
+    <div class="row" *ngFor="let controller of gameControllers.controls; index as i;" [formGroupName]="i">
+      <div class="col col-md-4 mt-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Team</mat-label>
+          <input matInput placeholder="Team Name" formControlName="teamName">
+          <mat-icon matSuffix class="colored">{{getGameController(i).get('teamName').errors ? 'error' : 'done'}}</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col col-md-4 mt-3">
+      </div>
+      <div class="col col-md-4 mt-3">
+        <div class="goals-scored">
+          {{getGameController(i).get('goalsScored').value}}
+        </div>
+      </div>
     </div>
   </div>
+  
+
   <div class="row">
     <div class="col col-md-12 mt-3">
       <mat-checkbox class="" formControlName="finished">Game Completed?</mat-checkbox>
     </div>
   </div>
+
   <div class="row">
     <div class="col col-md-12 mt-3">
       <mat-form-field class="">
-        <input matInput placeholder="Date played (format: 1/1/20 20:20)" 
+        <input matInput [placeholder]="dateplayedPlaceholder" 
           formControlName="datePlayed" [errorStateMatcher]="initErrorMatcher">
-        <mat-hint>Date format: 1/1/20 20:20</mat-hint>
+        <mat-hint>{{datePlayedHint}}</mat-hint>
         <mat-error *ngIf="datePlayedControl.hasError('required')">
           Game date is <strong>required</strong>
         </mat-error>
@@ -36,8 +51,8 @@
         </mat-error>
       </mat-form-field>
     </div>
-  
   </div>
+
 </div>
 
 

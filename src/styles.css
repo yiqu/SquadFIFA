@@ -132,6 +132,14 @@ p {
  .material-icons.md-36 { font-size: 36px; }
  .material-icons.md-48 { font-size: 48px; }
 
+ .mat-form-field.ng-valid mat-icon.colored {
+  color: #2eb82e;
+}
+
+.mat-form-field.ng-invalid mat-icon.colored {
+  color: #ff3300;
+}
+
 .mat-flat-button {
   font-family: 'Righteous', cursive !important;
 }
