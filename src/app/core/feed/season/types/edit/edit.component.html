@@ -10,26 +10,47 @@
   </div>
 </div>
 <hr/>
-<div [formGroup]="gameFg">
-  <div formArrayName="controllers">
-    <div class="row" *ngFor="let controller of gameControllers.controls; index as i;" [formGroupName]="i">
-      <div class="col col-md-4 mt-3">
-        <mat-form-field appearance="outline">
-          <mat-label>Team</mat-label>
-          <input matInput placeholder="Team Name" formControlName="teamName">
-          <mat-icon matSuffix class="colored">{{getGameController(i).get('teamName').errors ? 'error' : 'done'}}</mat-icon>
-        </mat-form-field>
-      </div>
-      <div class="col col-md-4 mt-3">
-      </div>
-      <div class="col col-md-4 mt-3">
-        <div class="goals-scored">
-          {{getGameController(i).get('goalsScored').value}}
+<ng-container [formGroup]="gameFg">
+  <ng-container formArrayName="controllers">
+    <ng-container *ngFor="let controller of gameControllers.controls; index as i;" [formGroupName]="i">
+      <div class="row">
+        <!-- goals scored -->
+        <div class="col col-md-2 mt-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Goals Scored</mat-label>
+            <input matInput placeholder="Goals Scored" formControlName="goalsScored">
+          </mat-form-field>
+        </div>
+        <!-- team name  -->
+        <div class="col col-md-4 mt-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Team</mat-label>
+            <input matInput placeholder="Team Name" formControlName="teamName">
+            <mat-icon matSuffix class="colored">{{getGameController(i).get('teamName').errors ? 'error' : 'done'}}</mat-icon>
+          </mat-form-field>
+        </div>
+        <!-- user select -->
+        <div class="col col-md-4 mt-3">
+          <mat-form-field>
+            <input type="text" placeholder="Controller" matInput (focus)="onSelectFocus(i, 'user')" class="player"
+              formControlName="user" [matAutocomplete]="playerAuto">
+            <mat-autocomplete [autoActiveFirstOption]="false" #playerAuto="matAutocomplete" 
+              [displayWith]="playerIdDisplayFn">
+              <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+                {{user.user.id}} ({{user.user.firstName}}, {{user.user.lastName}})
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <!-- goal button -->
+        <div class="col col-md-2 mt-3 my-auto">
+          <button mat-stroked-button color="primary" class="goal-btn">Goal!</button>
         </div>
       </div>
-    </div>
-  </div>
-  
+      <!-- hr line break -->
+      <hr/>
+    </ng-container>
+  </ng-container>
 
   <div class="row">
     <div class="col col-md-12 mt-3">
@@ -52,8 +73,7 @@
       </mat-form-field>
     </div>
   </div>
-
-</div>
+</ng-container>
 
 
 
