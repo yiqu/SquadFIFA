@@ -42,11 +42,31 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
-        <!-- goal button -->
+        <!-- NEW goal button -->
         <div class="col col-md-2 mt-3 my-auto">
-          <button mat-stroked-button color="primary" class="goal-btn">Goal!</button>
+          <button mat-stroked-button color="primary" class="goal-btn" (click)="onNewGoal(i)">Goal!</button>
         </div>
       </div>
+      
+      <!-- Goal Details display -->
+      <ng-container formArrayName="goalDetails">
+        <div class="row" *ngFor="let detail of gameControllers.at(i).get('goalDetails').controls" [formGroupName]="i">
+          <div class="col col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Scorer Name</mat-label>
+              <input matInput placeholder="Scorer Name" formControlName="goalScorer">
+            </mat-form-field>
+          </div>
+          <div class="col col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Time</mat-label>
+              <input matInput placeholder="Time" formControlName="goalTime">
+            </mat-form-field>
+          </div>
+        </div>
+      </ng-container>
+      
+      
       <!-- hr line break -->
       <hr/>
     </ng-container>

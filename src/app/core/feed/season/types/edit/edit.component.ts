@@ -141,7 +141,6 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   }
 
   onSelectFocus(index: number, ctrlName: string) {
-    console.log(index, ctrlName)
     this.filteredUsers = (<FormArray>this.gameFg.get('controllers')).at(index).get(ctrlName).valueChanges.pipe(
       startWith(""),
       map(value => this.filterInput(value))
@@ -175,5 +174,20 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
       }
     }
     return result;
+  }
+
+  onNewGoal(i: number) {
+    console.log("index for controller, ", i, this.gameControllers.at(i));
+
+    (<FormArray>this.gameControllers.at(i).get("goalDetails")).push(this.createNewGoalDetailFg(1, "John Doe", "12'"));
+  }
+
+  private createNewGoalDetailFg(goalCount: number, goalScorer: string, goalTime: string) {
+    return new FormGroup({
+      goalCount: FUTILS.createFormControl2(goalCount, false, 
+        [Validators.required, Validators.pattern(POSITIVE_INT_PATTERN)]),
+      goalScorer: FUTILS.createFormControl2(goalScorer, false, [Validators.required]),
+      goalTime: FUTILS.createFormControl2(goalTime, false, [Validators.required])
+    });
   }
 }
