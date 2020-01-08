@@ -50,7 +50,7 @@
       
       <!-- Goal Details display -->
       <ng-container formArrayName="goalDetails">
-        <div class="row" *ngFor="let detail of gameControllers.at(i).get('goalDetails').controls" [formGroupName]="i">
+        <div class="row" *ngFor="let detail of gameControllers.at(i).get('goalDetails')['controls']" [formGroupName]="i">
           <div class="col col-md-6">
             <mat-form-field appearance="outline">
               <mat-label>Scorer Name</mat-label>
