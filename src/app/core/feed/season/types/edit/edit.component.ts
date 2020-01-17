@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IGame, GoalDetail, IGameController } from 'src/app/shared/model/season.model';
 import * as moment from 'moment';
-import { FormBuilder, FormGroup, FormArray, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { dateInputValidator } from '../../../../../shared/validators/general-validators';
 import * as _ from 'lodash';
 import * as FUTILS from 'src/app/shared/utils/forms.utils';
@@ -177,9 +177,9 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   }
 
   onNewGoal(i: number) {
-    console.log("index for controller, ", i, this.gameControllers.at(i));
+    console.log(this.gameFg);
 
-    (<FormArray>this.gameControllers.at(i).get("goalDetails")).push(this.createNewGoalDetailFg(1, "John Doe", "12'"));
+    (<FormArray>this.gameControllers.at(i).get("goalDetails")).push(this.createNewGoalDetailFg(1, null, ""));
   }
 
   private createNewGoalDetailFg(goalCount: number, goalScorer: string, goalTime: string) {

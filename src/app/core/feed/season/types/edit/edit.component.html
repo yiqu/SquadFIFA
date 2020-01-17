@@ -18,21 +18,21 @@
         <div class="col col-md-2 mt-3">
           <mat-form-field appearance="outline">
             <mat-label>Goals Scored</mat-label>
-            <input matInput placeholder="Goals Scored" formControlName="goalsScored">
+            <input matInput placeholder="Enter Goals Scored" formControlName="goalsScored">
           </mat-form-field>
         </div>
         <!-- team name  -->
         <div class="col col-md-4 mt-3">
           <mat-form-field appearance="outline">
             <mat-label>Team</mat-label>
-            <input matInput placeholder="Team Name" formControlName="teamName">
+            <input matInput placeholder="Enter Team Name" formControlName="teamName">
             <mat-icon matSuffix class="colored">{{getGameController(i).get('teamName').errors ? 'error' : 'done'}}</mat-icon>
           </mat-form-field>
         </div>
         <!-- user select -->
         <div class="col col-md-4 mt-3">
           <mat-form-field>
-            <input type="text" placeholder="Controller" matInput (focus)="onSelectFocus(i, 'user')" class="player"
+            <input type="text" placeholder="Enter Controller" matInput (focus)="onSelectFocus(i, 'user')" class="player"
               formControlName="user" [matAutocomplete]="playerAuto">
             <mat-autocomplete [autoActiveFirstOption]="false" #playerAuto="matAutocomplete" 
               [displayWith]="playerIdDisplayFn">
@@ -43,25 +43,35 @@
           </mat-form-field>
         </div>
         <!-- NEW goal button -->
-        <div class="col col-md-2 mt-3 my-auto">
-          <button mat-stroked-button color="primary" class="goal-btn" (click)="onNewGoal(i)">Goal!</button>
+        <div class="col-12 col-md-2 mt-3 my-auto">
+          <button mat-stroked-button color="primary" class="goal-btn" (click)="onNewGoal(i)">New Goal</button>
         </div>
       </div>
       
       <!-- Goal Details display -->
       <ng-container formArrayName="goalDetails">
-        <div class="row" *ngFor="let detail of gameControllers.at(i).get('goalDetails')['controls']" [formGroupName]="i">
-          <div class="col col-md-6">
+        <div class="row" *ngFor="let detail of (this.gameFg.get('controllers')['controls'][i].get('goalDetails')['controls']); index as j" 
+          [formGroupName]="j">
+          <div class="col-12 col-md-2 mt-3 goal-counter-title">
+            Goal #{{j+1}}
+          </div>
+          <div class="col-6 col-md-4 mt-1">
             <mat-form-field appearance="outline">
               <mat-label>Scorer Name</mat-label>
-              <input matInput placeholder="Scorer Name" formControlName="goalScorer">
+              <input matInput placeholder="Enter Scorer Name" formControlName="goalScorer">
             </mat-form-field>
           </div>
-          <div class="col col-md-6">
+          <div class="col-6 col-md-4 mt-1">
             <mat-form-field appearance="outline">
               <mat-label>Time</mat-label>
-              <input matInput placeholder="Time" formControlName="goalTime">
+              <input matInput placeholder="Enter Goal Time" formControlName="goalTime">
             </mat-form-field>
+          </div>
+          <div class="col-12 col-md-2 my-auto">
+            <div>
+              <button mat-stroked-button class="" color="primary" (click)="onSave()">Save</button>
+            </div>
+            
           </div>
         </div>
       </ng-container>
@@ -73,13 +83,13 @@
   </ng-container>
 
   <div class="row">
-    <div class="col col-md-12 mt-3">
+    <div class="col col-md-12 mt-1">
       <mat-checkbox class="" formControlName="finished">Game Completed?</mat-checkbox>
     </div>
   </div>
 
   <div class="row">
-    <div class="col col-md-12 mt-3">
+    <div class="col col-md-12 mt-1">
       <mat-form-field class="">
         <input matInput [placeholder]="dateplayedPlaceholder" 
           formControlName="datePlayed" [errorStateMatcher]="initErrorMatcher">
