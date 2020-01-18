@@ -29,7 +29,7 @@ export function alphaValidator(control: AbstractControl): any {
 export function numOnlyValidator(control: AbstractControl): any {
   let errors: any[] = [];
   let errObj = {};
-
+console.log(control.value, numbers.test(control.value))
   if (control.value && !numbers.test(control.value)) {
     errors.push("numOnlyError");
   }

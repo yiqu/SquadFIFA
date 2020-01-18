@@ -3,6 +3,8 @@ import { DropdownDirective } from './bs-drop.dir';
 import { DateDisplayToggleDirective } from './date-display.dir';
 import { PipesBarrelModule } from '../pipes/pipes.module';
 import { DateDisplayPipe } from '../pipes/date-display.pipe';
+import { InputTitleCaseDirective, InputGoalTimeDirective } from './input-title-case.dir';
+import { TitleCasePipe } from '@angular/common';
 
 @NgModule({
     imports: [
@@ -10,16 +12,21 @@ import { DateDisplayPipe } from '../pipes/date-display.pipe';
     ],
     exports: [
       DropdownDirective,
-      DateDisplayToggleDirective
+      DateDisplayToggleDirective,
+      InputTitleCaseDirective,
+      InputGoalTimeDirective
     ],
 
     declarations: [
       DropdownDirective,
-      DateDisplayToggleDirective
+      DateDisplayToggleDirective,
+      InputTitleCaseDirective,
+      InputGoalTimeDirective
     ],
 
     providers: [
       //DateDisplayPipe
+      TitleCasePipe
     ],
 })
 export class DirectivesModule { }

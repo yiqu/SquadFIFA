@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angu
 import { IGame, GoalDetail, IGameController } from 'src/app/shared/model/season.model';
 import * as moment from 'moment';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
-import { dateInputValidator } from '../../../../../shared/validators/general-validators';
+import { dateInputValidator, numOnlyValidator } from '../../../../../shared/validators/general-validators';
 import * as _ from 'lodash';
 import * as FUTILS from 'src/app/shared/utils/forms.utils';
 import { InitErrorMatcher } from '../../../../../shared/matchers/form-err-matcher';
@@ -15,6 +15,7 @@ export const INPUT_FORMAT: string = "MM/DD/YY HH:mm";
 export const INPUT_TYPES: string[] = [INPUT_FORMAT, "MM/DD/YYYY HH:mm", "MM-DD-YY HH:mm"];
 export const DISPLAY_FORMAT: string = "MM/DD/YY hh:mm a";
 export const POSITIVE_INT_PATTERN: RegExp = new RegExp(/^[1-9]\d*$/);
+export const POSITIVE_INT: RegExp = new RegExp(/^(0|[1-9]\d*)$/);
 
 @Component({
     selector: 'season-game-editor',
@@ -96,12 +97,7 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
       // loop through goal details and create array
       const goalScoredFga: FormArray = this.fb.array([]);
       controller.goalDetails.forEach((goalDet: GoalDetail) => {
-        goalScoredFga.push(new FormGroup({
-          goalCount: FUTILS.createFormControl2(goalDet.goalCount, false, 
-            [Validators.required, Validators.pattern(POSITIVE_INT_PATTERN)]),
-          goalScorer: FUTILS.createFormControl2(goalDet.goalScorer, false, [Validators.required]),
-          goalTime: FUTILS.createFormControl2(goalDet.goalTime, false, [Validators.required])
-        }))
+        goalScoredFga.push(this.createNewGoalDetailFg(goalDet.goalCount, goalDet.goalScorer, goalDet.goalTime));
       });
       // create the individual controller fg
       const controllerFg = this.fb.group({
@@ -184,10 +180,9 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
 
   private createNewGoalDetailFg(goalCount: number, goalScorer: string, goalTime: string) {
     return new FormGroup({
-      goalCount: FUTILS.createFormControl2(goalCount, false, 
-        [Validators.required, Validators.pattern(POSITIVE_INT_PATTERN)]),
+      goalCount: FUTILS.createFormControl2(goalCount, false),
       goalScorer: FUTILS.createFormControl2(goalScorer, false, [Validators.required]),
-      goalTime: FUTILS.createFormControl2(goalTime, false, [Validators.required])
+      goalTime: FUTILS.createFormControl2(goalTime, false, [Validators.required, Validators.pattern(POSITIVE_INT)])
     });
   }
 }
