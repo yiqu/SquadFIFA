@@ -11,7 +11,7 @@ import { TitleCasePipe } from '@angular/common';
 export class InputTitleCaseDirective implements OnInit {
 
   @HostListener('keyup', ['$event'])
-  toggleDateDisplay() {
+  transformToTitlecase(e) {
     const innerText: string = this.elRef.nativeElement.value;
     this.elRef.nativeElement.value = this.tcp.transform(innerText)
   }
@@ -29,7 +29,7 @@ export class InputTitleCaseDirective implements OnInit {
 export class InputGoalTimeDirective implements OnInit {
 
   @HostListener('keydown', ['$event'])
-  toggleDateDisplay() {
+  toggleDateDisplay(e) {
     const innerText: string = this.elRef.nativeElement.value;
     const alreadyExist: boolean = innerText.slice(-1) === "'";
     if (!alreadyExist) {
