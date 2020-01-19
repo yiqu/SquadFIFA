@@ -121,7 +121,7 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
     this.gameStatusTitle = this.game.finished ? "finished" : "on going";
   }
 
-  private onSave() {
+  onSave() {
     // normalize inputs to send to server
     const formValues = this.gameFg.value;
     const formRawValues = this.gameFg.getRawValue();
