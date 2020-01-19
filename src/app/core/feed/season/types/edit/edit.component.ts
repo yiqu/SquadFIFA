@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IGame, GoalDetail, IGameController } from 'src/app/shared/model/season.model';
+import { IGame, GoalDetail, IGameController, Game } from 'src/app/shared/model/season.model';
 import * as moment from 'moment';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { dateInputValidator, numOnlyValidator } from '../../../../../shared/validators/general-validators';
@@ -121,13 +121,16 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
     this.gameStatusTitle = this.game.finished ? "finished" : "on going";
   }
 
-  onSave() {
+  private onSave() {
     // normalize inputs to send to server
     const formValues = this.gameFg.value;
+    const formRawValues = this.gameFg.getRawValue();
     const datePlayed: number = moment(formValues.datePlayed, INPUT_TYPES).valueOf();
     const finished = formValues.finished;
-    console.log("value: ", formValues)
 
+    console.log("raw:", formRawValues)
+    const savedGame: Game = new Game(formRawValues.controllers, formRawValues.finished, formRawValues.datePlayed, null);
+    console.log(savedGame)
 
     //this.onGameSaved.emit();
   }

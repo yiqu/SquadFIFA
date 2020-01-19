@@ -70,7 +70,7 @@
           </div>
           <div class="col-12 col-md-2 my-auto">
             <button mat-stroked-button class="" color="primary" (click)="onSave()"
-            [disabled]="!gameControllers.at(i).get('goalDetails').valid">Save Goal</button>
+            [disabled]="!gameControllers.at(i).get('goalDetails')['controls'][j].valid">Save Goal</button>
           </div>
         </div>
       </ng-container>

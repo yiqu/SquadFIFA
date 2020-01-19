@@ -238,8 +238,28 @@ export class Game implements IGame {
       });
       this.finished = finished;
       this.datePlayed = datePlayed;
-      this.gameWinner = gameWinner;
+
+      if (controllers[0].goalsScored === controllers[1].goalsScored) {
+        this.gameWinner = null;
+      } else {
+        this.gameWinner = this.controllers.reduce(getWinnerReducer);
+      }
   }
+}
+
+/**
+ * Reducer to find out game winner based on goalScored count
+ * @param acc 
+ * @param current 
+ * @param index 
+ * @param arr 
+ */
+export function getWinnerReducer(acc: IGameController, current: IGameController, index: number, arr: any): IGameController {
+  let winner: IGameController = acc;
+  if (current.goalsScored > winner.goalsScored) {
+    winner = current;
+  }
+  return winner;
 }
 
 export interface IGameController {
