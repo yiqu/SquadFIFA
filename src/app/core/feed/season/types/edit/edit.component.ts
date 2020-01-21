@@ -129,6 +129,7 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
     const finished = formValues.finished;
 
     console.log("raw:", formRawValues)
+    // set goals
     const savedGame: Game = new Game(formRawValues.controllers, formRawValues.finished, formRawValues.datePlayed, null);
     console.log(savedGame)
 

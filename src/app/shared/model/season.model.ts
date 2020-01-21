@@ -232,15 +232,15 @@ export class Game implements IGame {
     datePlayed: number = 0, 
     gameWinner?: IGameController) {
 
-      controllers.forEach((controller: IGameController) => {
+      controllers.forEach((controller: IGameController, index: number) => {
         this.controllers.push(new GameController(controller.goalsScored, controller.goalDetails, 
           controller.teamName, controller.user));
       });
       this.finished = finished;
       this.datePlayed = datePlayed;
 
-      if (controllers[0].goalsScored === controllers[1].goalsScored) {
-        this.gameWinner = null;
+      if (this.controllers[0].goalsScored === this.controllers[1].goalsScored) {
+        this.gameWinner = undefined;
       } else {
         this.gameWinner = this.controllers.reduce(getWinnerReducer);
       }
@@ -280,11 +280,11 @@ export class GameController implements IGameController {
     goalDetails: GoalDetail[] = [], 
     teamName: string, 
     user: User) {
-      this.goalsScored = +goalsScored;
       this.goalDetails = [];
       goalDetails.forEach((goalDeet: GoalDetail) => {
         this.goalDetails.push(new GoalDetail(goalDeet.goalCount, goalDeet.goalScorer, goalDeet.goalTime));
-      })
+      });
+      this.goalsScored = goalDetails ? goalDetails.length : 0;
       this.teamName = teamName ? (teamName + "") : "Not set";
       this.user = new User(user.user, user.admin, user.isUser, user.data, user.hashKey);
   }
