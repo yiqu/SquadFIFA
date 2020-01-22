@@ -62,15 +62,20 @@
               <input matInput inputTitleCase placeholder="Enter Scorer Name" formControlName="goalScorer">
             </mat-form-field>
           </div>
-          <div class="col-6 col-md-4 mt-1">
+          <div class="col-6 col-md-3 mt-1">
             <mat-form-field appearance="outline">
               <mat-label>Time</mat-label>
               <input matInput placeholder="Enter Goal Time" formControlName="goalTime">
             </mat-form-field>
           </div>
-          <div class="col-12 col-md-2 my-auto">
+          <div class="col-12 col-md-3 my-auto">
             <button mat-stroked-button class="" color="primary" (click)="onSave()"
-            [disabled]="!gameControllers.at(i).get('goalDetails')['controls'][j].valid">Save Goal</button>
+              [disabled]="!gameControllers.at(i).get('goalDetails')['controls'][j].valid">
+              <i class="material-icons">add</i>
+            </button>
+            <button mat-button class="" color="primary" (click)="onGoalRemove(i, j)">
+              <i class="material-icons">clear</i>
+            </button>
           </div>
         </div>
       </ng-container>
@@ -108,6 +113,7 @@
 
 <div class="row mt-4">
   <div class="col">
-    <button mat-stroked-button class="" color="primary" (click)="onSave()">Save All</button>
+    <button mat-stroked-button class="" color="primary" 
+      (click)="onSave()" [disabled]="gameFg.invalid">Save All</button>
   </div>
 </div>

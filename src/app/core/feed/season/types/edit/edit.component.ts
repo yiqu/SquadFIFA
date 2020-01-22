@@ -189,4 +189,8 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
       goalTime: FUTILS.createFormControl2(goalTime, false, [Validators.required, Validators.pattern(POSITIVE_INT)])
     });
   }
+
+  onGoalRemove(controllerIndex: number, gameIndex: number) {
+    (<FormArray>this.gameControllers.at(controllerIndex).get('goalDetails')).removeAt(gameIndex);
+  }
 }
