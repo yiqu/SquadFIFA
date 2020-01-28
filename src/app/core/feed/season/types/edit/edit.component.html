@@ -44,7 +44,7 @@
         </div>
         <!-- NEW goal button -->
         <div class="col-12 col-md-2 mt-3 my-auto">
-          <button mat-stroked-button color="primary" class="goal-btn" (click)="onNewGoal(i)">New Goal</button>
+          <button class="btn btn-light" (click)="onNewGoal(i)">New Goal</button>
         </div>
       </div>
       
@@ -68,13 +68,15 @@
               <input matInput placeholder="Enter Goal Time" formControlName="goalTime">
             </mat-form-field>
           </div>
-          <div class="col-12 col-md-3 my-auto">
-            <button mat-stroked-button class="" color="primary" (click)="onSave()"
+          <div class="col-12 col-md-3 my-auto d-inline-flex">
+            <button class="btn btn-light" (click)="onSave()"
               [disabled]="!gameControllers.at(i).get('goalDetails')['controls'][j].valid">
-              <i class="material-icons">add</i>
+              <!-- <i class="material-icons">add</i> -->
+              Confirm
             </button>
-            <button mat-button class="" color="primary" (click)="onGoalRemove(i, j)">
-              <i class="material-icons">clear</i>
+            <button class="btn btn-light" (click)="onGoalRemove(i, j)">
+              <!-- <i class="material-icons">clear</i> -->
+              Cancel
             </button>
           </div>
         </div>
@@ -94,7 +96,7 @@
 
   <div class="row">
     <div class="col col-md-12 mt-1">
-      <mat-form-field class="">
+      <mat-form-field class="w-100">
         <input matInput [placeholder]="dateplayedPlaceholder" 
           formControlName="datePlayed" [errorStateMatcher]="initErrorMatcher">
         <mat-hint>{{datePlayedHint}}</mat-hint>
@@ -112,8 +114,10 @@
 
 
 <div class="row mt-4">
-  <div class="col">
-    <button mat-stroked-button class="" color="primary" 
-      (click)="onSave()" [disabled]="gameFg.invalid">Save All</button>
+  <div class="col-6 col-md-6">
+    <button class="btn btn-light w-100" (click)="onSave()" [disabled]="gameFg.invalid">Save All</button>
+  </div>
+  <div class="col-6 col-md-6">
+    <button class="btn btn-light w-100" (click)="onCancel()">Cancel</button>
   </div>
 </div>

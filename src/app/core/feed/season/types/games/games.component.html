@@ -28,12 +28,12 @@
     </div>
 
     <ng-template [ngIf]="gameToEdit">
-      <season-game-editor [game]="gameToEdit" (onGameSaved)="onGameSave()"></season-game-editor>
+      <season-game-editor [game]="gameToEdit" (onGameSaved)="onGameSave()" (onGameCancel)="onGameCancel()"></season-game-editor>
     </ng-template>
 
     <div *ngIf="!gameToEdit" class="row mt-4">
       <div class="col">
-        <button mat-stroked-button class="" color="primary" (click)="onEditGame(gameIndex)">Edit</button>
+        <button class="btn btn-light w-100" (click)="onEditGame(gameIndex)">Edit</button>
       </div>
     </div>
     

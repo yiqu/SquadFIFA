@@ -31,6 +31,9 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   @Output()
   onGameSaved: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output()
+  onGameCancel: EventEmitter<any> = new EventEmitter<any>();
+
   defaultTitle: string = "Editing Game";
   datePlayedTitle: string = "";
   gameStatusTitle: string = "";
@@ -121,6 +124,10 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
     this.gameStatusTitle = this.game.finished ? "finished" : "on going";
   }
 
+  onCancel() {
+    this.onGameCancel.emit();
+  }
+
   onSave() {
     // normalize inputs to send to server
     const formValues = this.gameFg.value;
@@ -177,8 +184,6 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   }
 
   onNewGoal(i: number) {
-    console.log(this.gameFg);
-
     (<FormArray>this.gameControllers.at(i).get("goalDetails")).push(this.createNewGoalDetailFg(1, null, ""));
   }
 

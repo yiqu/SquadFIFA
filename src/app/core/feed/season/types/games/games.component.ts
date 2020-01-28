@@ -35,6 +35,10 @@ export class GamesComponent implements OnInit {
     this.resetGameToEdit();
   }
 
+  onGameCancel() {
+    this.resetGameToEdit();
+  }
+
   resetGameToEdit() {
     this.gameToEdit = undefined;
   }

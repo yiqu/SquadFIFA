@@ -2,9 +2,12 @@
   display: inline;
 }
 
-.goals-scored {
-  
+.btn.btn-light {
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
 }
 
-.goal-counter-title {
+.btn:disabled {
+  cursor: not-allowed;
 }
