@@ -29,7 +29,7 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   game: IGame;
 
   @Output()
-  onGameSaved: EventEmitter<any> = new EventEmitter<any>();
+  onGameSaved: EventEmitter<Game> = new EventEmitter<Game>();
 
   @Output()
   onGameCancel: EventEmitter<any> = new EventEmitter<any>();
@@ -44,6 +44,7 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   filteredUsers: Observable<User[]>;
   allUsers: User[] = [];
   editClosed$: Subject<any> = new Subject();
+  unsavedChanges: boolean = false;
 
   constructor(public fb: FormBuilder, public ls: LoginService) {
     this.ls.allUsers$.pipe(
@@ -70,7 +71,7 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
     console.log("editing", this.game);
     this.createGameFormGroup();
     this.gameFg.valueChanges.subscribe((val) => {
-      //console.log(this.gameFg);
+      this.unsavedChanges = true;
     })
   }
   
@@ -113,7 +114,6 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
       // push the fg to controller form array
       (<FormArray>this.gameFg.get("controllers")).push(controllerFg);
     });
-    console.log(this.gameFg)
   }
 
 
@@ -129,18 +129,11 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    // normalize inputs to send to server
     const formValues = this.gameFg.value;
     const formRawValues = this.gameFg.getRawValue();
     const datePlayed: number = moment(formValues.datePlayed, INPUT_TYPES).valueOf();
-    const finished = formValues.finished;
-
-    console.log("raw:", formRawValues)
-    // set goals
-    const savedGame: Game = new Game(formRawValues.controllers, formRawValues.finished, formRawValues.datePlayed, null);
-    console.log(savedGame)
-
-    //this.onGameSaved.emit();
+    const savedGame: Game = new Game(formRawValues.controllers, formRawValues.finished, datePlayed, null);
+    this.onGameSaved.emit(savedGame);
   }
 
   getGameController(i: number): FormGroup {
@@ -197,5 +190,10 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
 
   onGoalRemove(controllerIndex: number, gameIndex: number) {
     (<FormArray>this.gameControllers.at(controllerIndex).get('goalDetails')).removeAt(gameIndex);
+  }
+
+  setDateNow() {
+    this.datePlayedControl.setValue(moment().format(INPUT_FORMAT));
+    console.log(this.gameFg)
   }
 }

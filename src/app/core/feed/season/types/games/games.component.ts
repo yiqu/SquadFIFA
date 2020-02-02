@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ISeason, IGame } from 'src/app/shared/model/season.model';
+import { ISeason, IGame, Game } from 'src/app/shared/model/season.model';
 import { CoreService } from 'src/app/shared/services/core.service';
 
 @Component({
@@ -31,8 +31,10 @@ export class GamesComponent implements OnInit {
     this.gameToEdit = this.seasonGames[index];
   }
 
-  onGameSave() {
-    this.resetGameToEdit();
+  onGameSave(game: Game) {
+    //this.resetGameToEdit();
+    console.log("upper: ",game)
+
   }
 
   onGameCancel() {
