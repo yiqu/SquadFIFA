@@ -10,6 +10,7 @@ import { Observable, Subject } from 'rxjs';
 import { User } from 'src/app/shared/model/user.model';
 import { startWith, map, takeUntil } from 'rxjs/operators';
 import { LoginService } from 'src/app/shared/services/user.service';
+import { CoreService } from 'src/app/shared/services/core.service';
 
 export const INPUT_FORMAT: string = "MM/DD/YY HH:mm";
 export const INPUT_TYPES: string[] = [INPUT_FORMAT, "MM/DD/YYYY HH:mm", "MM-DD-YY HH:mm"];
@@ -46,7 +47,7 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   editClosed$: Subject<any> = new Subject();
   unsavedChanges: boolean = false;
 
-  constructor(public fb: FormBuilder, public ls: LoginService) {
+  constructor(public fb: FormBuilder, public ls: LoginService, public cs: CoreService) {
     this.ls.allUsers$.pipe(
       takeUntil(this.editClosed$)
     ).subscribe((users: User[]) => {
@@ -194,6 +195,5 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
 
   setDateNow() {
     this.datePlayedControl.setValue(moment().format(INPUT_FORMAT));
-    console.log(this.gameFg)
   }
 }

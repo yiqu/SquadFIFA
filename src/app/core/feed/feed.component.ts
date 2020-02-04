@@ -33,12 +33,9 @@ export class FeedComponent implements OnInit, OnDestroy {
     
   }
 
-
-
   ngOnInit() {
     this.subscribeToSeasonListener();
   }
-
 
   subscribeToSeasonListener() {
     this.cs.allSeasons$.pipe(
@@ -46,7 +43,6 @@ export class FeedComponent implements OnInit, OnDestroy {
     ).subscribe((seasons: ISeason[]) => {
       this.seasonsDisplay = seasons;
       this.seasonsDisplay = this.sortSeasons("DESC");
-      //console.log("ALL: ",this.seasonsDisplay)
     },
     (err) => {
     },
@@ -55,6 +51,13 @@ export class FeedComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * TODO: Not using the Trackby because updates will not be reflected onto the page.
+   * due to tracking if the hashkey has been updated. Since updates will not change
+   * the haskey, the page will not show the updates to score, games, etc..
+   * @param index 
+   * @param item 
+   */
   trackByFn(index: number, item: ISeason) {
     if (!item) {
       return null;

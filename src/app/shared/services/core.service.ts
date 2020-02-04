@@ -29,6 +29,7 @@ export class CoreService {
   isUserMobile: boolean = false;
   mobileQuery: MediaQueryList;
   gameKeyInEdit: string;
+  isSeasonSaving: boolean = false;
 
   constructor(public rs: CrudRestServie, public media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -51,7 +52,7 @@ export class CoreService {
         this.allSeasonsLoading = false;
       },
       () => {
-        console.log("fetch all done");
+        console.log("fetch season subject destoryed");
       }
     );
   }
@@ -108,7 +109,6 @@ export class CoreService {
         }
       });
     }
-    console.log("normialize: ", seas)
     return seas;
   }
 

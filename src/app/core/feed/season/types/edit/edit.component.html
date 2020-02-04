@@ -118,8 +118,8 @@
 
 <div class="row mt-4">
   <div class="col-6 col-md-6">
-    <button class="btn btn-light w-100" (click)="onSave()" [disabled]="gameFg.invalid">
-      Save All {{unsavedChanges ? '*' : ''}}
+    <button class="btn btn-light w-100" (click)="onSave()" [disabled]="gameFg.invalid || this.cs.isSeasonSaving">
+      {{ this.cs.isSeasonSaving ? ('Saving...') : ('Save All ' + (unsavedChanges ? '*' : '')) }}
     </button>
   </div>
   <div class="col-6 col-md-6">
