@@ -26,7 +26,7 @@ import { HttpResponse } from '@angular/common/http';
 
 export class NewSeasonComponent implements OnInit, OnDestroy {
 
-  @ViewChild('seasonStepper', {static: false})
+  @ViewChild('seasonStepper')
   seasonStepper: MatStepper
 
   title: string = "Add New Season";

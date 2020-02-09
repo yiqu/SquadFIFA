@@ -21,10 +21,10 @@ import * as UTILS from '../../utils/general-utils'
 })
 export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('confirmButton' , {static: false, read: ElementRef}) 
+  @ViewChild('confirmButton' , { read: ElementRef }) 
   confirmButton: ElementRef;
 
-  @ViewChild('loginButton' , {static: false, read: ElementRef}) 
+  @ViewChild('loginButton' , { read: ElementRef }) 
   loginButton: ElementRef;
 
   confirmBtnSub: Subscription = new Subscription();
