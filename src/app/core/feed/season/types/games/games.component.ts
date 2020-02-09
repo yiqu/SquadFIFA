@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
 import { ISeason, IGame, Game, Season } from 'src/app/shared/model/season.model';
 import { CoreService } from 'src/app/shared/services/core.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { delay } from 'rxjs/operators';
+import { SeasonGameEditComponent } from '../edit/edit.component';
+import { LoginService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'season-games',
@@ -11,10 +13,13 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./games.component.css']
 })
 
-export class GamesComponent implements OnInit {
+export class GamesComponent implements OnInit, OnChanges {
 
   @Input()
   season: ISeason;
+
+  @ViewChild(SeasonGameEditComponent) 
+  seasonEditComp: SeasonGameEditComponent;
 
   gameToEdit: IGame;
 
@@ -22,11 +27,15 @@ export class GamesComponent implements OnInit {
     return this.season.games;
   }
 
-  constructor(public cs: CoreService, public ts: ToastrService) {
+  constructor(public cs: CoreService, public ts: ToastrService, public ls: LoginService) {
 
   }
 
   ngOnInit() {
+  }
+  
+  ngOnChanges() {
+    console.log("on changes games")
   }
 
 
@@ -41,15 +50,19 @@ export class GamesComponent implements OnInit {
   }
 
   updateSeasonAndSave(games: IGame[]) {
+    //set last edited info
+    this.season.lastEdited.date = new Date().getTime();
+    this.season.lastEdited.editor = this.ls.currentUser;
+
     const season: Season = new Season(this.season.hashKey, this.season.player1, this.season.player2, 
       this.season.player1Record,
       this.season.player2Record, this.season.gamesTotal, this.season.owners, this.season.controllers, games,
       this.season.winner, this.season.startDate, this.season.endDate, this.season.pending, this.season.archived, 
       this.season.completed,
       this.season.editing, this.season.lastEdited, this.season.title);
+    
     console.log("to save season: ", season)
     if (season.hashKey && !this.cs.isSeasonSaving) {
-      console.log("saving now")
       this.cs.isSeasonSaving = true;
       this.cs.editSeason(season, season.hashKey).pipe(
         delay(0)
@@ -63,12 +76,17 @@ export class GamesComponent implements OnInit {
         },
         () => {
           this.cs.isSeasonSaving = false;
+          this.seasonEditComp.unsavedChanges = false;
+          this.refreshSeasonDisplay();
         }
       );
     } else {
       this.ts.error("No haskkey found for this season", "Season Error!");
     }
-    
+  }
+
+  refreshSeasonDisplay() {
+    this.cs.fetchAllSeasons$.next();
   }
 
   onGameCancel() {

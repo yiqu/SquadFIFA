@@ -50,8 +50,6 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
     public ts: ToastrService,
     public ls: LoginService,
     public cd: ChangeDetectorRef) {
-console.log("injected: ",data)
-console.log(dialogRef.id)
       this.currentUser = data;
       this.loginDisable = this.disableLogin();
       this.registerMode = false;

@@ -6,7 +6,8 @@
     </span>
   </div>
 
-  <div class="d-inline-flex" [title]="'Last edited date' + dateTooltipSuffix">
+  <div class="d-inline-flex" [title]="'Last edited by ' + 
+    seasonInfo.lastEdited.editor.user.id + dateTooltipSuffix">
     <i class="material-icons md-18" >edit</i>
     <span [dateDisplayType]="createdDateDisplay" [dateString]="seasonInfo.lastEdited.date" class="mr-2">
       {{seasonInfo.lastEdited.date}}

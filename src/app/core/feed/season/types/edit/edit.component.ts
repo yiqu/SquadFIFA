@@ -69,7 +69,6 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.updateTitle();
-    console.log("editing", this.game);
     this.createGameFormGroup();
     this.gameFg.valueChanges.subscribe((val) => {
       this.unsavedChanges = true;
@@ -78,7 +77,6 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   
   ngOnDestroy() {
     this.editClosed$.next();
-    console.log("destoryed edit.")
   }
   
   //firstName: ['value', Validators.required],
@@ -196,4 +194,5 @@ export class SeasonGameEditComponent implements OnInit, OnDestroy {
   setDateNow() {
     this.datePlayedControl.setValue(moment().format(INPUT_FORMAT));
   }
+
 }

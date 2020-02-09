@@ -28,7 +28,8 @@
     </div>
 
     <ng-template [ngIf]="gameToEdit">
-      <season-game-editor [game]="gameToEdit" (onGameSaved)="onGameSave($event, gameIndex)" (onGameCancel)="onGameCancel()"></season-game-editor>
+      <season-game-editor [game]="gameToEdit" (onGameSaved)="onGameSave($event, gameIndex)" 
+        (onGameCancel)="onGameCancel()"></season-game-editor>
     </ng-template>
 
     <div *ngIf="!gameToEdit" class="row mt-4">
