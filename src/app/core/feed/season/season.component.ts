@@ -23,6 +23,9 @@ export class FeedSeasonComponent implements OnInit {
   @ViewChild(SeasonDirective, {static: true}) 
   seasonHost: SeasonDirective;
 
+  @Input("sindex")
+  sindex: number;
+
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
     
   }
@@ -48,6 +51,7 @@ export class FeedSeasonComponent implements OnInit {
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
     (<SeasonDynamicBase>componentRef.instance).seasonInfo = seasonItem.data;
+    (<SeasonDynamicBase>componentRef.instance).sindex = this.sindex;
   }
 
   checkIfPvE(user: User): boolean {

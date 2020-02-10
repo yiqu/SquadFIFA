@@ -11,6 +11,9 @@ export class SingleSeasonComponent implements SeasonDynamicBase {
 
   @Input()
   seasonInfo: ISeason;
+
+  @Input()
+  sindex: number;
   
   constructor() {
   }

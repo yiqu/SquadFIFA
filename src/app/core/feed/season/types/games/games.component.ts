@@ -21,6 +21,9 @@ export class GamesComponent implements OnInit, OnChanges {
   @ViewChild(SeasonGameEditComponent) 
   seasonEditComp: SeasonGameEditComponent;
 
+  @Input()
+  sIndex: number;
+
   gameToEdit: IGame;
 
   get seasonGames(): IGame[] {
@@ -35,7 +38,6 @@ export class GamesComponent implements OnInit, OnChanges {
   }
   
   ngOnChanges() {
-    console.log("on changes games")
   }
 
 
@@ -77,6 +79,7 @@ export class GamesComponent implements OnInit, OnChanges {
         () => {
           this.cs.isSeasonSaving = false;
           this.seasonEditComp.unsavedChanges = false;
+          this.scrollSavedToView();
           this.refreshSeasonDisplay();
         }
       );
@@ -95,6 +98,10 @@ export class GamesComponent implements OnInit, OnChanges {
 
   resetGameToEdit() {
     this.gameToEdit = undefined;
+  }
+
+  scrollSavedToView() {
+    document.querySelector("#season-" + this.sIndex).scrollIntoView({behavior: 'auto'});
   }
 
 }

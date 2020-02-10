@@ -3,4 +3,5 @@ import { ISeason } from 'src/app/shared/model/season.model';
 
 export interface SeasonDynamicBase  {
   seasonInfo: ISeason;
+  sindex: number;
 }

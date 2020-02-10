@@ -12,6 +12,9 @@ export class PvpSeasonComponent implements SeasonDynamicBase {
   @Input()
   seasonInfo: ISeason;
 
+  @Input()
+  sindex: number;
+
   constructor() {
   }
 
