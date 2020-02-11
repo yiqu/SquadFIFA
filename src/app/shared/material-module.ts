@@ -70,7 +70,8 @@ import {
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSortModule
   ]
 })
 export class MaterialModules {}

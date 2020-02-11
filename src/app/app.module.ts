@@ -21,6 +21,7 @@ import { DialogsModule } from './shared/dialogs/dialogs.module';
 import { LogoutResolver } from './shared/resolvers/logout.resolver';
 import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
 import { NewSeasonComponent } from './shared/dialogs/new-season/new-season.component';
+import { ArchivesModule } from './archives/archives.module';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { NewSeasonComponent } from './shared/dialogs/new-season/new-season.compo
     StatsModule,
     TeamsModule,
     DialogsModule,
+    ArchivesModule,
     AppRoutingModule
   ],
 

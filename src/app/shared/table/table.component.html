@@ -1,0 +1,19 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Season names">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.display }} </th>
+      <td mat-cell *matCellDef="let element"> {{ element[column.id] }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="testColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: testColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+</div>

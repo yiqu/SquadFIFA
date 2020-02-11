@@ -13,7 +13,7 @@ const NAV_ITEM_LIST = [
   new NavItem("Home", ["home"]),
   new NavItem("Players", ["players"]),
   new NavItem("Statistics", ["statistics"]),
-  // new NavItem("About", ["about"]),
+  new NavItem("Archives", ["archives"]),
   new NavItem("Profile", ["self"]),
   new NavItem("Login", ["home"], false, { loginDialog: true }),
 ]
