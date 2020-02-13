@@ -30,7 +30,7 @@ export class SharedSimpleTableComponent implements OnInit, OnChanges {
   sort: MatSort;
 
   dataSource: MatTableDataSource<any>;
-  testColumns: string[] = ["title", "startDate", "completed"];
+  displayColumns: string[] = [];
 
   constructor() {
   }
@@ -40,15 +40,14 @@ export class SharedSimpleTableComponent implements OnInit, OnChanges {
       this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.displayColumns = Array.from(this.columns, (column: DisplayColumnsData) => {
+        return column.id;
+      });
     }
     
   }
 
   ngOnInit() {
-    if (this.data) { 
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
   }
 
   applyFilter(event: Event) {

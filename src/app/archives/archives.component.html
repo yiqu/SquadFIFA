@@ -1,9 +1,17 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
+  <div class="row mb-3">
+    <div class="col-md-12" *ngIf="tableData; else noData">
       <h2>Archives Table</h2>
-        <app-shared-table [columns]="tableColumns" [data]="tableData"></app-shared-table>
+      <app-shared-table [columns]="tableColumns" [data]="tableData"></app-shared-table>
     </div>
+    <ng-template #noData>
+      <div class="col-md-12">
+        <h2>Archives Table</h2>
+        <div>
+          Loading...
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>
 

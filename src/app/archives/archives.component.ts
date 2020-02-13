@@ -16,7 +16,6 @@ export class ArchivesComponent implements OnInit, OnDestroy {
   tableColumns: DisplayColumnsData[] = [];
   tableData: any;
   compDestoryed$: Subject<any> = new Subject<any>();
-  seasonData: ISeason[];
 
   constructor(public cs: CoreService) {
     this.cs.allSeasons$.pipe(
@@ -24,7 +23,6 @@ export class ArchivesComponent implements OnInit, OnDestroy {
     ).subscribe(
       (res: ISeason[]) => {
         this.createTableData(res);
-        this.seasonData = res;
       }
     )
   }
@@ -43,10 +41,14 @@ export class ArchivesComponent implements OnInit, OnDestroy {
     this.tableColumns.push(
       new DisplayColumnsData("title", "Title"),
       new DisplayColumnsData("startDate", "Start Date"),
+      new DisplayColumnsData("player1", "Player One"),
+      new DisplayColumnsData("player2", "Player Two"),
+      new DisplayColumnsData("lastEdited", "Last Edited"),
+      new DisplayColumnsData("archived", "Archived"),
       new DisplayColumnsData("gamesTotal", "Games Total"),
       new DisplayColumnsData("completed", "Completed"),
+      new DisplayColumnsData("winner", "Winner"),
     )
-
     this.tableData = seasons;
   }
 }
