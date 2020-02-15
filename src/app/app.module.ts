@@ -22,6 +22,7 @@ import { LogoutResolver } from './shared/resolvers/logout.resolver';
 import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
 import { NewSeasonComponent } from './shared/dialogs/new-season/new-season.component';
 import { ArchivesModule } from './archives/archives.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ArchivesModule } from './archives/archives.module';
     FormsModule,
     MaterialModules,
     CoreModule,
+    RouterModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       extendedTimeOut: 1000,
