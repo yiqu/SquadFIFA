@@ -35,6 +35,7 @@ export class GamesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    console.log("current season's games:",this.season)
   }
   
   ngOnChanges() {

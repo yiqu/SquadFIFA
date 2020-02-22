@@ -1,18 +1,24 @@
 <div class="container-fluid">
   <div *ngFor="let game of seasonGames; index as gameIndex" class="mt-4">
+
+    <!-- horizontal line and game status -->
     <div class="row mb-2">
       <div class="col-md-12 text-center info-banner">
         <div class="hor-line"></div>
         <h6 class="no-margin" [title]="game.finished ? 'Game over' : 'Game in progress'">
           Game {{gameIndex+1}}
           <div class="font-1">
-            <i class="material-icons done-green animate-loading">{{game.finished ? 'check_circle' : 'fiber_manual_record'}}</i>
+            <i class="material-icons done-green" 
+              [ngClass]="{'animate-loading':!game.finished}">
+                {{game.finished ? 'check_circle' : 'fiber_manual_record'}}
+            </i>
           </div>
         </h6>
         <div class="hor-line"></div>
       </div>
     </div>
 
+    <!-- game score -->
     <div class="row">
       <ng-template ngFor let-controller [ngForOf]="game.controllers" let-i="index" let-isLast="last">
         <div class="text-center team-name" [ngClass]="{'col-md-1 col-2':isLast, 'col-md-3 col-3':!isLast}">
@@ -27,16 +33,15 @@
       </ng-template>
     </div>
 
+    <!-- game editor -->
     <ng-template [ngIf]="gameToEdit">
       <season-game-editor [game]="gameToEdit" (onGameSaved)="onGameSave($event, gameIndex)" 
         (onGameCancel)="onGameCancel()"></season-game-editor>
     </ng-template>
-
     <div *ngIf="!gameToEdit" class="row mt-4">
       <div class="col">
         <button class="btn btn-light w-100" (click)="onEditGame(gameIndex)">Edit</button>
       </div>
     </div>
-    
   </div>
 </div>
