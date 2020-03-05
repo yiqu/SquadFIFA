@@ -23,6 +23,9 @@ import { SelfGuard, SelfChildrenGuard } from './shared/route-guards/self.guard';
 import { NewSeasonComponent } from './shared/dialogs/new-season/new-season.component';
 import { ArchivesModule } from './archives/archives.module';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faFutbol } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,8 @@ import { RouterModule } from '@angular/router';
     TeamsModule,
     DialogsModule,
     ArchivesModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
 
   providers: [
@@ -82,4 +86,8 @@ import { RouterModule } from '@angular/router';
     AppComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private library: FaIconLibrary) {
+    library.addIcons(faFutbol);
+  }
+}

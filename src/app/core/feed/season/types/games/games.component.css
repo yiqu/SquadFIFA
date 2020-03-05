@@ -40,3 +40,7 @@
   overflow: hidden;
   align-items: center;
 }
+
+.scorer-name {
+  color: #8c8c8c;
+}

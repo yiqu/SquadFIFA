@@ -17,6 +17,7 @@ import { InfoBarComponent } from './feed/season/types/info-bar/info.component';
 import { GamesComponent } from './feed/season/types/games/games.component';
 import { SeasonGameEditComponent } from './feed/season/types/edit/edit.component';
 import { GameSortDisplayPipe } from '../shared/pipes/sort.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { GameSortDisplayPipe } from '../shared/pipes/sort.pipe';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    DirectivesModule
+    DirectivesModule,
+    FontAwesomeModule
   ],
 
   exports: [
@@ -56,4 +58,4 @@ import { GameSortDisplayPipe } from '../shared/pipes/sort.pipe';
     PvpSeasonComponent 
   ],
 })
-export class CoreModule { }
+export class CoreModule {}

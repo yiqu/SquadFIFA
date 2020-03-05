@@ -19,7 +19,7 @@
     </div>
 
     <!-- game score -->
-    <div class="row">
+    <div class="row mb-3">
       <ng-template ngFor let-controller [ngForOf]="game.controllers" let-i="index" let-isLast="last">
         <div class="text-center team-name" [ngClass]="{'col-md-1 col-2':isLast, 'col-md-3 col-3':!isLast}">
           {{ isLast ? controller.goalsScored : (controller.teamName + ' (' + controller.user.user.id + ')') }}
@@ -29,6 +29,20 @@
         </div>
         <div class="col-md-4 col-2 text-center middle-text" *ngIf="!isLast">
           vs
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- scorers -->
+    <div class="row">
+      <ng-template ngFor let-controller [ngForOf]="game.controllers" let-i="index" let-isLast="last">
+        <div class="col-md-4 text-center">
+          <span *ngFor="let goalDetail of controller.goalDetails" class="scorer-name mr-1">
+            <fa-icon [icon]="['fas', 'futbol']"></fa-icon> {{goalDetail.goalScorer}} ({{goalDetail.goalTime}}')
+          </span>
+        </div>
+        <div class="col-md-4 col-2 text-center middle-text" *ngIf="!isLast">
+          
         </div>
       </ng-template>
     </div>
